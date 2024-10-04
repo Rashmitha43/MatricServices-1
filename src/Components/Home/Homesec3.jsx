@@ -1,6 +1,6 @@
 import { Box, Heading, Image, Text } from "@chakra-ui/react";
 import theme from "../../theme";
-import image1 from "../../assets/homeimg1.webp";
+import image1 from "../../assets/homeimag5.jpeg";
 import iconimage1 from "../../assets/homeimg2.png";
 const Homesec3 = () => {
   return (
@@ -14,7 +14,7 @@ const Homesec3 = () => {
         justifyContent={"center"}
         flexDirection={"column"}
         fontFamily={theme.fonts.body}
-        my="5rem"
+        my={{base:'3rem',md:'4rem',lg:'5rem'}}
       >
         <Box
           display='flex'

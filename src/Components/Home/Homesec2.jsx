@@ -1,38 +1,50 @@
-import { Box,Text,Heading } from "@chakra-ui/react";
-import theme from "../../theme";
-const Homesec2 = () =>{
-    return(
-        <>
-        <Box w='100%' p='0px' m='0px' display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'} fontFamily={theme.fonts.body}>
-            <Box w='70%' display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
-                <Box fontSize={'2rem'} fontWeight={'700'}>Easing the life of Engineers with...</Box>
-                <Box w='20px' h='1px'></Box>
-                <Box display={'flex'} alignItems={'center'} justifyContent={'center'} gap='20px' mt='30px'>
-                    <Box height={'300px'} w='300px' borderRadius={'15px'} bg={theme.colors.thirty} color='white' textAlign={'center'} p='20px 10px' display={'flex'} alignItems={'center'} justifyContent={'flex-start'} flexDirection={'column'}>
-                        <Text fontSize={'2rem'} fontWeight={'600'}>INNOVATION</Text>
-                        <Box w='80px' h='1px' bg='red'></Box>
-                        <Text mt='15px'>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
-                    </Box>
-                    <Box height={'300px'} w='300px' borderRadius={'15px'} bg={theme.colors.ten} color='black' textAlign={'center'} p='20px 10px' display={'flex'} alignItems={'center'} justifyContent={'flex-start'} flexDirection={'column'}>
-                        <Text fontSize={'2rem'} fontWeight={'600'}>RESEARCH</Text>
-                        <Box w='80px' h='1px' bg='red'></Box>
-                        <Text mt='15px'>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
-                    </Box>
+import { Box,Simplegrid,Image,SimpleGrid,Text } from '@chakra-ui/react'
+import React from 'react'
+import theme from '../../theme'
+import img1 from '../../assets/homeimag4.jpeg'
+const Homesec2 = () => {
+  return (
+    <Box maxW='1200px' w='95%' display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'} fontFamily={theme.fonts.body} mx='auto' my={{base:'3rem',md:'4rem',lg:'5rem'}}>
+       <Text fontSize={{base:'1.5rem',md:'2rem'}} fontWeight={'700'}>Easing the life of Engineers with...</Text>
+       <Box w='50px' h='1px' bg={theme.colors.thirty}></Box>
+       
+<SimpleGrid columns={[1,2,2,4]} spacing='40px' mt={'2rem'} >
+  <Box  height='250px' w='250px'><Image w='100%' h='100%' src={img1}/></Box>
+  <Box bg={theme.colors.ten} p='5px' color='white' height='auto' w='250px' borderRadius={'15px'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+    <Text fontSize={{base:'1.5rem',md:'2rem'}} >INNOVATION</Text>
+    <Box w='50px' h='2px' bg='white'></Box>
+    <Text textAlign={'center'} fontSize={'0.9rem'} mt='10px'>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
+  </Box>
+  <Box bg={theme.colors.thirty} p='5px' color='white' height='auto' w='250px' borderRadius={'15px'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+    <Text fontSize={{base:'1.5rem',md:'2rem'}} >INNOVATION</Text>
+    <Box w='50px' h='2px' bg='white'></Box>
+    <Text textAlign={'center'} fontSize={'0.9rem'} mt='10px'>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
+  </Box>
+  <Box bg={theme.colors.ten} p='5px' color='white' height='auto' w='250px' borderRadius={'15px'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+    <Text fontSize={{base:'1.5rem',md:'2rem'}} >INNOVATION</Text>
+    <Box w='50px' h='2px' bg='white'></Box>
+    <Text textAlign={'center'} fontSize={'0.9rem'} mt='10px'>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
+  </Box>
+  
+</SimpleGrid>
 
-                    <Box height={'300px'} w='300px' borderRadius={'15px'} bg={theme.colors.thirty} color='white' textAlign={'center'} p='20px 10px' display={'flex'} alignItems={'center'} justifyContent={'flex-start'} flexDirection={'column'}>
-                        <Text fontSize={'2rem'} fontWeight={'600'}>SUPPORT</Text>
-                        <Box w='80px' h='1px' bg='red'></Box>
-                        <Text mt='15px'>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
-                    </Box>
-                    
-                    
-                    
-
-                </Box>
-            </Box>
-
+        {/* <Box w='250px' height={'250px'}>
+            <Image w='100%' h='100%' src={img1}/>
         </Box>
-        </>
-    )
+        <Box h='250px' bg={theme.colors.thrity} display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'} p={{base:'10px',md:'20px' }} color='white'>
+            <Text fontSize={{base:'1.5rem',md:'2rem'}} >
+             INNOVATION
+            </Text>
+            <Box w='50px' h='1px' bg='white'></Box>
+            <Text>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
+        </Box>
+        <Box></Box>
+        <Box></Box> */}
+
+
+        
+    </Box>
+  )
 }
-export default Homesec2;
+
+export default Homesec2
