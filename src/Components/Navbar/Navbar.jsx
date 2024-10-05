@@ -1,75 +1,150 @@
-import React, { useState } from "react";
-import theme from "../../theme";
-import logo from "../../assets/MS.png";
-import { Box, Image } from "@chakra-ui/react";
-import { IoMdMenu } from "react-icons/io";
-import { FaWhatsapp } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import {
-  Flex,
+  Box,
+  Image,
   IconButton,
+  VStack,
+  HStack,
+  Text,
   Drawer,
-  DrawerBody,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  useDisclosure,
-  Button,
-  VStack,
+  DrawerHeader,
+  DrawerBody,
+  Flex,
 } from "@chakra-ui/react";
+import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { FaWhatsapp } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import theme from "../../theme";
+import logo from "../../assets/MS.png"; // Replace with your logo path
 
 const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
-  const [Nav, setNav] = useState(false);
-  const handleClick = () => {
-    setNav(!Nav);
+  const [isNavOpen, setIsNavOpen] = useState(false); // State for mobile menu toggle
+  const [isScrolled, setIsScrolled] = useState(false); // State to track scroll position
+
+  // Toggle the mobile navigation menu
+  const toggleNav = () => {
+    setIsNavOpen((prev) => !prev);
   };
+
+  // Function to handle scroll and toggle the 'isScrolled' state
+  const handleScroll = () => {
+    const scrollTop = window.scrollY; // Get vertical scroll position
+    setIsScrolled(scrollTop > 0); // Set state to true if scrolled down
+  };
+
+  // Effect to add scroll event listener and clean up on unmount
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Common styles for navigation links
+  const navLinkStyle = ({ isActive }) => ({
+    color: isActive ? theme.colors.thirty : "black",
+    borderBottom: isActive ? `2px solid ${theme.colors.thirty}` : "none",
+    paddingBottom: "3px",
+  });
+
   return (
     <>
-      <Box boxShadow={"md"}>
-        <Box
+      {/* Navbar Container */}
+      <Box
+        boxShadow="md"
+        bg="white"
+        position={isScrolled ? "fixed" : "static"} // Position fixed when scrolled
+        w="100%"
+        top="0"
+        zIndex="10"
+        transition="position 0.3s ease-in-out"
+      >
+        {/* Mobile & Desktop Flex Container */}
+        <HStack
           fontFamily={theme.fonts.body}
           w="95%"
-          maxW={"1200px"}
+          maxW="1200px"
           mx="auto"
           h="70px"
           p={1}
+          display="flex"
+          justifyContent={{ base: "space-between", lg: "space-between" }}
+          alignItems="center"
+          flexDirection={{ base: "row", lg: "row" }} // Keep items in a row layout
         >
-          <Box
-            display={"flex"}
+          {/* Mobile View: Menu Toggle, Logo, Chat Button */}
+          <HStack
+            display={{ base: "flex", lg: "none" }}
+            w="full"
             justifyContent="space-between"
-            alignItems={"center"}
-            w={{ base: "100%", md: "100%", lg: "100%" }}
-            h="100%"
+            alignItems="center"
           >
+            <HStack>
+              {/* Hamburger Icon for Small Screens */}
+              <IconButton
+                icon={isNavOpen ? <IoMdClose /> : <IoMdMenu />}
+                variant="outline"
+                aria-label="Toggle navigation"
+                fontSize="2rem"
+                onClick={toggleNav}
+                display={{ base: "block", lg: "none" }}
+                mr="0px"
+                borderColor="#000"
+                borderWidth="1px"
+                borderRadius="6px"
+                _hover={{
+                  backgroundColor: "gray.100", // Light background color on hover
+                  transform: "scale(1.05)", // Slightly increase the size
+                  transition: "all 0.2s ease", // Smooth transition
+                }}
+              />
+
+              {/* Logo */}
+              <Box w="120px" h="35px" ml="5px">
+                {/* Adjust logo size as needed */}
+                <NavLink to="/">
+                  <Image w="100%" h="100%" src={logo} alt="Logo" />
+                </NavLink>
+              </Box>
+            </HStack>
+
+            {/* WhatsApp Button */}
             <Box
-              w={{ base: "40%", md: "30%", lg: "15%" }}
-              h={{ base: "60%", md: "80%" }}
+              w="max-content"
+              borderRadius="30px"
+              p="5px 15px"
+              bg={theme.colors.ten}
+              display={{ base: "flex", lg: "flex" }} // Show in both mobile and desktop
+              alignItems="center"
+              justifyContent="center"
+              gap="5px"
+              cursor="pointer" // Change cursor to pointer
+              _hover={{
+                backgroundColor: theme.colors.thirty,
+                color: "white",
+                transform: "scale(1.05)", // Slightly increase the size
+                transition: "all 0.3s ease", // Smooth transition
+              }}
             >
-              <NavLink to="./">
-                <Image w="100%" h="100%" src={logo} />
+              <FaWhatsapp /> <Text>Chat Now</Text>
+            </Box>
+          </HStack>
+
+          {/* Desktop View */}
+          <Box
+            display={{ base: "none", lg: "flex" }}
+            w="full"
+            justifyContent="space-between"
+          >
+            {/* Logo for Desktop */}
+            <Box w="15%" h="100%">
+              <NavLink to="/">
+                <Image w="100%" h="100%" src={logo} alt="Logo" />
               </NavLink>
             </Box>
 
-            {/* forsmallscreens */}
-            <Box
-              w="20%"
-              h="100%"
-              display={{ base: "flex", lg: "none" }}
-              flexDirection={"row"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              fontSize="1.5rem"
-              color={theme.colors.thirty}
-              order="1"
-              onClick={handleClick}
-            >
-              <IoMdMenu />
-            </Box>
-            {Nav && <></>}
-            {/* fordesktop */}
+            {/* Desktop Navigation Links */}
             <Box
               w="40%"
               display="flex"
@@ -78,60 +153,16 @@ const Navbar = () => {
               fontWeight="700"
               textTransform="uppercase"
             >
-              <NavLink
-                to="./"
-                style={({ isActive, isPending, isTransitioning }) => {
-                  return {
-                    color: isActive ? theme.colors.thirty : "black",
-                    borderBottom: isActive
-                      ? `2px solid ${theme.colors.thirty}`
-                      : "none",
-                    paddingBottom: "3px",
-                  };
-                }}
-              >
+              <NavLink to="/" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
               </NavLink>
-              <NavLink
-                to="./about"
-                style={({ isActive, isPending, isTransitioning }) => {
-                  return {
-                    color: isActive ? theme.colors.thirty : "black",
-                    borderBottom: isActive
-                      ? `2px solid ${theme.colors.thirty}`
-                      : "none",
-                    paddingBottom: "3px",
-                  };
-                }}
-              >
-                <Box _hover={{ cursor: "pointer" }}>AboutUs</Box>
+              <NavLink to="/about" style={navLinkStyle}>
+                <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
-              <NavLink
-                to="./projects"
-                style={({ isActive, isPending, isTransitioning }) => {
-                  return {
-                    color: isActive ? theme.colors.thirty : "black",
-                    borderBottom: isActive
-                      ? `2px solid ${theme.colors.thirty}`
-                      : "none",
-                    paddingBottom: "3px",
-                  };
-                }}
-              >
+              <NavLink to="/projects" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Projects</Box>
               </NavLink>
-              <NavLink
-                to="./workshop"
-                style={({ isActive, isPending, isTransitioning }) => {
-                  return {
-                    color: isActive ? theme.colors.thirty : "black",
-                    borderBottom: isActive
-                      ? `2px solid ${theme.colors.thirty}`
-                      : "none",
-                    paddingBottom: "3px",
-                  };
-                }}
-              >
+              <NavLink to="/workshop" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
               </NavLink>
             </Box>
@@ -149,14 +180,13 @@ const Navbar = () => {
                 borderRadius="30px"
                 p="5px 15px"
                 bg={theme.colors.ten}
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"center"}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
                 gap="5px"
-                color='white'
                 _hover={{
-                  backgroundColor: theme.colors.ten,
-                 
+                  backgroundColor: theme.colors.thirty,
+                  color: "white",
                 }}
               >
                 <FaWhatsapp /> Chat Now
@@ -202,26 +232,18 @@ const Navbar = () => {
                 w="full"
                 p={4}
               >
-                <NavLink to="/" style={navLinkStyle} onClick={toggleNav}>
-                  <Box _hover={{ cursor: "pointer" }}>Home</Box>
-                </NavLink>
-                <NavLink to="/about" style={navLinkStyle} onClick={toggleNav}>
-                  <Box _hover={{ cursor: "pointer" }}>About Us</Box>
-                </NavLink>
-                <NavLink
-                  to="/projects"
-                  style={navLinkStyle}
-                  onClick={toggleNav}
-                >
-                  <Box _hover={{ cursor: "pointer" }}>Projects</Box>
-                </NavLink>
-                <NavLink
-                  to="/workshop"
-                  style={navLinkStyle}
-                  onClick={toggleNav}
-                >
-                  <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
-                </NavLink>
+                <NavLink to="/" style={navLinkStyle}  onClick={toggleNav}>
+                <Box _hover={{ cursor: "pointer" }}>Home</Box>
+              </NavLink>
+              <NavLink to="/about" style={navLinkStyle}  onClick={toggleNav}>
+                <Box _hover={{ cursor: "pointer" }}>About Us</Box>
+              </NavLink>
+              <NavLink to="/projects" style={navLinkStyle}  onClick={toggleNav}>
+                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
+              </NavLink>
+              <NavLink to="/workshop" style={navLinkStyle}  onClick={toggleNav}>
+                <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
+              </NavLink>
                 <Box
                   w="max-content"
                   borderRadius="30px"
