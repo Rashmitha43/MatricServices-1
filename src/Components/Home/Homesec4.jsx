@@ -35,7 +35,7 @@ const Homesec4 = () => {
             in every technological domain, we’re committed to turning your
             concepts into executable achievements.
           </Text>
-          <Box w={{base:'100%',md:'max-content'}} position={{base:'static',md:'absolute'}} bottom='-50px' right='50px' textAlign={{base:'center'}} fontWeight={'500'} p='10px 20px' bg={theme.colors.ten} _hover={{color:'white',backgroundColor:theme.colors.thirty}} borderRadius={'30px'}>LEARN MORE</Box>
+          <Box w={{base:'100%',md:'max-content'}} position={{base:'static',md:'absolute'}} bottom='-50px' right='50px' textAlign={{base:'center'}} fontWeight={'500'} p='10px 20px' bg={theme.colors.thirty} color='white' _hover={{backgroundColor:theme.colors.ten}} borderRadius={'30px'}>LEARN MORE</Box>
         </Box>
         <Box w={{base:'100%',lg:'50%'}} position={"relative"} h="400px"    borderRadius={'10px'}  borderLeftRadius={{base:'10px',lg:'0px'}}>
           <Box
@@ -53,7 +53,8 @@ const Homesec4 = () => {
           <Box
             w="100%"
             h="100%"
-            bg="rgb(50, 12, 134,0.9)"
+            bg={theme.colors.thirty}
+            opacity={0.9}
             zIndex={2}
             position={"absolute"}
             top="0px"

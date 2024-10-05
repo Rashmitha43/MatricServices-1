@@ -1,6 +1,6 @@
 import { Box, Heading, Image, Text } from "@chakra-ui/react";
 import theme from "../../theme";
-import image1 from "../../assets/homeimag5.jpeg";
+import image1 from "../../assets/homeimage1.jpg";
 import iconimage1 from "../../assets/homeimg2.png";
 const Homesec3 = () => {
   return (
@@ -32,8 +32,8 @@ const Homesec3 = () => {
             justifyContent={"center"}
             flexDirection={"column"}
           >
-            <Box height={{base:'300px',md:'400px'}} w={{base:'90%',lg:'100%'}}>
-              <Image w="100%" h={"100%"} src={image1} />
+            <Box height={{base:'300px',md:'400px'}} w={{base:'90%',lg:'100%'}} overflow='hidden' borderRadius={'15px'}>
+              <Image w="100%" h={"100%"} src={image1} objectFit={'cover'}/>
             </Box>
             <Box
               w="100%"
@@ -100,7 +100,7 @@ const Homesec3 = () => {
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"center"}
-                  boxShadow={`1px 0px 4px 3px rgb(50, 12, 134,0.5) `}
+                  boxShadow={`1px 0px 4px 3px ${theme.colors.ten} `}
                   borderRadius={"15px"}
                 >
                   <Box w="25%" h="80%">
@@ -130,7 +130,7 @@ const Homesec3 = () => {
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"center"}
-                  boxShadow={`1px 0px 4px 3px rgb(50, 12, 134,0.5) `}
+                  boxShadow={`1px 0px 4px 3px ${theme.colors.ten} `}
                   borderRadius={"15px"}
                 >
                   <Box w="25%" h="80%">
@@ -160,7 +160,7 @@ const Homesec3 = () => {
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"center"}
-                  boxShadow={`1px 0px 4px 3px rgb(50, 12, 134,0.5) `}
+                  boxShadow={`1px 0px 4px 3px ${theme.colors.ten} `}
                   borderRadius={"15px"}
                 >
                   <Box w="25%" h="80%">
@@ -190,7 +190,7 @@ const Homesec3 = () => {
                   display={"flex"}
                   alignItems={"center"}
                   justifyContent={"center"}
-                  boxShadow={`1px 0px 4px 3px rgb(50, 12, 134,0.5) `}
+                  boxShadow={`1px 0px 4px 3px ${theme.colors.ten} `}
                   borderRadius={"15px"}
                 >
                   <Box w="25%" h="80%">
@@ -217,11 +217,12 @@ const Homesec3 = () => {
             <Box
               w="80%"
               p="10px 30px"
-              bg={theme.colors.ten}
+              bg={theme.colors.thirty}
               borderRadius={"30px"}
               textAlign={"center"}
               fontWeight={"700"}
-              _hover={{background:theme.colors.thirty,color:'white'}}
+              _hover={{background:theme.colors.ten}}
+              color='white'
               transition={'all 0.3s ease'}
             >
               Get Guidence Now
