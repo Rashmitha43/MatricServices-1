@@ -179,14 +179,15 @@ const Navbar = () => {
                 w="max-content"
                 borderRadius="30px"
                 p="5px 15px"
-                bg={theme.colors.ten}
+                bg={theme.colors.thirty}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 gap="5px"
+                color='white'
                 _hover={{
-                  backgroundColor: theme.colors.thirty,
-                  color: "white",
+                  backgroundColor: theme.colors.ten,
+                 
                 }}
               >
                 <FaWhatsapp /> Chat Now
@@ -248,14 +249,15 @@ const Navbar = () => {
                   w="max-content"
                   borderRadius="30px"
                   p="5px 15px"
-                  bg={theme.colors.ten}
+                  bg={theme.colors.thirty}
                   display={{ base: "flex", lg: "none" }} // Show only in mobile menu
                   alignItems="center"
                   justifyContent="center"
                   gap="5px"
+                  color='white'
                   _hover={{
-                    backgroundColor: theme.colors.thirty,
-                    color: "white",
+                    backgroundColor: theme.colors.ten,
+                    
                   }}
                 >
                   <FaWhatsapp /> <Text>Chat Now</Text>
