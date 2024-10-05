@@ -6,9 +6,9 @@ import theme from '../../theme';
 
 const Footer = () => {
   // Dynamic background colors and styles based on screen size
-  const footerBg = theme.colors.thirty;
+  const footerBg = theme.colors.ten;
   const inputWidth = useBreakpointValue({ base: '100%', md: '70%' });
-  const textSize = useBreakpointValue({ base: 'sm', md: 'md' });
+  const textSize = useBreakpointValue({ base: 'sm', md: 'lg' });
   const socialSize = useBreakpointValue({ base: 'md', lg: 'lg' }); // Adjust icon size for responsiveness
   const buttonSize = useBreakpointValue({ base: 'sm', md: 'md' });
   const paddingX = useBreakpointValue({ base: 4, md: 8, lg: 12 }); // Dynamic padding for different screen sizes

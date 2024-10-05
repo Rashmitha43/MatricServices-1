@@ -18,7 +18,7 @@ import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import theme from "../../theme";
-import logo from "../../assets/MS.png"; // Replace with your logo path
+import logo from "../../assets/logo.png"; // Replace with your logo path
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false); // State for mobile menu toggle
