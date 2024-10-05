@@ -1,10 +1,39 @@
-import { Box, Button, Text, useBreakpointValue, Fade } from "@chakra-ui/react";
+import { Box, Button, Text, useBreakpointValue, Fade, Heading } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { FaWhatsapp, FaArrowRight } from "react-icons/fa";
 import theme from "../../theme";
 
 const Aboutsec3 = () => {
   const padding = useBreakpointValue({ base: 4, md: 6, lg: 8 });
   const buttonSize = useBreakpointValue({ base: "md", lg: "lg" });
+
+  // Animations Variants for Framer Motion
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
+  };
+
+  const buttonHover = {
+    scale: [1, 1.05, 1],
+    transition: { duration: 0.5, repeat: Infinity, repeatType: "mirror" },
+  };
+
+  const floatEffect = {
+    hidden: { y: 10 },
+    visible: {
+      y: [10, -10],
+      transition: { y: { yoyo: Infinity, duration: 2, ease: "easeInOut" } },
+    },
+  };
+
+  const backgroundGradient = {
+    hidden: { opacity: 0.8 },
+    visible: {
+      opacity: 1,
+      background: "linear-gradient(135deg, #ffd700, #ff7e00)",
+      transition: { duration: 3, repeat: Infinity, repeatType: "mirror" },
+    },
+  };
 
   return (
     <Fade in={true} transition={{ enter: { duration: 0.5 } }}>
@@ -16,8 +45,10 @@ const Aboutsec3 = () => {
         justifyContent="center"
         pt="20px"
         pb="20px"
-        bgColor="#fff"
+        bgColor="#f7f7f7"
+        overflow="hidden"
       >
+        {/* Box Wrapper */}
         <Box
           display="flex"
           flexDirection={["column", "column", "row"]}
@@ -25,154 +56,162 @@ const Aboutsec3 = () => {
           justifyContent="space-between"
           p={padding}
           width={["95%", "90%", "80%"]}
-          bgColor="#ffffff"
           position="relative"
-          boxShadow="xl"
-          borderRadius="lg"
-          gap={[4, 4, 0]}
-          border="1px solid #e2e8f0"
+          gap={[4, 4, 4]}
         >
-          {/* First Box */}
-          <Box
-            flex="1"
-            width="100%"
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="20px"
-            overflow="hidden"
+          {/* First Box with Animation */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            whileHover={{ scale: 1.02 }}
+            style={{ flex: 1, width: "100%", position: "relative" }}
           >
             <Box
-              width="90%"
-              mb={[6, 6, 0]}
               display="flex"
               flexDirection="column"
               alignItems="center"
               justifyContent="center"
               borderRadius="20px"
               overflow="hidden"
-              position="relative"
               bgColor={theme.colors.thirty}
               p={5}
               textAlign="center"
               boxShadow="md"
-              transition="all 0.3s ease"
-              _hover={{ boxShadow: "2xl", transform: "scale(1.02)" }}
+              position="relative"
             >
-              <Text
-                as="p"
+              <Heading
+                as="h2"
                 fontSize={["lg", "xl"]}
                 fontWeight="bold"
                 color="white"
                 mb={2}
+                textShadow="0 2px 4px rgba(0, 0, 0, 0.4)"
               >
                 Are You Ready?
-              </Text>
-              <Text
-                as="h2"
-                fontSize={["xl", "2xl"]}
-                fontWeight="semibold"
-                color="white"
-                mb={4}
-              >
+              </Heading>
+              <Text as="h3" fontSize={["xl", "2xl"]} fontWeight="semibold" color="white" mb={4}>
                 Start a New Project
               </Text>
-              <Button
-                colorScheme="whiteAlpha"
-                width="150px"
-                variant="solid"
-                size={buttonSize}
-                leftIcon={<FaWhatsapp />}
-                p={4}
-                bgColor="white" // Set the button background to white
-                color="black" // Set the text color to black
-                borderRadius="10px"
-                boxShadow="md"
-                _hover={{
-                  bg: "gray.200", // Light gray hover effect
-                  color: "black",
-                  transform: "scale(1.05)",
-                  boxShadow: "lg",
+              <motion.div whileHover={buttonHover}>
+                <Button
+                  colorScheme="whiteAlpha"
+                  size={buttonSize}
+                  leftIcon={<FaWhatsapp />}
+                  p={4}
+                  bgColor="white"
+                  color="black"
+                  borderRadius="10px"
+                  boxShadow="md"
+                  _hover={{
+                    bg: "gray.200",
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                  }}
+                  _active={{
+                    bg: "gray.300",
+                    transform: "scale(0.98)",
+                  }}
+                  aria-label="Contact us via WhatsApp"
+                >
+                  WhatsApp
+                </Button>
+              </motion.div>
+              {/* Floating Background Effect */}
+              <motion.div
+                variants={floatEffect}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  position: "absolute",
+                  bottom: "-30px",
+                  right: "-30px",
+                  width: "100px",
+                  height: "100px",
+                  background: "rgba(255, 255, 255, 0.1)",
+                  borderRadius: "50%",
+                  zIndex: 0,
                 }}
-                _active={{
-                  bg: "gray.300", // Slightly darker gray when active
-                  transform: "scale(0.98)",
-                }}
-                aria-label="Contact us via WhatsApp"
-              >
-                WhatsApp
-              </Button>
+              />
             </Box>
-          </Box>
+          </motion.div>
 
-          {/* Second Box */}
-          <Box
-            flex="1"
-            width="100%"
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="20px"
-            overflow="hidden"
+          {/* Second Box with Animation */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            whileHover={{ scale: 1.02 }}
+            style={{ flex: 1, width: "100%", position: "relative" }}
           >
             <Box
-              flex="1"
-              mb={[6, 6, 0]}
               display="flex"
               flexDirection="column"
               alignItems="center"
               justifyContent="center"
-              width="80%"
               borderRadius="20px"
               overflow="hidden"
-              position="relative"
               bgColor={theme.colors.ten}
               p={5}
               textAlign="center"
               boxShadow="md"
-              transition="all 0.3s ease"
-              _hover={{ boxShadow: "2xl", transform: "scale(1.02)" }}
+              position="relative"
             >
-              <Text
+              <Heading
                 as="h2"
                 fontSize={["xl", "2xl"]}
                 fontWeight="semibold"
                 color="black"
                 mb={2}
+                textShadow="0 2px 4px rgba(0, 0, 0, 0.4)"
               >
                 What Are You Waiting for?
-              </Text>
+              </Heading>
               <Text as="p" fontSize={["md", "lg"]} color="black" mb={4}>
                 Let's Talk About Work
               </Text>
-              <Button
-                colorScheme="blackAlpha"
-                variant="solid"
-                size={buttonSize}
-                p={4}
-                bgColor="black"
-                color="white"
-                borderRadius="10px"
-                boxShadow="md"
-                rightIcon={<FaArrowRight />}
-                _hover={{
-                  bg: "gray.700",
-                  color: "white",
-                  transform: "scale(1.05)",
-                  boxShadow: "lg",
+              <motion.div whileHover={buttonHover}>
+                <Button
+                  colorScheme="blackAlpha"
+                  size={buttonSize}
+                  p={4}
+                  bgColor="black"
+                  color="white"
+                  borderRadius="10px"
+                  rightIcon={<FaArrowRight />}
+                  boxShadow="md"
+                  _hover={{
+                    bg: "gray.700",
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                  }}
+                  _active={{
+                    bg: "gray.800",
+                    transform: "scale(0.98)",
+                  }}
+                  aria-label="Start Now"
+                >
+                  Start Now
+                </Button>
+              </motion.div>
+              {/* Floating Background Effect */}
+              <motion.div
+                variants={floatEffect}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  position: "absolute",
+                  top: "-30px",
+                  left: "-30px",
+                  width: "100px",
+                  height: "100px",
+                  background: "rgba(0, 0, 0, 0.1)",
+                  borderRadius: "50%",
+                  zIndex: 0,
                 }}
-                _active={{
-                  bg: "gray.800",
-                  transform: "scale(0.98)",
-                }}
-                aria-label="Start Now"
-              >
-                Start Now
-              </Button>
+              />
             </Box>
-          </Box>
+          </motion.div>
         </Box>
       </Box>
     </Fade>

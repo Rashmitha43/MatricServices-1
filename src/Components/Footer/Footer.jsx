@@ -5,44 +5,54 @@ import { MdEmail } from 'react-icons/md';
 import theme from '../../theme';
 
 const Footer = () => {
-  // Use dynamic background colors and styles based on screen size
+  // Dynamic background colors and styles based on screen size
   const footerBg = theme.colors.thirty;
   const inputWidth = useBreakpointValue({ base: '100%', md: '70%' });
   const textSize = useBreakpointValue({ base: 'sm', md: 'md' });
-  const socialSize = useBreakpointValue({ base: 'lg', md: 'xl' });
+  const socialSize = useBreakpointValue({ base: 'md', lg: 'lg' }); // Adjust icon size for responsiveness
+  const buttonSize = useBreakpointValue({ base: 'sm', md: 'md' });
+  const paddingX = useBreakpointValue({ base: 4, md: 8, lg: 12 }); // Dynamic padding for different screen sizes
+  const sectionSpacing = useBreakpointValue({ base: 2, md: 3 }); 
+  const paddingLeft = useBreakpointValue({ base: 6, md: 0 }); // Add left padding on mobile screens
 
   return (
     <Fade in={true} transition={{ enter: { duration: 0.5 } }}>
-
-      <Box 
-        as="footer" 
-        bg={footerBg} 
-        color="white" 
-        py={10} 
-        mt={12} 
-        boxShadow="2xl" 
-        position="relative" 
+      <Box
+        as="footer"
+        bg={footerBg}
+        color="white"
+        py={[8, 10]}
+        mt={12}
+        boxShadow="2xl"
+        position="relative"
         overflow="hidden"
-        bgAttachment="fixed"
       >
-
         <Flex
           direction={['column', 'column', 'row']}
           justify="space-between"
-          align="center"
-          px={[4, 8, 12]}
-          textAlign={['center', 'center', 'left']}
+          align="flex-start" // Aligns items to the left
+          px={paddingX}
+          wrap="wrap"
+          textAlign="left" // Ensures text alignment is left on all devices
+          gap={[8, 10, 0]} // Ensure sections have adequate spacing on smaller screens
         >
-
-          <VStack alignItems="flex-start" spacing={4} mb={[6, 6, 0]} textShadow="1px 1px 5px rgba(0,0,0,0.4)">
-            <Text fontSize="2xl" fontWeight="bold" letterSpacing="wide">Matrix Services</Text>
-            <Stack direction={['column', 'row']} spacing={6}>
+          {/* Left Column */}
+          <VStack
+            alignItems="flex-start"
+            spacing={sectionSpacing}
+            mb={[0, 0, 0]}
+            textShadow="1px 1px 5px rgba(0,0,0,0.4)"
+            pl={paddingLeft} // Add left padding for mobile devices
+          >
+            <Text fontSize={["xl", "2xl"]} fontWeight="bold" letterSpacing="wide" mb="2px">Matrix Services</Text>
+            <Stack direction={['column', 'row']} spacing={2}>
               {['Home', 'About Us', 'Services', 'Contact'].map((link, index) => (
                 <Link
                   key={index}
                   href="#"
                   _hover={{ color: 'yellow.300', transform: 'scale(1.1)', textDecoration: 'underline' }}
                   transition="all 0.2s ease-in-out"
+                  fontSize={textSize}
                 >
                   {link}
                 </Link>
@@ -50,8 +60,14 @@ const Footer = () => {
             </Stack>
           </VStack>
 
-
-          <VStack alignItems="flex-start" spacing={4} mb={[6, 6, 0]} textShadow="1px 1px 5px rgba(0,0,0,0.4)">
+          {/* Center Column */}
+          <VStack
+            alignItems="flex-start"
+            spacing={sectionSpacing}
+            mb="0px"
+            textShadow="1px 1px 5px rgba(0,0,0,0.4)"
+            pl={paddingLeft}
+            >
             <Text fontSize="lg" fontWeight="semibold">Get In Touch</Text>
             <Text fontSize={textSize}>Main Street, Ghandi Nagar, ST 12345</Text>
             <Text fontSize={textSize}>Phone: +91 9998887776</Text>
@@ -60,9 +76,16 @@ const Footer = () => {
             </Link>
           </VStack>
 
-          <VStack alignItems="flex-start" spacing={4} textShadow="1px 1px 5px rgba(0,0,0,0.4)">
+          {/* Right Column */}
+          <VStack
+            alignItems="flex-start"
+            spacing={sectionSpacing}
+            textShadow="1px 1px 5px rgba(0,0,0,0.4)"
+            pl={paddingLeft} 
+            mt="0px"
+          >
             <Text fontSize="xl" fontWeight="bold">Follow Us</Text>
-            <Stack direction="row" spacing={4}>
+            <Stack direction="row" spacing={[2, 4]} justify="flex-start">
               {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube].map((Icon, index) => (
                 <IconButton
                   key={index}
@@ -72,13 +95,13 @@ const Footer = () => {
                   icon={<Icon />}
                   size={socialSize}
                   variant="outline"
-                  _hover={{ color:"#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.5)', boxShadow: 'lg' }}
+                  _hover={{ color: "#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.3)', boxShadow: 'lg' }}
                   transition="all 0.3s ease-in-out"
                 />
               ))}
             </Stack>
-            
-            <Flex direction={['column', 'column', 'row']} align="center" width="100%">
+
+            <Flex direction={['row', 'row', 'row']} align="flex-start" width="100%" mt={4}>
               <Input
                 placeholder="Enter your email"
                 variant="filled"
@@ -87,14 +110,14 @@ const Footer = () => {
                 _placeholder={{ color: 'gray.500' }}
                 borderRadius="md"
                 width={inputWidth}
-                mb={[4, 4, 0]}
+                mb={[4, 4, 0]} // Stack input and button on small screens
               />
               <Button
                 colorScheme="yellow"
                 variant="solid"
-                size="md"
+                size={buttonSize}
                 rightIcon={<MdEmail />}
-                ml={[0, 0, 4]}
+                ml={[1, 1, 1]} // Align button next to input on medium and large screens
                 borderRadius="md"
                 _hover={{ bg: 'yellow.500', transform: 'scale(1.05)' }}
                 transition="all 0.2s ease-in-out"
@@ -105,12 +128,9 @@ const Footer = () => {
           </VStack>
         </Flex>
 
-        <Box 
-          textAlign="center" 
-          py={4} 
-          mt={8} 
-        >
-          <Text fontSize="lg" color="gray.100" fontWeight="medium">
+        {/* Copyright Section */}
+        <Box textAlign="center" py={[4, 6]} mt={8} pl={paddingLeft}>
+          <Text fontSize={["sm", "md"]} color="gray.100" fontWeight="medium">
             © {new Date().getFullYear()} BrandName. All Rights Reserved.
           </Text>
         </Box>
@@ -120,4 +140,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
