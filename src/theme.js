@@ -1,11 +1,11 @@
 import { extendTheme } from "@chakra-ui/react";
 const colors = {
     sixty:'white',
-    thirty:'#320c86',
-    ten:'#ffa441'
+    thirty:'#FFB722',
+    ten:'#656692'
 };
 const fonts = {
-    body:'Raleway',
+    body:'Inter',
     header:''
 };
 const theme=extendTheme({colors,fonts})
