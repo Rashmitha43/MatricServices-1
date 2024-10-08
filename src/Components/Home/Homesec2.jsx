@@ -2,6 +2,11 @@ import { Box, Simplegrid, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import theme from "../../theme";
 import img1 from "../../assets/homeimage1.jpg";
+import { HiOutlineAcademicCap } from "react-icons/hi";
+import { IoNewspaperSharp } from "react-icons/io5";
+import { FaTools } from "react-icons/fa";
+import { MdQuestionAnswer } from "react-icons/md";
+import { FaHandsHelping } from "react-icons/fa";
 const Homesec2 = () => {
   return (
     <Box
@@ -16,143 +21,126 @@ const Homesec2 = () => {
       my={{ base: "3rem", md: "4rem", lg: "5rem" }}
     >
       <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
-        Easing the life of Engineers with...
+        Our Services
       </Text>
       <Box
         w="80px"
         h="3px"
-        bg={theme.colors.thirty}
+        bg={theme.colors.ten}
         borderRadius={"20px"}
       ></Box>
+
+      {/* Services */}
       <SimpleGrid columns={[1, 2, 3, 3]} mt={"2rem"} spacing={5}>
+
+        {/* service1 */}
         <Box
           bg={theme.colors.ten}
-          p="30px 20px"
-          color="white"
+          p="30px 30px"
+          color='white'
           height="auto"
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           justifyContent={"center"}
-          borderRadius={'15px'}
+          gap='10px'
+          textAlign={"center"}
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
         >
-          <Text fontSize={{ base: "1.5rem", md: "2rem" }}>INNOVATION</Text>
-          <Box w="50px" h="2px" bg="white"></Box>
-          <Text textAlign={"center"} fontSize={"0.9rem"} mt="10px">
-            Without the necessary support, a significant number of potentially
-            groundbreaking research initiatives remain unrealized, limiting the
-            overall innovation potential of aspiring researchers.
+          <Box fontSize={'3rem'}><HiOutlineAcademicCap /></Box>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Academic Projects</Text>
+          <Text  fontSize={"0.8rem"} >
+          We provide end-to-end assistance with academic projects, offering both guided and done-for-you solutions tailored to the needs of students and educators.
           </Text>
         </Box>
+
+        {/* service2 */}
         <Box
           bg={theme.colors.thirty}
-          p="30px 20px"
-          color="white"
+          p="30px 30px"
           height="auto"
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           justifyContent={"center"}
-          borderRadius={'15px'}
+          color='black'
+          textAlign={'center'}
+          gap='10px'
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
+
         >
-          <Text fontSize={{ base: "1.5rem", md: "2rem" }}>INNOVATION</Text>
-          <Box w="50px" h="2px" bg="white"></Box>
-          <Text textAlign={"center"} fontSize={"0.9rem"} mt="10px">
-            Without the necessary support, a significant number of potentially
-            groundbreaking research initiatives remain unrealized, limiting the
-            overall innovation potential of aspiring researchers.
+          <Box fontSize={'2rem'}><FaTools /></Box>
+          <Text fontSize='1.3rem' lineHeight='1' fontWeight={'400'}>Workshops for Institutions/Organizations</Text>
+          <Text  fontSize={"0.8rem"} >
+          We organize expert-led workshops covering a wide range of technologies, customized to meet the specific requirements of educational institutions and organizations.
           </Text>
         </Box>
+
+        {/* service3 */}
         <Box
           bg={theme.colors.ten}
-          p="30px 20px"
-          color="white"
+          p="30px 30px"
           height="auto"
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           justifyContent={"center"}
-          borderRadius={'15px'}
+          color='white'
+          textAlign={'center'}
+          gap='10px'
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
         >
-          <Text fontSize={{ base: "1.5rem", md: "2rem" }}>INNOVATION</Text>
-          <Box w="50px" h="2px" bg="white"></Box>
-          <Text textAlign={"center"} fontSize={"0.9rem"} mt="10px">
-            Without the necessary support, a significant number of potentially
-            groundbreaking research initiatives remain unrealized, limiting the
-            overall innovation potential of aspiring researchers.
+          <Box fontSize={'2rem'}><IoNewspaperSharp /></Box>
+          <Text fontSize='1.3rem' lineHeight='1' fontWeight={'400'}>Research Paper Support</Text>
+          <Text  fontSize={"0.8rem"} >
+          From topic selection to technical guidance, we support students and professionals in preparing research papers, ensuring high-quality outputs that align with academic standards.
           </Text>
         </Box>
+
+        {/* service4 */}
         <Box
           bg={theme.colors.thirty}
-          p="30px 20px"
-          color="white"
+          p="30px 30px"
           height="auto"
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           justifyContent={"center"}
-          borderRadius={'15px'}
+          color='black'
+          textAlign={"center"}
+          gap='10px'
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out'}}
         >
-          <Text fontSize={{ base: "1.5rem", md: "2rem" }}>INNOVATION</Text>
-          <Box w="50px" h="2px" bg="white"></Box>
-          <Text textAlign={"center"} fontSize={"0.9rem"} mt="10px">
-            Without the necessary support, a significant number of potentially
-            groundbreaking research initiatives remain unrealized, limiting the
-            overall innovation potential of aspiring researchers.
+          <Box fontSize={'2.5rem'}><MdQuestionAnswer /></Box>
+          <Text  fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Custom Solutions for Industries</Text>
+          <Text  fontSize={"0.8rem"} >
+          We develop tailored hardware and software solutions to meet the specific demands of industries, helping businesses innovate and improve efficiency.
           </Text>
         </Box>
+
+        {/* service5 */}
         <Box
           bg={theme.colors.ten}
-          p="30px 20px"
+          p="30px 30px"
           color="white"
           height="auto"
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
+          textAlign={"center"}
           justifyContent={"center"}
-          borderRadius={'15px'}
+          gap='10px'
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
         >
-          <Text fontSize={{ base: "1.5rem", md: "2rem" }}>INNOVATION</Text>
-          <Box w="50px" h="2px" bg="white"></Box>
-          <Text textAlign={"center"} fontSize={"0.9rem"} mt="10px">
-            Without the necessary support, a significant number of potentially
-            groundbreaking research initiatives remain unrealized, limiting the
-            overall innovation potential of aspiring researchers.
+          <Box fontSize={'2.5rem'}><FaHandsHelping /></Box>
+          <Text fontSize='1.3rem' lineHeight='1' fontWeight={'400'}>Hardware/Software Assistance for Colleges</Text>
+          <Text  fontSize={"0.8rem"} >
+          We offer comprehensive technical assistance to colleges, ensuring that their hardware and software infrastructure is optimized for both teaching and research purposes.
           </Text>
         </Box>
-        <Box
-          bg={theme.colors.thirty}
-          p="30px 20px"
-          color="white"
-          height="auto"
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          borderRadius={'15px'}
-        >
-          <Text fontSize={{ base: "1.5rem", md: "2rem" }}>INNOVATION</Text>
-          <Box w="50px" h="2px" bg="white"></Box>
-          <Text textAlign={"center"} fontSize={"0.9rem"} mt="10px">
-            Without the necessary support, a significant number of potentially
-            groundbreaking research initiatives remain unrealized, limiting the
-            overall innovation potential of aspiring researchers.
-          </Text>
-        </Box>
+
       </SimpleGrid>
 
-      {/* <Box w='250px' height={'250px'}>
-            <Image w='100%' h='100%' src={img1}/>
-        </Box>
-        <Box h='250px' bg={theme.colors.thrity} display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'} p={{base:'10px',md:'20px' }} color='white'>
-            <Text fontSize={{base:'1.5rem',md:'2rem'}} >
-             INNOVATION
-            </Text>
-            <Box w='50px' h='1px' bg='white'></Box>
-            <Text>Without the necessary support, a significant number of potentially groundbreaking research initiatives remain unrealized, limiting the overall innovation potential of aspiring researchers.</Text>
-        </Box>
-        <Box></Box>
-        <Box></Box> */}
     </Box>
   );
 };

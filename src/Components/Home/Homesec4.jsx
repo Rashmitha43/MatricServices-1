@@ -53,7 +53,7 @@ const Homesec4 = () => {
           <Box
             w="100%"
             h="100%"
-            bg={theme.colors.thirty}
+            bg={theme.colors.ten}
             opacity={0.9}
             zIndex={2}
             position={"absolute"}

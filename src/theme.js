@@ -1,8 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
 const colors = {
     sixty:'white',
-    thirty:'#FFB722',
-    ten:'#656692'
+    thirty:'#ededed',
+    ten:'#a5a5a5'
 };
 const fonts = {
     body:'Inter',

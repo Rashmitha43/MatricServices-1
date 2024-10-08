@@ -43,8 +43,8 @@ const Navbar = () => {
 
   // Common styles for navigation links
   const navLinkStyle = ({ isActive }) => ({
-    color: isActive ? theme.colors.thirty : "black",
-    borderBottom: isActive ? `2px solid ${theme.colors.thirty}` : "none",
+    color: isActive ? theme.colors.ten : "black",
+    borderBottom: isActive ? `2px solid ${theme.colors.ten}` : "none",
     paddingBottom: "3px",
   });
 
@@ -179,14 +179,15 @@ const Navbar = () => {
                 w="max-content"
                 borderRadius="30px"
                 p="5px 15px"
-                bg={theme.colors.thirty}
+                bg={theme.colors.ten}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 gap="5px"
                 color='white'
                 _hover={{
-                  backgroundColor: theme.colors.ten,
+                  backgroundColor: theme.colors.thirty,
+                  color:'black'
                  
                 }}
               >
