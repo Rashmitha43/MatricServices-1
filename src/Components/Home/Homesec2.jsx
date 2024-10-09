@@ -21,7 +21,7 @@ const Homesec2 = () => {
       my={{ base: "3rem", md: "4rem", lg: "5rem" }}
     >
       <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
-        Our Services
+      Our Assistance to Colleges
       </Text>
       <Box
         w="80px"
@@ -70,7 +70,7 @@ const Homesec2 = () => {
 
         >
           <Box fontSize={'2rem'}><FaTools /></Box>
-          <Text fontSize='1.3rem' lineHeight='1' fontWeight={'400'}>Workshops for Institutions/Organizations</Text>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Workshops</Text>
           <Text  fontSize={"0.8rem"} >
           We organize expert-led workshops covering a wide range of technologies, customized to meet the specific requirements of educational institutions and organizations.
           </Text>
@@ -112,7 +112,7 @@ const Homesec2 = () => {
           _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out'}}
         >
           <Box fontSize={'2.5rem'}><MdQuestionAnswer /></Box>
-          <Text  fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Custom Solutions for Industries</Text>
+          <Text  fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Custom Solutions</Text>
           <Text  fontSize={"0.8rem"} >
           We develop tailored hardware and software solutions to meet the specific demands of industries, helping businesses innovate and improve efficiency.
           </Text>
