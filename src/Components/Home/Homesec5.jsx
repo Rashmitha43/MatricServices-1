@@ -8,17 +8,15 @@ const Homesec5 = () => {
   const [photoIndex, setPhotoIndex] = useState(-1);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const images = [
-    '/images/galleryimg1.jpeg',
-    '/images/galleryimg2.jpeg',
-    '/images/galleryimg3.jpeg',
-    '/images/galleryimg4.jpeg',
-    '/images/galleryimg5.jpeg',
-    '/images/galleryimg6.jpeg',
-    '/images/galleryimg7.jpeg',
-    '/images/galleryimg8.jpeg',
-    '/images/galleryimg9.jpeg',
-    '/images/galleryimg10.jpeg',
-    '/images/galleryimg11.jpeg',
+    '/images/Homegallery/galleryimg1.jpeg',
+    '/images/Homegallery/galleryimg2.jpeg',
+    '/images/Homegallery/galleryimg3.jpeg',
+    '/images/Homegallery/galleryimg4.jpeg',
+    '/images/Homegallery/galleryimg11.jpeg',
+    '/images/Homegallery/galleryimg6.jpeg',
+    '/images/Homegallery/galleryimg7.jpeg',
+    './images/Homegallery/galleryimg8.jpeg'
+    
   ];
   return (
     <Box
@@ -36,13 +34,12 @@ const Homesec5 = () => {
         Our Gallery
       </Text>
       <Box w="80px" h="3px" bg={theme.colors.ten} borderRadius={"20px"}></Box>
-      <SimpleGrid columns={[1,3,4,4]} spacing={5} mt={10}>
+      <SimpleGrid columns={[2,2,3,3]} spacing={5} mt={10}>
         {
           images.map((image,index)=>(
-            <Box key={index} w='100%' overflow={'hidden'} h='250px' display='flex' alignItems={'center'} justifyContent={'center'} position={'relative'} onClick={()=>setPhotoIndex(index)} _hover={{transition:'all 0.5s ease',transform:'scale(1.03)'}}> 
-            <Image  src={image} 
-             filter="grayscale(100%)"          
-             objectFit="cover" 
+            <Box key={index} w='100%' overflow={'hidden'} h={{base:'150px',md:'200px',lg:'250px'}} display='flex' alignItems={'center'} justifyContent={'center'} position={'relative'} onClick={()=>setPhotoIndex(index)} _hover={{transition:'all 0.5s ease',transform:'scale(1.03)'}}> 
+            <Image  src={image}          
+            objectFit="cover" 
             width="100%" 
             height={'100%'}
             alt={`Gallery Image ${index + 1}`} 
@@ -61,7 +58,7 @@ const Homesec5 = () => {
               <Box display={'flex'} alignItems={'flex-start'} justifyContent={'center'} gap={{base:'5px',md:'10px',lg:'20px'}}>
               <Image 
                 src={images[photoIndex]} 
-                objectFit="contain" 
+                objectFit="cover" 
                 width={{base:'80%',md:'90%',lg:'100%'}}
                 maxH={{base:'50vh',md:'70vh'}}
                 alt={`Full Image ${photoIndex + 1}`} 

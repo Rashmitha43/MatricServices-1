@@ -1,7 +1,6 @@
 import { Box, Simplegrid, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import theme from "../../theme";
-import img1 from "../../assets/homeimage1.jpg";
 import { HiOutlineAcademicCap } from "react-icons/hi";
 import { IoNewspaperSharp } from "react-icons/io5";
 import { FaTools } from "react-icons/fa";
@@ -21,7 +20,7 @@ const Homesec2 = () => {
       my={{ base: "3rem", md: "4rem", lg: "5rem" }}
     >
       <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
-      Our Assistance to Colleges
+      Our Services
       </Text>
       <Box
         w="80px"
@@ -133,7 +132,7 @@ const Homesec2 = () => {
           _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
         >
           <Box fontSize={'2.5rem'}><FaHandsHelping /></Box>
-          <Text fontSize='1.3rem' lineHeight='1' fontWeight={'400'}>Hardware/Software Assistance for Colleges</Text>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Assistance for Colleges</Text>
           <Text  fontSize={"0.8rem"} >
           We offer comprehensive technical assistance to colleges, ensuring that their hardware and software infrastructure is optimized for both teaching and research purposes.
           </Text>
