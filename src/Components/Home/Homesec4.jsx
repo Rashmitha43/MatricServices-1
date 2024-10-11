@@ -7,20 +7,26 @@ import { ImQuotesLeft } from "react-icons/im";
 
 const testimonials = [
   {
-    name: "name",
-    qualification: "qualification",
-    des: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus, consequuntur!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus, consequuntur!",
+    name: "S.LIKHITHA VEDASAI MANVITHA",
+    qualification: "Student - KKR & KSR INSTITUTE OF TECHNOLOGY AND SCIENCES, Guntur",
+    des: "We explored with the new equipment. They provide hands on equipment so that we can do new projects. This workshop helps us to gain knowledge about the internet of things. We loved it.",
   },
   {
-    name: "name1",
-    qualification: "qualification",
-    des: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus, consequuntur!",
+    name: "Dr. N. Chandra Shekhar",
+    qualification: "Principal - Government Polytechnic, Pendurthi, ",
+    des: "Your expertise, interactive approach, and dedication have inspired our students, providing them with valuable insights into emerging technologies.",
   },
   {
-    name: "name2",
-    qualification: "qualification",
-    des: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus, consequuntur!",
+    name: "K Sahithi",
+    qualification: "Student - Government Polytechnic for Women, Guntu",
+    des: "I found the workshop to be very informative. The workshop provided me with specific hands-on skills. These skills will be  invaluable in my professional and personal life and it is so useful.  i understand that these techniques can be used on a daily basis.",
   },
+
+  {
+    name:" Dr. M. Nagamani",
+    qualification: "Head of ECE,Government Polytechnic, Visakhapatnam",
+    des: "We recently Conducting the IoT and Sensors Workshop by this team, was an excellent experience. The session was clear, engaging, and full of practical insights. I particularly appreciated how complex concepts were explained in a simple, understandable way. Looking forward to more workshops like this !",
+  }
 ];
 const Homesec4 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -109,9 +115,9 @@ const Homesec4 = () => {
               <Box >
                 
                 <Box  gap='5px' display={'flex'} justifyContent={'flex-start'} flexDirection={'column'}><ImQuotesLeft fontSize={'1rem'}/><Box ml='20px'>{review.des}</Box></Box>
-                <Box float='right' mt={{base:'10px',md:'none'}}>
-                <Box>{review.name}</Box>
-                <Box>{review.qualification}</Box>
+                <Box float='right' mt={{base:'10px',md:'none'}} ml='20px'>
+                <Box fontSize={'0.8rem'}>{review.name}</Box>
+                <Box fontSize={'0.7rem'}>{review.qualification}</Box>
                 </Box>
               </Box>
             )}

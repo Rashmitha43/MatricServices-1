@@ -50,7 +50,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-                Comprehensive Solutions:
+                Comprehensive Solutions
               </Text>
               <Text fontSize={"0.8rem"}>
                 We offer a wide range of technology-related services, including
@@ -74,7 +74,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Quality Assurance:
+              Quality Assurance
               </Text>
               <Text fontSize={"0.8rem"}>
               We maintain the highest industrial standards across all projects, ensuring that every solution we provide meets quality expectations and supports practical learning.
@@ -95,7 +95,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Expert Collaboration:
+              Expert Collaboration
               </Text>
               <Text fontSize={"0.8rem"}>
               Our team collaborates with industrial experts and professionals from around the globe, ensuring that our services are rooted in real-world experience and cutting-edge technology.
@@ -116,7 +116,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Customized Support:
+              Customized Support
               </Text>
               <Text fontSize={"0.8rem"}>
               Our services are tailored to individual and institutional requirements, allowing us to provide personalized guidance and resources that align with specific goals.
@@ -137,7 +137,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Affordable Access:
+              Affordable Access
               </Text>
               <Text fontSize={"0.8rem"}>
               We are committed to making technology education and support accessible by offering our services at minimal costs, prioritizing societal benefit over profit.
@@ -158,7 +158,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Diverse Project Offerings:
+              Diverse Project Offerings
               </Text>
               <Text fontSize={"0.8rem"}>
               We cater to various academic levels, from diploma to PhD, across disciplines such as software, electrical, electronics, mechanical, and embedded projects.
@@ -179,7 +179,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Hands-on Learning: 
+              Hands-on Learning
               </Text>
               <Text fontSize={"0.8rem"}>
               Our workshops and project support provide students and professionals with practical, hands-on experience that enhances their skills and knowledge in technology.
@@ -201,7 +201,7 @@ const Homesec3 = () => {
               flexDirection={"column"}
             >
               <Text fontSize={"1.2rem"} fontWeight={'500'}>
-              Research Support: 
+              Research Support
               </Text>
               <Text fontSize={"0.8rem"}>
               We assist students and researchers with their academic papers, offering guidance and resources to ensure successful outcomes.
