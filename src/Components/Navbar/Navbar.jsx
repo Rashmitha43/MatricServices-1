@@ -101,7 +101,7 @@ const Navbar = () => {
               />
 
               {/* Logo */}
-              <Box w="120px" h="35px" ml="5px">
+              <Box w="150px" h="150px" ml="0px" mt="6px" p="0px">
                 {/* Adjust logo size as needed */}
                 <NavLink to="/">
                   <Image w="100%" h="100%" src={logo} alt="Logo" />

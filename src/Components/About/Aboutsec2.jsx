@@ -1,205 +1,167 @@
-import { Box, Button, Heading, Text, Icon } from "@chakra-ui/react";
+import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { FaQuestionCircle, FaRegCommentDots } from "react-icons/fa";
+import theme from "../../theme";
+import ov from "../../assets/ourvision.jpg"; // Use your correct path for assets
+
+const MotionBox = motion(Box);
+const MotionText = motion(Text);
+const MotionImage = motion(Image);
 
 const Aboutsec2 = () => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.3,
-  });
+  // Control animations when sections are in view
+  const { ref: visionRef, inView: visionInView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  const { ref: missionRef, inView: missionInView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  
+  const visionControls = useAnimation();
+  const missionControls = useAnimation();
 
+  // Trigger animations when sections come into view
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
+    if (visionInView) {
+      visionControls.start({ opacity: 1, y: 0 });
     }
-  }, [controls, inView]);
-
-  // Animation Variants
-  const textVariant = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1.5, ease: "easeOut" } },
-  };
-
-  const buttonVariant = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 1, ease: "easeOut", delay: 0.5 },
-    },
-  };
-
-  const iconVariant = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: [1, 0.6, 1],
-      transition: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
-    },
-  };
-
-  const floatingCircleVariant = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 1, ease: "easeInOut" } },
-  };
-
-  const backgroundVariant = {
-    hidden: { scale: 1.1 },
-    visible: { scale: 1, transition: { duration: 5, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" } },
-  };
+    if (missionInView) {
+      missionControls.start({ opacity: 1, y: 0 });
+    }
+  }, [visionInView, missionInView, visionControls, missionControls]);
 
   return (
     <Box
-      height="80vh"
-      width="100%"
+      w="100%"
       display="flex"
       alignItems="center"
       justifyContent="center"
-      ref={ref}
-      position="relative"
-      backgroundColor="transparent" // Rest of the page is transparent
+      flexDirection="column"
+      mx="auto"
+      my={{ base: "3rem", md: "4rem", lg: "5rem" }}
+      fontFamily={theme.fonts.body}
     >
-      {/* Black Container for 80% of Width */}
-      <Box
-        width="80%" // Black container takes up 80% of the viewport width
-        height="100%"
-        backgroundColor="black" // Black background for the container
-        position="relative"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        overflow="hidden"
-        zIndex={1}
+      {/* Our Vision Section */}
+      <MotionBox
+        ref={visionRef} // Tied to the Intersection Observer
+        w="80%"
+        bgGradient="linear(to-r, #ededed, #f7f7f7)"
+        p={{ base: "1.5rem", md: "3rem", lg: "4rem" }}
+        borderRadius="20px"
+        mb={{ base: "2rem", md: "3rem", lg: "5rem" }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={visionControls} // Controls animation based on scrolling
+        transition={{ duration: 0.8 }}
       >
-        {/* Animated Background */}
-        <motion.div
-          variants={backgroundVariant}
-          backgroundColor="#000"
-          initial="hidden"
-          animate="visible"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 0.3,
-          }}
-        />
-
-        {/* Main Content */}
-        <Box
-          width="80%"
-          height="80vh"
-          display="flex"
+        <Flex
+          direction={{ base: "column", md: "row" }}
           alignItems="center"
-          justifyContent="center"
-          textAlign="center"
-          px={4}
-          zIndex={2}
-          position="relative"
+          justifyContent="space-between"
+          gap={{ base: "10px", md: "20px", lg: "30px" }}
         >
-          <motion.div variants={textVariant} initial="hidden" animate={controls}>
-            <Box>
-              {/* Heading with Blinking Icons */}
-              <Heading
-                as="h2"
-                fontSize={["2xl", "3xl", "4xl"]}
-                fontWeight="bold"
-                color="white"
-                mb={4}
-                letterSpacing="wider"
-                _hover={{ color: "yellow.400", transition: "color 0.3s ease" }}
-              >
-                {/* Blinking question mark icon next to text */}
-                <motion.span
-                  variants={iconVariant}
-                  initial="hidden"
-                  animate="visible"
-                  style={{ display: "inline-block", marginRight: "10px" }}
-                >
-                  <Icon as={FaQuestionCircle} color="yellow.400" boxSize="1.5em" />
-                </motion.span>
-                Please Send Us Your{" "}
-                <Text as="span" color="yellow.400">
-                  Questions
-                </Text>{" "}
-                And
-                <br />
-                We Can{" "}
-                <Text as="span" color="yellow.400">
-                  Help
-                </Text>{" "}
-                You Better
-              </Heading>
+          <MotionBox
+            w={{ base: "100%", md: "50%" }}
+            whileHover={{ scale: 1.05 }} // Hover effect
+            transition={{ duration: 0.3 }}
+          >
+            <MotionImage
+              src={ov} // Use your own image path
+              alt="Our Vision"
+              borderRadius="15px"
+              objectFit="cover"
+              w="100%"
+              h={{ base: "180px", md: "250px", lg: "300px" }}
+              whileHover={{ scale: 1.02 }} // Slight zoom on hover
+              transition={{ duration: 0.5 }}
+            />
+          </MotionBox>
 
-              {/* Button with pulse and hover effects */}
-              <motion.div variants={buttonVariant} initial="hidden" animate={controls}>
-                <motion.div
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ repeat: Infinity, duration: 1.5, repeatType: "mirror" }}
-                >
-                  <Button
-                    mt={8}
-                    height="45px"
-                    bg="yellow.400"
-                    color="black"
-                    px={8}
-                    fontWeight="bold"
-                    borderRadius="full"
-                    boxShadow="md"
-                    _hover={{
-                      bg: "yellow.300",
-                      boxShadow: "0px 0px 15px rgba(255, 255, 0, 0.7)",
-                      transform: "scale(1.05)",
-                    }}
-                    _active={{
-                      bg: "yellow.500",
-                      transform: "scale(0.95)",
-                    }}
-                  >
-                    Contact Us
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </Box>
-          </motion.div>
-        </Box>
+          <Box w={{ base: "100%", md: "45%" }}>
+            <MotionText
+              fontSize={{ base: "1.4rem", md: "1.8rem", lg: "2.5rem" }}
+              fontWeight="bold"
+              mb="1rem"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              Our Vision
+            </MotionText>
+            <MotionText
+              fontSize={{ base: "0.9rem", md: "1rem", lg: "1.2rem" }}
+              color={theme.colors.ten}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              We collaborate with industrial experts from around the globe,
+              ensuring that our solutions are at the forefront of technological
+              advancements. Whether it’s hands-on workshops, guided research
+              projects, or fully customized solutions, we deliver our expertise
+              with the goal of making technology accessible and impactful for
+              everyone.
+            </MotionText>
+          </Box>
+        </Flex>
+      </MotionBox>
 
-        {/* Floating icons with subtle animations */}
-        <motion.div
-          variants={floatingCircleVariant}
-          initial="hidden"
-          animate={controls}
-          style={{
-            position: "absolute",
-            bottom: "-50px",
-            right: "10px",
-            width: "150px",
-            height: "150px",
-            background: "rgba(255, 255, 0, 0.1)",
-            borderRadius: "50%",
-            zIndex: 1,
-          }}
-        />
-
-        {/* Additional blinking icon (Comment Icon for interaction) */}
-        <motion.div
-          variants={iconVariant}
-          initial="hidden"
-          animate="visible"
-          style={{
-            position: "absolute",
-            top: "20px",
-            left: "20px",
-          }}
+      {/* Our Mission Section */}
+      <MotionBox
+        ref={missionRef} // Intersection Observer for the Mission section
+        w="80%"
+        bgGradient="linear(to-l, #f7f7f7, #ededed)"
+        p={{ base: "1.5rem", md: "3rem", lg: "4rem" }}
+        borderRadius="20px"
+        initial={{ opacity: 0, y: 50 }}
+        animate={missionControls}
+        transition={{ duration: 0.8 }}
+      >
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          alignItems="center"
+          justifyContent="space-between"
+          gap={{ base: "10px", md: "20px", lg: "30px" }}
         >
-          <Icon as={FaRegCommentDots} color="yellow.400" boxSize="2em" />
-        </motion.div>
-      </Box>
+          <Box w={{ base: "100%", md: "45%" }}>
+            <MotionText
+              fontSize={{ base: "1.4rem", md: "1.8rem", lg: "2.5rem" }}
+              fontWeight="bold"
+              mb="1rem"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              Our Mission
+            </MotionText>
+            <MotionText
+              fontSize={{ base: "0.9rem", md: "1rem", lg: "1.2rem" }}
+              color={theme.colors.ten}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              What sets us apart is our dedication to offering these services at
+              minimal costs, prioritizing the benefit of society over profit. At
+              Matric Services, we believe in using technology to create a
+              better, more connected world—one solution at a time.
+            </MotionText>
+          </Box>
+
+          <MotionBox
+            w={{ base: "100%", md: "50%" }}
+            whileHover={{ scale: 1.05 }} // Hover effect for the image
+            transition={{ duration: 0.3 }}
+          >
+            <MotionImage
+              src="./images/Homegallery/galleryimg9.jpeg" // Use your own image path
+              alt="Our Mission"
+              borderRadius="15px"
+              objectFit="cover"
+              w="100%"
+              h={{ base: "180px", md: "250px", lg: "300px" }}
+              whileHover={{ scale: 1.02 }} // Slight zoom on hover
+              transition={{ duration: 0.5 }}
+            />
+          </MotionBox>
+        </Flex>
+      </MotionBox>
     </Box>
   );
 };

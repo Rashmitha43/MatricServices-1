@@ -45,7 +45,6 @@ const Aboutsec3 = () => {
         justifyContent="center"
         pt="20px"
         pb="20px"
-        bgColor="#f7f7f7"
         overflow="hidden"
       >
         {/* Box Wrapper */}
@@ -84,13 +83,13 @@ const Aboutsec3 = () => {
                 as="h2"
                 fontSize={["lg", "xl"]}
                 fontWeight="bold"
-                color="white"
+                color="#000"
                 mb={2}
                 textShadow="0 2px 4px rgba(0, 0, 0, 0.4)"
               >
                 Are You Ready?
               </Heading>
-              <Text as="h3" fontSize={["xl", "2xl"]} fontWeight="semibold" color="white" mb={4}>
+              <Text as="h3" fontSize={["xl", "2xl"]} fontWeight="semibold" color="#000" mb={4}>
                 Start a New Project
               </Text>
               <motion.div whileHover={buttonHover}>
@@ -161,13 +160,13 @@ const Aboutsec3 = () => {
                 as="h2"
                 fontSize={["xl", "2xl"]}
                 fontWeight="semibold"
-                color="black"
+                color="#fff"
                 mb={2}
                 textShadow="0 2px 4px rgba(0, 0, 0, 0.4)"
               >
                 What Are You Waiting for?
               </Heading>
-              <Text as="p" fontSize={["md", "lg"]} color="black" mb={4}>
+              <Text as="p" fontSize={["md", "lg"]} color="#fff" mb={4}>
                 Let's Talk About Work
               </Text>
               <motion.div whileHover={buttonHover}>
@@ -175,7 +174,7 @@ const Aboutsec3 = () => {
                   colorScheme="blackAlpha"
                   size={buttonSize}
                   p={4}
-                  bgColor="black"
+                  bgColor="gray"
                   color="white"
                   borderRadius="10px"
                   rightIcon={<FaArrowRight />}

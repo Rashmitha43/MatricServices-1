@@ -20,7 +20,7 @@ const Footer = () => {
       <Box
         as="footer"
         bg={footerBg}
-        color="white"
+        color="#000"
         py={[8, 10]}
         mt={12}
         boxShadow="2xl"
@@ -130,7 +130,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <Box textAlign="center" py={[4, 6]} mt={8} pl={paddingLeft}>
-          <Text fontSize={["sm", "md"]} color="gray.100" fontWeight="medium">
+          <Text fontSize={["sm", "md"]} color="#000" fontWeight="medium">
             © {new Date().getFullYear()} BrandName. All Rights Reserved.
           </Text>
         </Box>
