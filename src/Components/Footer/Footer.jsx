@@ -20,16 +20,17 @@ const Footer = () => {
       <Box
         as="footer"
         bg={footerBg}
-        color="#000"
+    
         py={[8, 10]}
         mt={12}
         boxShadow="2xl"
         position="relative"
         overflow="hidden"
+        color='white'
       >
         <Flex
           direction={['column', 'column', 'row']}
-          justify="space-between"
+          justify={{base:'space-between',md:'space-between',lg:'space-evenly'}}
           align="flex-start" // Aligns items to the left
           px={paddingX}
           wrap="wrap"
@@ -41,16 +42,16 @@ const Footer = () => {
             alignItems="flex-start"
             spacing={sectionSpacing}
             mb={[0, 0, 0]}
-            textShadow="1px 1px 5px rgba(0,0,0,0.4)"
+            
             pl={paddingLeft} // Add left padding for mobile devices
           >
-            <Text fontSize={["xl", "2xl"]} fontWeight="bold" letterSpacing="wide" mb="2px">Matrix Services</Text>
-            <Stack direction={['column', 'row']} spacing={2}>
+            <Text fontSize={["xl", "2xl"]} fontWeight="bold" letterSpacing="wide" mb="2px">Matric Services</Text>
+            <Stack direction={['column', 'column']} spacing={2}>
               {['Home', 'About Us', 'Services', 'Contact'].map((link, index) => (
                 <Link
                   key={index}
                   href="#"
-                  _hover={{ color: 'yellow.300', transform: 'scale(1.1)', textDecoration: 'underline' }}
+                  _hover={{ color: 'black', transform: 'scale(1.1)', textDecoration: 'underline' }}
                   transition="all 0.2s ease-in-out"
                   fontSize={textSize}
                 >
@@ -65,13 +66,13 @@ const Footer = () => {
             alignItems="flex-start"
             spacing={sectionSpacing}
             mb="0px"
-            textShadow="1px 1px 5px rgba(0,0,0,0.4)"
+            
             pl={paddingLeft}
             >
             <Text fontSize="lg" fontWeight="semibold">Get In Touch</Text>
             <Text fontSize={textSize}>Main Street, Ghandi Nagar, ST 12345</Text>
             <Text fontSize={textSize}>Phone: +91 9998887776</Text>
-            <Link href="mailto:contact@brandname.com" _hover={{ color: 'yellow.300' }} fontSize={textSize}>
+            <Link href="mailto:contact@brandname.com" _hover={{ color: 'black' }} fontSize={textSize}>
               Email: contact@brandname.com
             </Link>
           </VStack>
@@ -80,7 +81,7 @@ const Footer = () => {
           <VStack
             alignItems="flex-start"
             spacing={sectionSpacing}
-            textShadow="1px 1px 5px rgba(0,0,0,0.4)"
+          
             pl={paddingLeft} 
             mt="0px"
           >
@@ -101,7 +102,7 @@ const Footer = () => {
               ))}
             </Stack>
 
-            <Flex direction={['row', 'row', 'row']} align="flex-start" width="100%" mt={4}>
+            <Flex direction={['row', 'row', 'row']} align="center" width="100%" mt={4}>
               <Input
                 placeholder="Enter your email"
                 variant="filled"
@@ -109,6 +110,7 @@ const Footer = () => {
                 color="black"
                 _placeholder={{ color: 'gray.500' }}
                 borderRadius="md"
+                padding='10px 20px'
                 width={inputWidth}
                 mb={[4, 4, 0]} // Stack input and button on small screens
               />
@@ -119,7 +121,7 @@ const Footer = () => {
                 rightIcon={<MdEmail />}
                 ml={[1, 1, 1]} // Align button next to input on medium and large screens
                 borderRadius="md"
-                _hover={{ bg: 'yellow.500', transform: 'scale(1.05)' }}
+                _hover={{ color:'black' }}
                 transition="all 0.2s ease-in-out"
               >
                 Contact Us
@@ -130,7 +132,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <Box textAlign="center" py={[4, 6]} mt={8} pl={paddingLeft}>
-          <Text fontSize={["sm", "md"]} color="#000" fontWeight="medium">
+          <Text fontSize={["sm", "md"]} color="white" fontWeight="medium">
             © {new Date().getFullYear()} BrandName. All Rights Reserved.
           </Text>
         </Box>
