@@ -54,7 +54,7 @@ const Projectform = () => {
        
         <Box><Input type='text' name='email' placeholder='email' value={formdata.email} onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px 30px'/></Box>
 
-        <Box><textarea cols='30' rows={'5'}></textarea></Box>
+        <Box><textarea cols='30' rows={'5'} placeholder='Curious about our projects? Ask your questions!' ></textarea></Box>
        
         <Box w='100%' display={'flex'} justifyContent={'space-around'}><Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/><Input type='reset'  p='10px 30px' bg={'white'} color={theme.colors.ten} borderRadius='15px' cursor='pointer'/></Box>
 
