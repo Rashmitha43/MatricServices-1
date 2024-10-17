@@ -26,7 +26,7 @@ const workshops = [
   {
     name: "Focused Training Workshops (1-5 Days)",
     des: "These are in-depth workshops on specific technologies or fields, ranging from 1 to 5 days, based on the requirements of participants or institutions.",
-    eg: "3days,Introduction to Python Programming,Basics of Data Analytics and Visualization,PCB Design and Manufacturing,Fundamentals of IoT and Embedded Systems,5days,Advanced Machine Learning and AI Applications,Full-Stack Web Development Bootcamp,Robotics and Automation from Scratch,Robotics and Automation from Scratch",
+    eg: "3days:,Introduction to Python Programming,Basics of Data Analytics and Visualization,PCB Design and Manufacturing,Fundamentals of IoT and Embedded Systems,5days:,Advanced Machine Learning and AI Applications,Full-Stack Web Development Bootcamp,Robotics and Automation from Scratch,Robotics and Automation from Scratch",
   },
 ];
 const Workshopsec2 = () => {

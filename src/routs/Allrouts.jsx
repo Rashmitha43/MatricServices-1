@@ -6,6 +6,7 @@ import Projects from "../pages/Projects/Projects"
 import Workshop from "../pages/Workshops/Workshop";
 import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
+import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage"
 const Allrouts = () => {
     return(
         <>
@@ -14,8 +15,9 @@ const Allrouts = () => {
             <Route path='/' element={<Home/>}/>
             <Route path='/about' element={<AboutUs/>}/>
             <Route path='/projects' element={<Projects/>}/>
-            <Route path='/workshop' element={<Workshop/>}/>
+            <Route path='/workshop' element={<Workshop/>}/>   
             <Route path='/footer' element={<Footer/>}/>
+            <Route path ='/singlepage' element={<Workshopsinglepage/>}/>
             <Route path='*' element={<h1>Page not found</h1>}/>
             </Route>
         </Routes>
