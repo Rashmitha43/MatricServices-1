@@ -1,4 +1,4 @@
-import { Box, Input, Text } from '@chakra-ui/react'
+import { Box, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import theme from '../../theme'
 const Projectform = () => {
@@ -45,21 +45,22 @@ const Projectform = () => {
         borderRadius={"20px"}
       ></Box>
      
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}  mt={5} bg={theme.colors.thirty} w={{base:'100%',md:'80%'}} py='50px' > 
+        <Box display={'flex'} justifyContent={'center'}  flexDirection={'column'}  mt={5} bg={theme.colors.thirty} w={{base:'100%',md:'60%'}} py='50px' > 
         <form onSubmit={handleSubmit}  >
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'} gap={5}>
-        <Box><Input type='text' name='name' placeholder='name'value={formdata.name} onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px 30px'/></Box>
-       
-        <Box><Input type='text' name='phone' placeholder='phone'value={formdata.phone} onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px 30px'/></Box>
-       
-        <Box><Input type='text' name='email' placeholder='email' value={formdata.email} onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px 30px'/></Box>
-
-        <Box><textarea cols='30' rows={'5'} placeholder='Curious about our projects? Ask your questions!' ></textarea></Box>
-       
-        <Box w='100%' display={'flex'} justifyContent={'space-around'}><Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/><Input type='reset'  p='10px 30px' bg={'white'} color={theme.colors.ten} borderRadius='15px' cursor='pointer'/></Box>
-
+        <VStack w='90%' mx='auto' gap={'1rem'}>
         
-        </Box>
+        <Input type='text' size={'lg'} name='name' placeholder='name'value={formdata.name} w='100%' onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+       
+        <Input type='text' name='phone' placeholder='phone'value={formdata.phone} w='100%' onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+       
+        <Input type='text' name='email' placeholder='email' value={formdata.email}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+
+        <textarea  placeholder='Curious about our projects? Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' ></textarea>
+       
+        <Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/>
+        </VStack>
+        
+   
         </form>
         </Box>
       
