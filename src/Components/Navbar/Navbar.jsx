@@ -13,6 +13,7 @@ import {
   DrawerHeader,
   DrawerBody,
   Flex,
+  useDisclosure, // Import useDisclosure
 } from "@chakra-ui/react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
@@ -21,18 +22,30 @@ import theme from "../../theme";
 import logo from "../../assets/logo.png"; // Replace with your logo path
 
 const Navbar = () => {
-  const [isNavOpen, setIsNavOpen] = useState(false); // State for mobile menu toggle
   const [isScrolled, setIsScrolled] = useState(false); // State to track scroll position
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra UI's useDisclosure hook
+  const [scrollPosition, setScrollPosition] = useState(0); // State to store the scroll position
 
   // Toggle the mobile navigation menu
   const toggleNav = () => {
-    setIsNavOpen((prev) => !prev);
+    if (isOpen) {
+      onClose();
+    } else {
+      setScrollPosition(window.scrollY); // Save current scroll position when opening the drawer
+      onOpen();
+    }
   };
 
   // Function to handle scroll and toggle the 'isScrolled' state
   const handleScroll = () => {
     const scrollTop = window.scrollY; // Get vertical scroll position
     setIsScrolled(scrollTop > 0); // Set state to true if scrolled down
+  };
+
+  // Restore scroll position when closing the drawer
+  const handleClose = () => {
+    onClose();
+    window.scrollTo(0, scrollPosition); // Restore scroll position
   };
 
   // Effect to add scroll event listener and clean up on unmount
@@ -59,6 +72,7 @@ const Navbar = () => {
         top="0"
         zIndex="10"
         transition="position 0.3s ease-in-out"
+        display={isOpen ? "none" : "block"} // Hide navbar when drawer is open
       >
         {/* Mobile & Desktop Flex Container */}
         <HStack
@@ -83,7 +97,7 @@ const Navbar = () => {
             <HStack>
               {/* Hamburger Icon for Small Screens */}
               <IconButton
-                icon={isNavOpen ? <IoMdClose /> : <IoMdMenu />}
+                icon={isOpen ? <IoMdClose /> : <IoMdMenu />}
                 variant="outline"
                 aria-label="Toggle navigation"
                 fontSize="2rem"
@@ -127,7 +141,16 @@ const Navbar = () => {
                 transition: "all 0.3s ease", // Smooth transition
               }}
             >
-              <FaWhatsapp /> <Text>Chat Now</Text>
+              <a
+                href="https://wa.me/9490340792"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <HStack spacing={2} alignItems="center">
+                  <FaWhatsapp cursor="pointer" />
+                  <Text>Chat Now</Text>
+                </HStack>
+              </a>
             </Box>
           </HStack>
 
@@ -184,90 +207,122 @@ const Navbar = () => {
                 alignItems="center"
                 justifyContent="center"
                 gap="5px"
-                color='white'
+                color="white"
                 _hover={{
                   backgroundColor: theme.colors.thirty,
-                  color:'black'
-                 
+                  color: "black",
                 }}
               >
-                <FaWhatsapp /> Chat Now
+                <a
+                  href="https://wa.me/9490340792"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <HStack spacing={2} alignItems="center">
+                    <FaWhatsapp cursor="pointer" />
+                    <Text>Chat Now</Text>
+                  </HStack>
+                </a>
               </Box>
             </Box>
           </Box>
         </HStack>
+      </Box>
 
-        {/* Drawer Menu for Mobile */}
-        <Drawer isOpen={isNavOpen} placement="left" onClose={toggleNav}>
-          <DrawerOverlay />
-          <DrawerContent bg="#fff">
-            <DrawerHeader>
-              {/* Flexbox to align logo and close button in a row */}
-              <Flex
-                justifyContent="space-between"
-                alignItems="center"
-                w="100%"
-                p="10px"
+      {/* Drawer Menu for Mobile */}
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={handleClose} // Use handleClose to restore scroll position
+        trapFocus={true} // Ensure focus is trapped inside the drawer
+        lockFocusAcrossFrames={true} // Lock focus to drawer
+        closeOnOverlayClick={false} // Disable closing when clicking outside
+        zIndex="1000"
+      >
+        <DrawerOverlay />
+        <DrawerContent bg="#fff">
+          <DrawerHeader>
+            {/* Flexbox to align logo and close button in a row */}
+            <Flex
+              justifyContent="space-between"
+              alignItems="center"
+              w="100%"
+              mb={0}
+            >
+              <Box
+                w={{ base: "50%", md: "25%", lg: "15%" }}
+                h={{ base: "100%", md: "80%" }}
+                ml="0px"
               >
-                <Box
-                  w={{ base: "50%", md: "30%", lg: "15%" }}
-                  h={{ base: "100%", md: "80%" }}
-                  ml="0px"
-                >
-                  <NavLink to="/">
-                    <Image w="100%" h="100%" src={logo} alt="Logo" />
-                  </NavLink>
-                </Box>
-                <DrawerCloseButton position="static" />{" "}
-                {/* Remove absolute positioning */}
-              </Flex>
-            </DrawerHeader>
+                <NavLink to="/">
+                  <Image w="100%" h="100%" src={logo} alt="Logo" />
+                </NavLink>
+              </Box>
+              <DrawerCloseButton position="relative" p="10px" />
+            </Flex>
+          </DrawerHeader>
 
-            <DrawerBody>
-              {/* Collapsible Menu for Mobile */}
-              <VStack
-                spacing={4}
-                alignItems="flex-start"
-                textAlign="left"
-                fontWeight="700"
-                textTransform="uppercase"
-                w="full"
-                p={4}
-              >
-                <NavLink to="/" style={navLinkStyle}  onClick={toggleNav}>
+          <DrawerBody>
+            {/* Collapsible Menu for Mobile */}
+            <VStack
+              spacing={4}
+              alignItems="flex-start"
+              textAlign="left"
+              fontWeight="700"
+              textTransform="uppercase"
+              w="full"
+              mt={0}
+              p={4}
+            >
+              <NavLink to="/" style={navLinkStyle} onClick={handleClose}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
               </NavLink>
-              <NavLink to="/about" style={navLinkStyle}  onClick={toggleNav}>
+              <NavLink to="/about" style={navLinkStyle} onClick={handleClose}>
                 <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
-              <NavLink to="/projects" style={navLinkStyle}  onClick={toggleNav}>
+              <NavLink
+                to="/projects"
+                style={navLinkStyle}
+                onClick={handleClose}
+              >
                 <Box _hover={{ cursor: "pointer" }}>Projects</Box>
               </NavLink>
-              <NavLink to="/workshop" style={navLinkStyle}  onClick={toggleNav}>
+              <NavLink
+                to="/workshop"
+                style={navLinkStyle}
+                onClick={handleClose}
+              >
                 <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
               </NavLink>
-                <Box
-                  w="max-content"
-                  borderRadius="30px"
-                  p="5px 15px"
-                  bg={theme.colors.thirty}
-                  display={{ base: "flex", lg: "none" }} // Show only in mobile menu
-                  alignItems="center"
-                  justifyContent="center"
-                  gap="5px"
-                  color='white'
-                  _hover={{
-                    backgroundColor: theme.colors.ten,
-                    
-                  }}
+              <Box
+                w="max-content"
+                borderRadius="30px"
+                p="5px 15px"
+                bg={theme.colors.thirty}
+                display={{ base: "flex", lg: "none" }} // Show only in mobile menu
+                alignItems="center"
+                justifyContent="center"
+                gap="5px"
+                color="white"
+                _hover={{
+                  backgroundColor: theme.colors.ten,
+                }}
+              >
+                <a
+                  href="https://wa.me/9490340792"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <FaWhatsapp /> <Text>Chat Now</Text>
-                </Box>
-              </VStack>
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
-      </Box>
+                  <HStack spacing={2} alignItems="center">
+                    <FaWhatsapp cursor="pointer" />
+                    <Text>Chat Now</Text>
+                  </HStack>
+                </a>
+              </Box>
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };
