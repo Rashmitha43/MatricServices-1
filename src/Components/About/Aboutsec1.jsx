@@ -11,16 +11,16 @@ const Aboutsec1 = () => {
     <Box
       sx={{
         width: "100%",
-        height: "100vh", // Full viewport height
+        height:["50vh", "100vh"],
         display: "flex",
-        alignItems: "center",
+        alignItems: ["end","center"],
         justifyContent: "center",
         position: "relative",
         overflow: "hidden",
-        bgColor: theme.colors.black, // Fallback color
+        bgColor: theme.colors.black, 
       }}
     >
-      {/* Background image box */}
+
       <Box
         position="absolute"
         top="0"
@@ -34,7 +34,6 @@ const Aboutsec1 = () => {
         zIndex="1"
       />
 
-      {/* Background Overlay */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.6 }}
@@ -50,18 +49,17 @@ const Aboutsec1 = () => {
         }}
       />
 
-      {/* Text Content with animation */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }} // Initial animation state
-        animate={{ opacity: 1, y: 0 }} // Final animation state
-        transition={{ duration: 1.5, delay: 0.5 }} // Slight delay for smooth entrance
-        style={{ zIndex: 3, width: "100%" }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 1.5, delay: 0.5 }} 
+        style={{ zIndex: 3, width: "100%"}}
       >
         <Box
-          width={["90%", "80%", "60%"]}
-          textAlign={["center", "center", "left"]} // Centered on small screens, aligned left on larger
+          width={["80%", "75%", "60%"]}
+          textAlign={["left", "left", "left"]}
           color={theme.colors.white}
-          p={[0, 0, "5%"]} // Padding on larger screens for alignment
+          p={["3%", "4%", "5%"]}
         >
           <Heading
             fontSize={["3xl", "4xl", "5xl"]}
@@ -74,12 +72,12 @@ const Aboutsec1 = () => {
           <Heading
             fontSize={["lg", "xl", "2xl"]}
             fontWeight="medium"
-            mb={6}
-            color={theme.colors.ten}
+            mb={[2, 6]}
+            color={theme.colors.white}
           >
             An initiative towards practicality of knowledge.
           </Heading>
-          <Text fontSize={["md", "lg"]} lineHeight="1.6">
+          <Text fontSize={["md", "lg"]} lineHeight={["1.2","1.6"]}>
             At Matric Services, we are driven by passion, love, and a deep
             commitment to societal progress. We offer a wide range of
             technology-related services, from organizing specialized workshops

@@ -26,7 +26,7 @@ const Footer = () => {
         boxShadow="2xl"
         position="relative"
         overflow="hidden"
-        color='white'
+        color='#fff'
       >
         <Flex
           direction={['column', 'column', 'row']}
