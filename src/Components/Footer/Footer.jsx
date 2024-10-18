@@ -47,17 +47,38 @@ const Footer = () => {
           >
             <Text fontSize={["xl", "2xl"]} fontWeight="bold" letterSpacing="wide" mb="2px">Matric Services</Text>
             <Stack direction={['column', 'column']} spacing={2}>
-              {['Home', 'About Us', 'Services', 'Contact'].map((link, index) => (
-                <Link
-                  key={index}
-                  href="#"
+            <Link
+                  href="/"
                   _hover={{ color: 'black', transform: 'scale(1.1)', textDecoration: 'underline' }}
                   transition="all 0.2s ease-in-out"
                   fontSize={textSize}
                 >
-                  {link}
+                 Home
                 </Link>
-              ))}
+                <Link
+                  href="/about"
+                  _hover={{ color: 'black', transform: 'scale(1.1)', textDecoration: 'underline' }}
+                  transition="all 0.2s ease-in-out"
+                  fontSize={textSize}
+                >
+                 About
+                </Link>
+                <Link
+                  href="/projects"
+                  _hover={{ color: 'black', transform: 'scale(1.1)', textDecoration: 'underline' }}
+                  transition="all 0.2s ease-in-out"
+                  fontSize={textSize}
+                >
+                 Projects
+                </Link>
+                <Link
+                  href="/workshop"
+                  _hover={{ color: 'black', transform: 'scale(1.1)', textDecoration: 'underline' }}
+                  transition="all 0.2s ease-in-out"
+                  fontSize={textSize}
+                >
+                 Workshops
+                </Link>
             </Stack>
           </VStack>
 

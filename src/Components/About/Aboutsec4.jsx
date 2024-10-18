@@ -109,6 +109,7 @@ const Aboutsec4 = () => {
       <SimpleGrid columns={[2, 2, 3, 3]} spacing={5} mt={10}>
         {filter.map((image, index) => (
           <MotionBox
+          cursor='pointer'
             key={index}
             w='100%'
             overflow={'hidden'}

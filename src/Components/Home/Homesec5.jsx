@@ -59,7 +59,7 @@ const Homesec5 = () => {
       <SimpleGrid columns={[2,2,3,3]} spacing={5} mt={10}>
         {
           filter.map((image,index)=>(
-            <Box key={index} w='100%' overflow={'hidden'} h={{base:'150px',md:'200px',lg:'250px'}} display='flex' alignItems={'center'} justifyContent={'center'} position={'relative'} onClick={()=>setPhotoIndex(index)} _hover={{transition:'all 0.5s ease',transform:'scale(1.03)'}}> 
+            <Box cursor='pointer' key={index} w='100%' overflow={'hidden'} h={{base:'150px',md:'200px',lg:'250px'}} display='flex' alignItems={'center'} justifyContent={'center'} position={'relative'} onClick={()=>setPhotoIndex(index)} _hover={{transition:'all 0.5s ease',transform:'scale(1.03)'}}> 
             <Image  src={image}          
             objectFit="cover" 
             width="100%" 

@@ -133,16 +133,12 @@ const Navbar = () => {
               alignItems="center"
               justifyContent="center"
               gap="5px"
+              color='white'
               cursor="pointer" // Change cursor to pointer
-              _hover={{
-                backgroundColor: theme.colors.thirty,
-                color: "white",
-                transform: "scale(1.05)", // Slightly increase the size
-                transition: "all 0.3s ease", // Smooth transition
-              }}
+            
             >
               <a
-                href="https://wa.me/9490340792"
+                href="https://wa.me/919390555433"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -208,13 +204,10 @@ const Navbar = () => {
                 justifyContent="center"
                 gap="5px"
                 color="white"
-                _hover={{
-                  backgroundColor: theme.colors.thirty,
-                  color: "black",
-                }}
+                
               >
                 <a
-                  href="https://wa.me/9490340792"
+                  href="https://wa.me/919390555433"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -304,12 +297,10 @@ const Navbar = () => {
                 justifyContent="center"
                 gap="5px"
                 color="white"
-                _hover={{
-                  backgroundColor: theme.colors.ten,
-                }}
+              
               >
                 <a
-                  href="https://wa.me/9490340792"
+                  href="https://wa.me/919390555433"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
