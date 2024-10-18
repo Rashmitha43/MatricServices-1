@@ -7,7 +7,11 @@ import Workshop from "../pages/Workshops/Workshop";
 import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
-import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage"
+import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
+import AdminLayout from "../Layouts/Adminlayout/Adminlayout";
+import AddProject from "../Components/Admin/Addproject";
+import ProjectTable from "../Components/Admin/ProjectTable";
+
 const Allrouts = () => {
     return(
         <>
@@ -21,6 +25,11 @@ const Allrouts = () => {
             <Route path='/footer' element={<Footer/>}/>
             <Route path ='/singlepage' element={<Workshopsinglepage/>}/>
             <Route path='*' element={<h1>Page not found</h1>}/>
+            </Route>
+
+            <Route element={<AdminLayout/>}>
+            <Route path="/admin/Addproject" element={<AddProject/>}/>
+            <Route path="/admin/Projecttable" element={<ProjectTable/>}/>
             </Route>
         </Routes>
         </>
