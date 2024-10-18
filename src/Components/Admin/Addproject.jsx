@@ -26,6 +26,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import theme from "../../theme";
 
 const AddProject = () => {
   const [formData, setFormData] = useState({
@@ -110,13 +111,9 @@ const AddProject = () => {
     borderRadius: "md",
     borderStyle: "solid",
     borderWidth: "2px",
-    borderColor: "#c9be9f",
-    height: "40px",
+    borderColor: `${theme.colors.thirty}`,
     width: "100%",
-    p: "5px",
-    _hover: {
-      borderColor: "yellow.300",
-    },
+    p: "10px",
   };
 
   return (
@@ -137,15 +134,15 @@ const AddProject = () => {
         transform: "translateY(-4px)",
       }}
     >
-
       <Text
         fontSize="4xl"
-        fontWeight="extrabold"
+        fontWeight="xl"
         mb={6}
         textAlign="center"
-        color={useColorModeValue("gray.800", "yellow.300")}
-        bgGradient="linear(to-r, yellow.400, yellow.500)"
-        bgClip="text"
+        color="black"
+        // color={useColorModeValue("gray.800", "yellow.300")}
+        // bgGradient="linear(to-r, yellow.400, yellow.500)"
+        // bgClip="text"
       >
         ADD A PROJECT
       </Text>
@@ -165,7 +162,6 @@ const AddProject = () => {
               {...inputStyles}
             />
           </FormControl>
-
 
           <FormControl isRequired>
             <FormLabel fontSize="lg" fontWeight="medium">
@@ -196,25 +192,29 @@ const AddProject = () => {
           </FormControl>
 
           <HStack spacing={6} width="100%">
-            <FormControl width="100%">
-              <FormLabel fontSize="lg" fontWeight="medium">
+            <FormControl w="100%">
+              <FormLabel fontSize="lg" fontWeight="medium" w="100%">
                 Amount
               </FormLabel>
-              <Select
+              <select
                 name="amount"
                 value={formData.amount}
+                placeholder="select Amount"
                 onChange={handleInputChange}
-                placeholder="Select amount"
-                icon={<Box display="none" />}
-                {...inputStyles}
+                style={{
+                  padding: "10px",
+                  border: `2px solid ${theme.colors.thirty}`,
+                  width: "100%",
+                  borderRadius: "5px",
+                }}
               >
-                <option value="free">Free</option>
-                <option value="paid">Paid</option>
-              </Select>
+                <option value="free">free</option>
+                <option value="paid">paid</option>
+              </select>
             </FormControl>
 
             <FormControl width="100%">
-              <FormLabel fontSize="lg" fontWeight="medium">
+              <FormLabel fontSize="lg" fontWeight="medium" w="100%">
                 Criteria
               </FormLabel>
               <Input
@@ -224,6 +224,7 @@ const AddProject = () => {
                 placeholder="Selection criteria"
                 size="lg"
                 {...inputStyles}
+                w="100%"
               />
             </FormControl>
           </HStack>
@@ -304,11 +305,8 @@ const AddProject = () => {
               borderRadius="md"
               width="170px"
               textAlign="center"
-              _hover={{
-                borderColor: "yellow.500",
-                backgroundColor: "yellow.500",
-                Cursor: "pointer",
-              }}
+              cursor='pointer'
+              _hover={{backgroundColor:'blue.200'}}
             >
               <Button
                 colorScheme="yellow"
@@ -317,9 +315,7 @@ const AddProject = () => {
                 position="relative"
                 overflow="hidden"
                 leftIcon={<Icon as={AiOutlineCloudUpload} boxSize={6} />}
-                _hover={{
-                  Cursor: "pointer",
-                }}
+                cursor={'pointer'}
               >
                 Upload Images
                 <Input
@@ -374,7 +370,6 @@ const AddProject = () => {
           <Box display="flex" justifyContent="center" mt={6}>
             <Button
               type="submit"
-              colorScheme="yellow"
               size="lg"
               width="150px"
               borderRadius="10px"
@@ -384,11 +379,9 @@ const AddProject = () => {
               textAlign="center"
               fontSize="lg"
               fontWeight="bold"
-              boxShadow="lg"
               _hover={{
-                bg: "yellow.500",
                 transform: "scale(1.05)",
-                boxShadow: "xl",
+                transition: "all 0.5s ease",
               }}
             >
               Add Project
@@ -407,7 +400,7 @@ const AddProject = () => {
             justifyContent="center"
             alignItems="center"
             p={0}
-            maxHeight="80vh" 
+            maxHeight="80vh"
             overflowY="auto"
           >
             <Image
@@ -419,7 +412,7 @@ const AddProject = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="yellow" mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose}>
               Close
             </Button>
           </ModalFooter>
