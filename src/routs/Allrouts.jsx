@@ -8,9 +8,10 @@ import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
 import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
-import AdminLayout from "../Layouts/AdminLayout/Adminlayout";
+import AdminLayout from "../Layouts/Adminlayout/Adminlayout";
 import AddProject from "../Components/Admin/Addproject";
 import ProjectTable from "../Components/Admin/ProjectTable";
+import AdminHome from "../Components/Admin/AdminHome";
 
 const Allrouts = () => {
     return(
@@ -28,8 +29,9 @@ const Allrouts = () => {
             </Route>
 
             <Route element={<AdminLayout/>}>
+            <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/Addproject" element={<AddProject/>}/>
-            <Route path="/admin/Projecttable" element={<ProjectTable/>}/>
+            <Route path="/admin/projecttable" element={<ProjectTable/>}/>
             </Route>
         </Routes>
         </>
