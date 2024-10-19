@@ -31,7 +31,7 @@ const Allrouts = () => {
             <Route element={<AdminLayout/>}>
             <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/Addproject" element={<AddProject/>}/>
-            <Route path="/admin/Projecttable" element={<ProjectTable/>}/>
+            <Route path="/admin/projecttable" element={<ProjectTable/>}/>
             </Route>
         </Routes>
         </>
