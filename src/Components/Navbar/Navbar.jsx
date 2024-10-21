@@ -178,12 +178,13 @@ const Navbar = () => {
               <NavLink to="/about" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
-              <NavLink to="/projects" style={navLinkStyle}>
-                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
-              </NavLink>
               <NavLink to="/workshop" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
               </NavLink>
+              <NavLink to="/projects" style={navLinkStyle}>
+                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
+              </NavLink>
+              
             </Box>
 
             {/* WhatsApp Button for Desktop */}
@@ -274,24 +275,25 @@ const Navbar = () => {
                 <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
               <NavLink
-                to="/projects"
-                style={navLinkStyle}
-                onClick={handleClose}
-              >
-                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
-              </NavLink>
-              <NavLink
                 to="/workshop"
                 style={navLinkStyle}
                 onClick={handleClose}
               >
                 <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
               </NavLink>
+              <NavLink
+                to="/projects"
+                style={navLinkStyle}
+                onClick={handleClose}
+              >
+                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
+              </NavLink>
+              
               <Box
                 w="max-content"
                 borderRadius="30px"
                 p="5px 15px"
-                bg={theme.colors.thirty}
+                bg={theme.colors.ten}
                 display={{ base: "flex", lg: "none" }} // Show only in mobile menu
                 alignItems="center"
                 justifyContent="center"
