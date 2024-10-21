@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { useState } from "react";
 const colors = {
     sixty:'white',
     thirty:'#ededed',

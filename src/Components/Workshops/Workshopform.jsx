@@ -1,7 +1,7 @@
 import { Box, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import theme from '../../theme'
-const Projectform = () => {
+const Workshopform = () => {
   const init={
     name:'',
     phone:'',
@@ -38,7 +38,7 @@ const Projectform = () => {
       my={{ base: "3rem", md: "4rem", lg: "5rem" }}
     >
       <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
-      Contact Us
+      Get in Touch
       </Text>
       <Box
         w="80px"
@@ -59,7 +59,7 @@ const Projectform = () => {
 
         <Input type='text' name='email' placeholder='College/Institute' value={formdata.college}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <textarea  placeholder='Curious about our projects? Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="doubts" value={formdata.doubts} ></textarea>
+        <textarea  placeholder='Want to participate or organize? Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="doubts" value={formdata.doubts} ></textarea>
        
         <Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/>
         </VStack>
@@ -73,4 +73,4 @@ const Projectform = () => {
   )
 }
 
-export default Projectform
+export default Workshopform

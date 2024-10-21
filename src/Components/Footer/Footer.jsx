@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Flex, Text, Link, Stack, IconButton, Input, Button, useBreakpointValue, VStack, Fade } from "@chakra-ui/react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import theme from '../../theme';
+
 
 const Footer = () => {
   // Dynamic background colors and styles based on screen size
@@ -14,6 +15,22 @@ const Footer = () => {
   const paddingX = useBreakpointValue({ base: 4, md: 8, lg: 12 }); // Dynamic padding for different screen sizes
   const sectionSpacing = useBreakpointValue({ base: 2, md: 3 }); 
   const paddingLeft = useBreakpointValue({ base: 6, md: 0 }); // Add left padding on mobile screens
+  const [mail,setMail]=useState('')
+
+  function Sendmail() {
+    // Create the mailto link with subject and body
+    if(mail!==''){
+      const email = "contact@matricservices.in";
+      const subject = "Subscription";
+      const body = mail
+     
+      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  
+  
+      window.location.href = mailtoLink;
+    }
+
+  }
 
   return (
     <Fade in={true} transition={{ enter: { duration: 0.5 } }}>
@@ -91,10 +108,10 @@ const Footer = () => {
             pl={paddingLeft}
             >
             <Text fontSize="lg" fontWeight="semibold">Get In Touch</Text>
-            <Text fontSize={textSize}>Main Street, Ghandi Nagar, ST 12345</Text>
-            <Text fontSize={textSize}>Phone: +91 9998887776</Text>
-            <Link href="mailto:contact@brandname.com" _hover={{ color: 'black' }} fontSize={textSize}>
-              Email: contact@brandname.com
+            <Text fontSize={textSize}>Muralinagar, Visakhapatnam, 530007</Text>
+            <a href='tel:+919390555433' style={{fontSize:textSize}}>Phone: +91 9998887776</a>
+            <Link href="mailto:contact@matricservices.in" _hover={{ color: 'black' }} fontSize={textSize}>
+              Email: contact@matricservices.in
             </Link>
           </VStack>
 
@@ -108,19 +125,61 @@ const Footer = () => {
           >
             <Text fontSize="xl" fontWeight="bold">Follow Us</Text>
             <Stack direction="row" spacing={[2, 4]} justify="flex-start">
-              {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube].map((Icon, index) => (
+              
                 <IconButton
-                  key={index}
                   as="a"
-                  href="#"
-                  aria-label={`${Icon.displayName}`}
-                  icon={<Icon />}
+                  href="https://www.facebook.com/matricservices1/"
+                  aria-label={`FaFacebook`}
+                  icon={<FaFacebook/>}
                   size={socialSize}
                   variant="outline"
                   _hover={{ color: "#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.3)', boxShadow: 'lg' }}
                   transition="all 0.3s ease-in-out"
                 />
-              ))}
+
+               <IconButton
+                  as="a"
+                  href="https://x.com/Matric_Services?t=OE9Qhghtf1qUZXEpOSnMSw&s=08"
+                  aria-label={`FaTwitter`}
+                  icon={<FaTwitter/>}
+                  size={socialSize}
+                  variant="outline"
+                  _hover={{ color: "#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.3)', boxShadow: 'lg' }}
+                  transition="all 0.3s ease-in-out"
+                />
+
+                  <IconButton
+                  as="a"
+                  href="https://www.instagram.com/matric_services/profilecard/?igsh=eDRtMDZqZzFjZXpv"
+                  aria-label={`FaInstagram`}
+                  icon={<FaInstagram/>}
+                  size={socialSize}
+                  variant="outline"
+                  _hover={{ color: "#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.3)', boxShadow: 'lg' }}
+                  transition="all 0.3s ease-in-out"
+                />
+
+                  <IconButton
+                  as="a"
+                  href="https://www.instagram.com/matric_services/profilecard/?igsh=eDRtMDZqZzFjZXpv"
+                  aria-label={`FaLinkedin`}
+                  icon={<FaLinkedin/>}
+                  size={socialSize}
+                  variant="outline"
+                  _hover={{ color: "#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.3)', boxShadow: 'lg' }}
+                  transition="all 0.3s ease-in-out"
+                />
+
+                <IconButton
+                  as="a"
+                  href="https://www.youtube.com/@matric_services"
+                  aria-label={`FaYoutube`}
+                  icon={<FaYoutube/>}
+                  size={socialSize}
+                  variant="outline"
+                  _hover={{ color: "#292b2a", bg: 'whiteAlpha.900', transform: 'scale(1.3)', boxShadow: 'lg' }}
+                  transition="all 0.3s ease-in-out"
+                />
             </Stack>
 
             <Flex direction={['row', 'row', 'row']} align="center" width="100%" mt={4}>
@@ -133,6 +192,7 @@ const Footer = () => {
                 borderRadius="md"
                 padding='10px 20px'
                 width={inputWidth}
+                onChange={(event)=>setMail(event.target.value)}
                 mb={[4, 4, 0]} // Stack input and button on small screens
               />
               <Button
@@ -144,8 +204,9 @@ const Footer = () => {
                 borderRadius="md"
                 _hover={{ color:'black' }}
                 transition="all 0.2s ease-in-out"
+                onClick={Sendmail}
               >
-                Contact Us
+                Subscribe
               </Button>
             </Flex>
           </VStack>
@@ -154,7 +215,7 @@ const Footer = () => {
         {/* Copyright Section */}
         <Box textAlign="center" py={[4, 6]} mt={8} pl={paddingLeft}>
           <Text fontSize={["sm", "md"]} color="white" fontWeight="medium">
-            © {new Date().getFullYear()} BrandName. All Rights Reserved.
+            © {new Date().getFullYear()} Matric Services. All Rights Reserved.
           </Text>
         </Box>
       </Box>

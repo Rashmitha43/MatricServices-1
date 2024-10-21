@@ -6,14 +6,15 @@ import theme from "../../theme";
 
 
 
-const projects=[
-  '/images/Homegallery/projectimage1.jpeg',
-  '/images/Homegallery/projectimage2.jpeg',
-  '/images/Homegallery/projectimage4.jpeg',
-  '/images/Homegallery/projectimage5.jpeg',
+const workshop=[
+  '/images/Homegallery/galleryimg1.jpeg',
+  '/images/Homegallery/galleryimg3.jpeg',
+  '/images/Homegallery/galleryimg6.jpeg',
+  '/images/Homegallery/galleryimg7.jpeg',
+  '/images/Homegallery/galleryimg8.jpeg',
 ]
 
-const Projectgallery = () => {
+const Workshopgallery = () => {
   const [photoIndex, setPhotoIndex] = useState(-1);
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -30,7 +31,7 @@ const Projectgallery = () => {
       my={{ base: "3rem", md: "4rem", lg: "5rem" }}
     >
       <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
-        Our Projects
+       Related Images
       </Text>
      
       <Box w="80px" h="3px" bg={theme.colors.ten} borderRadius={"20px"}></Box>
@@ -38,7 +39,7 @@ const Projectgallery = () => {
       
       <SimpleGrid columns={[2,2,3,3]} spacing={5} mt={10}>
         {
-          projects.map((image,index)=>(
+          workshop.map((image,index)=>(
             <Box key={index} w='100%' overflow={'hidden'} h={{base:'150px',md:'200px',lg:'250px'}} display='flex' alignItems={'center'} justifyContent={'center'} position={'relative'} onClick={()=>setPhotoIndex(index)} _hover={{transition:'all 0.5s ease',transform:'scale(1.03)'}}> 
             <Image  src={image}          
             objectFit="cover" 
@@ -59,7 +60,7 @@ const Projectgallery = () => {
             {photoIndex >= 0 && (
               <Box display={'flex'} alignItems={'flex-start'} justifyContent={'center'} gap={{base:'5px',md:'10px',lg:'20px'}}>
               <Image 
-                src={projects[photoIndex]} 
+                src={workshop[photoIndex]} 
                 objectFit="cover" 
                 width={{base:'80%',md:'90%',lg:'100%'}}
                 maxH={{base:'50vh',md:'70vh'}}
@@ -79,4 +80,4 @@ const Projectgallery = () => {
   );
 };
 
-export default Projectgallery;
+export default Workshopgallery;
