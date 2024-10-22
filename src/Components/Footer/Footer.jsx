@@ -55,6 +55,7 @@ const Footer = () => {
           gap={[8, 10, 0]} // Ensure sections have adequate spacing on smaller screens
         >
           {/* Left Column */}
+          {/* //added stack */}
           <VStack
             alignItems="flex-start"
             spacing={sectionSpacing}
