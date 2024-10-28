@@ -70,7 +70,7 @@ const Navbar = () => {
         position={isScrolled ? "fixed" : "static"} // Position fixed when scrolled
         w="100%"
         top="0"
-        zIndex="10"
+        zIndex="100000"
         transition="position 0.3s ease-in-out"
         display={isOpen ? "none" : "block"} // Hide navbar when drawer is open
       >
