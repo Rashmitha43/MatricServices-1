@@ -110,7 +110,7 @@ const Footer = () => {
             >
             <Text fontSize="lg" fontWeight="semibold">Get In Touch</Text>
             <Text fontSize={textSize}>Muralinagar, Visakhapatnam, 530007</Text>
-            <a href='tel:+919390555433' style={{fontSize:textSize}}>Phone: +91 9998887776</a>
+            <a href='tel:+919390555433' style={{fontSize:textSize}}>Phone: +91 9390555433</a>
             <Link href="mailto:contact@matricservices.in" _hover={{ color: 'black' }} fontSize={textSize}>
               Email: contact@matricservices.in
             </Link>

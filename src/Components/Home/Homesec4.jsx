@@ -124,7 +124,7 @@ const Homesec4 = () => {
                   <Box>
                     <Text>
                       {review.des}
-                      <ImQuotesRight  style={{ display: "inline",marginLeft:'8px',position:'relative', top:'5px'}} />
+                      <ImQuotesRight  style={{ display: "inline",marginLeft:'8px',position:'relative'}} />
                     
                      
                     </Text>
