@@ -2,10 +2,6 @@ import { Box, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOver
 import React, { useState } from "react";
 import theme from "../../theme";
 
-
-
-
-
 const projects=[
   '/images/Homegallery/projectimage1.jpeg',
   '/images/Homegallery/projectimage2.jpeg',

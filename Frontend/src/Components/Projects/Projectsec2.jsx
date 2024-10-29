@@ -47,6 +47,7 @@ const projects = [
 const Projectsec2 = () => {
   return (
     <>
+    
       <Box
         maxW="1200px"
         w="95%"
