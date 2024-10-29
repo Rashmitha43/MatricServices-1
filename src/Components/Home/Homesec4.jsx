@@ -90,7 +90,7 @@ const Homesec4 = () => {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        h="auto"
+        h="300px"
         p={10}
       >
         {testimonials?.map((review, index) => (
