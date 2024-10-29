@@ -9,7 +9,7 @@ const EmailSender = require('./controllers/mail_controller')
 app.use(express.json());
 app.use(
     cors({
-        origin: "*",
+        origin: "https://matric-services-frontend.vercel.app",
     })
 );
 // const itemRoutes = require('./routes/itemroutes');
