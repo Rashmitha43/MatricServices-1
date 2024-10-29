@@ -24,7 +24,7 @@ const Projectform = () => {
     console.log("formatted data: " + JSON.stringify(formdata));
 
     try {
-      const response = await fetch("https://matric-services-api.vercel.app/api/inquiries", {
+      const response = await fetch("https://matric-services-api.vercel.app/?vercelToolbarCode=M7fXnEr0sp8qc-0/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formdata),
