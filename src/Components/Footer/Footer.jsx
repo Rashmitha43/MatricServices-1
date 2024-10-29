@@ -55,6 +55,7 @@ const Footer = () => {
           gap={[8, 10, 0]} // Ensure sections have adequate spacing on smaller screens
         >
           {/* Left Column */}
+          {/* //added stack */}
           <VStack
             alignItems="flex-start"
             spacing={sectionSpacing}
@@ -109,7 +110,7 @@ const Footer = () => {
             >
             <Text fontSize="lg" fontWeight="semibold">Get In Touch</Text>
             <Text fontSize={textSize}>Muralinagar, Visakhapatnam, 530007</Text>
-            <a href='tel:+919390555433' style={{fontSize:textSize}}>Phone: +91 9998887776</a>
+            <a href='tel:+919390555433' style={{fontSize:textSize}}>Phone: +91 9390555433</a>
             <Link href="mailto:contact@matricservices.in" _hover={{ color: 'black' }} fontSize={textSize}>
               Email: contact@matricservices.in
             </Link>

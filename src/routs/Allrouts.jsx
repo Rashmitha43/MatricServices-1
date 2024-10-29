@@ -12,6 +12,10 @@ import AdminLayout from "../Layouts/AdminLayout/Adminlayout";//showing error
 import AddProject from "../Components/Admin/Addproject";
 import ProjectTable from "../Components/Admin/ProjectTable";
 import AdminHome from "../Components/Admin/AdminHome";
+// import AdminLayout from "../Layouts/AdminLayout/AdminLayout";
+// import AddProject from "../Components/Admin/Addproject";
+// import ProjectTable from "../Components/Admin/ProjectTable";
+// import AdminHome from "../Components/Admin/AdminHome";
 
 const Allrouts = () => {
     return(
@@ -28,11 +32,11 @@ const Allrouts = () => {
             <Route path='*' element={<h1>Page not found</h1>}/>
             </Route>
 
-            <Route element={<AdminLayout/>}>
+            {/* <Route element={<AdminLayout/>}>
             <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/Addproject" element={<AddProject/>}/>
             <Route path="/admin/projecttable" element={<ProjectTable/>}/>
-            </Route>
+            </Route> */}
         </Routes>
         </>
     )

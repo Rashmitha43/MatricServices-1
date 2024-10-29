@@ -57,9 +57,9 @@ const Workshopform = () => {
        
         <Input type='text' name='email' placeholder='Email' value={formdata.email}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <Input type='text' name='email' placeholder='College/Institute' value={formdata.college}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+        <Input type='text' name='college' placeholder='College/Institute' value={formdata.college}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <textarea  placeholder='Want to participate or organize? Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="doubts" value={formdata.doubts} ></textarea>
+        <textarea  placeholder='Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="doubts" value={formdata.doubts} ></textarea>
        
         <Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/>
         </VStack>
