@@ -7,13 +7,12 @@ const EmailSender = require('./controllers/mail_controller')
 
 // Middleware
 app.use(express.json());
-app.use(
-    cors({
-        origin: ["https://matric-services-frontend.vercel.app"],
-        methods:["POST", "GET"],
-        credentials: true
-    })
-);
+app.use(cors({
+    origin: "https://matric-services-frontend.vercel.app/", // Exact frontend URL
+    methods: ["POST", "GET"], // Specify allowed methods
+    credentials: true // Allows sending cookies with cross-origin requests
+}));
+
 // const itemRoutes = require('./routes/itemroutes');
 // app.use('/api', itemRoutes);
 const inquiryRoutes = require('./routes/inquiryRoutes');
