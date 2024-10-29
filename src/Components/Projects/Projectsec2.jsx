@@ -47,6 +47,7 @@ const projects = [
 const Projectsec2 = () => {
   return (
     <>
+    
       <Box
         maxW="1200px"
         w="95%"
@@ -69,42 +70,65 @@ const Projectsec2 = () => {
           {projects.map((project, index) => (
             <>
               <Card
-               key={index}
+                key={index}
                 maxW="sm"
                 bg={theme.colors.thirty}
                 p={"20px"}
                 _hover={{
                   transform: "scale(1.03)",
                   transition: "all 0.5s ease",
+                  bg: theme.colors.powderblue,
                 }}
-                position={'relative'}
-                h='100%'
+                position={"relative"}
+                h="100%"
               >
-                <CardBody >
-                  <Box mt="4" spacing="3" display={'flex'} justifyContent={'space-between'} flexDirection='column' gap='10px'>
-                    <Heading size="md" textAlign={'center'} fontSize={{base:'1.2rem',md:'1.5rem'}} >{project.name}</Heading>
-                    <Text fontSize={{base:'0.9rem',md:'1rem'}} textAlign={'justify'} mb={10}>{project.des}</Text>
-                    <a
-                    href={project.pdflink}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <CardBody>
+                  <Box
+                    mt="4"
+                    spacing="3"
+                    display={"flex"}
+                    justifyContent={"space-between"}
+                    flexDirection="column"
+                    gap="10px"
                   >
-                    <Button
-                      bg={theme.colors.ten}
-                      color='white'
-                      variant="solid"
-                      size="sm"
-                      p='10px 30px'
-                      mt={10}
-                      position={'absolute'}
-                      bottom='20px'
+                    <Heading
+                      size="md"
+                      textAlign={"center"}
+                      fontSize={{ base: "1.2rem", md: "1.5rem" }}
                     >
-                      View PDF
-                    </Button>
-                  </a>
+                      {project.name}
+                    </Heading>
+                    <Text
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      textAlign={"justify"}
+                      mb={10}
+                    >
+                      {project.des}
+                    </Text>
+                    <a
+                      href={project.pdflink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        bg={theme.colors.ten}
+                        color="white"
+                        variant="solid"
+                        size="sm"
+                        p="10px 30px"
+                        mt={10}
+                        position={"absolute"}
+                        bottom="20px"
+                        _hover={{
+                          bg: theme.colors.ten, // Change background color on hover
+                          transform: "scale(1.05)", // Slightly scale up the button
+                        }}
+                      >
+                        View PDF
+                      </Button>
+                    </a>
                   </Box>
                 </CardBody>
-            
               </Card>
             </>
           ))}
