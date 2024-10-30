@@ -1,13 +1,19 @@
 import { Box, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import theme from '../../theme'
+import { useDispatch } from 'react-redux'
+import { postGetInTouchInfo } from '../../Redux/app/action'
 const Workshopform = () => {
+
+  const dispatch = useDispatch();
+
+
   const init={
     name:'',
     phone:'',
     email:'',
-    doubts:'',
-    college:''
+    askYourQuestions:'',
+    collageOrInstitute:''
   }
   const [formdata,setFormdata]=useState(init)
  
@@ -21,8 +27,22 @@ const Workshopform = () => {
 
   }
   const handleSubmit=(e)=>{
-  e.preventDefault()
-  setFormdata(init)
+  e.preventDefault();
+  
+   if(!formdata.name || !formdata.phone || !formdata.email || !formdata.collageOrInstitute || ! formdata.askYourQuestions){
+    alert('Please Fill the Input fields')
+   }
+   else{
+      dispatch(postGetInTouchInfo(formdata))
+      .then(res=>{
+         alert('Submitted');
+         setFormdata(init)
+      })
+      .catch(error=>{
+         console.log('error',error.message)
+      })
+   }
+  
   }
   return (
    <>
@@ -57,9 +77,9 @@ const Workshopform = () => {
        
         <Input type='text' name='email' placeholder='Email' value={formdata.email}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <Input type='text' name='college' placeholder='College/Institute' value={formdata.college}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+        <Input type='text' name='collageOrInstitute' placeholder='College/Institute' value={formdata.collageOrInstitute}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <textarea  placeholder='Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="doubts" value={formdata.doubts} ></textarea>
+        <textarea  placeholder='Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="askYourQuestions" value={formdata.askYourQuestions} ></textarea>
        
         <Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/>
         </VStack>
