@@ -1,51 +1,24 @@
 import { Box, Input, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import theme from "../../theme";
+import { useDispatch } from "react-redux";
+import { postContactInfo } from "../../Redux/app/action";
 const Projectform = () => {
+
+  const dispatch = useDispatch();
+
+
   const init = {
     name: "",
     phone: "",
     email: "",
-    doubts: "",
-    college: "",
+    collageOrInstitute: "",
+    askYourQuestions: "",
   };
   const [formdata, setFormdata] = useState(init);
-  const [isLoading, setIsLoading] = useState(false); // State to track form submission state
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!isFormFilled()) {
-      alert("Please fill out all fields before submitting.");
-      return; // Early return if form is not filled
-    }
-
-    setIsLoading(true); // Set loading state to indicate ongoing submission
-    console.log("formatted data: " + JSON.stringify(formdata));
-
-    try {
-     const response = await fetch("https://matric-services-api.vercel.app/api/inquiries", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(formdata),
-});
 
 
-      if (!response.ok) {
-        throw new Error("Failed to submit form data.");
-      }
-
-      console.log("Form data submitted successfully:", await response.json());
-      setFormdata(init); // Reset form data after successful submission
-    } catch (error) {
-      console.error("Error submitting form data:", error);
-      alert(
-        "An error occurred while submitting the form. Please try again later."
-      );
-    } finally {
-      setIsLoading(false); // Reset loading state after submission attempt
-    }
-  };
+ 
   const handleFormdata = (e) => {
     const { name, value } = e.target;
     setFormdata((prev) => ({
@@ -53,14 +26,27 @@ const Projectform = () => {
       [name]: value,
     }));
   };
-  // const handleSubmit=(e)=>{
-  // e.preventDefault()
-  // console.log("Form data:",formdata);
+  const handleSubmit=(e)=>{
+  e.preventDefault();
+  
+   if(!formdata.name || !formdata.phone || !formdata.email || !formdata.collageOrInstitute || !formdata.askYourQuestions){
+    alert('Please Fill the Input Fields')
+   }
+   else{
+     dispatch(postContactInfo(formdata))
+     .then(res=>{
+        alert("Form Submitted");
+        setFormdata(init)
+     })
+     .catch(err=>{
+       console.log('error',err.message)
+     })
+   }
+   
 
-  // setFormdata(init)
 
-  // }
-  // Function to check if all fields are filled
+  }
+
   const isFormFilled = () => {
     return Object.values(formdata).every((value) => value.trim() !== "");
   };
@@ -129,9 +115,9 @@ const Projectform = () => {
 
               <Input
                 type="text"
-                name="college"
+                name="collageOrInstitute"
                 placeholder="College/Institute"
-                value={formdata.college}
+                value={formdata.collageOrInstitute}
                 w="100%"
                 onChange={handleFormdata}
                 border={`2px solid ${theme.colors.thirty}`}
@@ -143,8 +129,8 @@ const Projectform = () => {
                 style={{ width: "100%", padding: "10px" }}
                 rows="5"
                 onChange={handleFormdata}
-                name="doubts"
-                value={formdata.doubts}
+                name="askYourQuestions"
+                value={formdata.askYourQuestions}
               ></textarea>
 
               <Input

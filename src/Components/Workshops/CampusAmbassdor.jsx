@@ -7,20 +7,25 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import theme from "../../theme";
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import {  postCampusAmbReg } from "../../Redux/app/action";
 const CampusAmbassdor = () => {
   const [form, setForm] = useState(false);
+
+  const dispatch = useDispatch();
+
+
   const init = {
     name: "",
     phone: "",
     email: "",
-    institution: "",
-    location: "",
-    education: "",
-    howyouknow: "",
-    whyyouwant: "",
+    collageOrInstitute: "",
+    areaOfStudy: "",
+    knowAboutMatricService: "",
+    whyBecAmb: "",
   };
   const [formdata, setFormdata] = useState(init);
   const handleFormdata = (event) => {
@@ -40,6 +45,21 @@ const CampusAmbassdor = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if(!formdata.name || !formdata.phone || !formdata.email || !formdata.collageOrInstitute || !formdata.areaOfStudy  || !formdata.knowAboutMatricService || !formdata.whyBecAmb){
+      alert("Please Fill the Input Fields")
+    }
+    else{
+      dispatch(postCampusAmbReg(formdata))
+      .then(res=>{
+          alert("Form Submitted");
+          setForm(init)
+      })
+      .catch(err=>{
+        console.log('error',err.message)
+      })
+    }
+
     setFormdata(init);
   };
   return (
@@ -167,11 +187,11 @@ const CampusAmbassdor = () => {
                   >
                     <Input
                       type="text"
-                      name="education"
+                      name="areaOfStudy"
                       placeholder="Area of Study*"
                       size={{base:'md',md:'lg'}}
                     fontSize={{base:'0.9rem',md:'1rem'}}
-                      value={formdata.education}
+                      value={formdata.areaOfStudy}
                       w="100%"
                       onChange={handleFormdata}
                       border={`2px solid ${theme.colors.thirty}`}
@@ -179,11 +199,11 @@ const CampusAmbassdor = () => {
                     />
                     <Input
                       type="text"
-                      name="institution"
+                      name="collageOrInstitute"
                       placeholder="Name of College/Institute*"
                       size={{base:'md',md:'lg'}}
                     fontSize={{base:'0.9rem',md:'1rem'}}
-                      value={formdata.institution}
+                      value={formdata.collageOrInstitute}
                       w="100%"
                       onChange={handleFormdata}
                       border={`2px solid ${theme.colors.thirty}`}
@@ -198,8 +218,8 @@ const CampusAmbassdor = () => {
                     border={`2px solid ${theme.colors.thirty}`}
                     style={{ width: "100%", padding: "10px" }}
                     onChange={handleFormdata}
-                    name='howyouknow'
-                    value={formdata.howyouknow}
+                    name='knowAboutMatricService'
+                    value={formdata.knowAboutMatricService}
                   />
 
                   <Textarea
@@ -208,8 +228,8 @@ const CampusAmbassdor = () => {
                     style={{ width: "100%", padding: "10px" }}
                     size={{base:'sm',md:'lg'}}
                     fontSize={{base:'0.9rem',md:'1rem'}}
-                    name='whyyouwant'
-                    value={formdata.whyyouwant}
+                    name='whyBecAmb'
+                    value={formdata.whyBecAmb}
                     onChange={handleFormdata}
 
                   ></Textarea>
