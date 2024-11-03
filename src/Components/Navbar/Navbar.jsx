@@ -171,6 +171,7 @@ const Navbar = () => {
               justifyContent="space-between"
               fontWeight="700"
               textTransform="uppercase"
+              fontSize={'0.8rem'}
             >
               <NavLink to="/" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
@@ -183,6 +184,9 @@ const Navbar = () => {
               </NavLink>
               <NavLink to="/projects" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Projects</Box>
+              </NavLink>
+              <NavLink to="/products" style={navLinkStyle}>
+                <Box _hover={{ cursor: "pointer" }}>Products</Box>
               </NavLink>
               
             </Box>
@@ -287,6 +291,13 @@ const Navbar = () => {
                 onClick={handleClose}
               >
                 <Box _hover={{ cursor: "pointer" }}>Projects</Box>
+              </NavLink>
+              <NavLink
+                to="/products"
+                style={navLinkStyle}
+                onClick={handleClose}
+              >
+                <Box _hover={{ cursor: "pointer" }}>Products</Box>
               </NavLink>
               
               <Box

@@ -12,6 +12,12 @@ import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
 import AddProject from "../Components/Admin/Addproject";
 import ProjectTable from "../Components/Admin/ProjectTable";
 import AdminHome from "../Components/Admin/AdminHome";
+import Product from "../pages/Products/Product";
+import AddProject from "../Components/Admin/Addproject";
+import ProjectTable from "../Components/Admin/ProjectTable";
+import AdminHome from "../Components/Admin/AdminHome";
+import AdminLayout from "../Layouts/Adminlayout/Adminlayout";
+import ProductSinglepage from "../pages/Products/ProductSinglepage";
 
 
 const Allrouts = () => {
@@ -26,6 +32,8 @@ const Allrouts = () => {
             <Route path="/workshopcard" element={<Workshopcard/>}/>  
             <Route path='/footer' element={<Footer/>}/>
             <Route path ='/singlepage' element={<Workshopsinglepage/>}/>
+            <Route path='/products' element={<Product/>}/>
+            <Route path='/productsinglepage' element={<ProductSinglepage/>}/>
             <Route path='*' element={<h1>Page not found</h1>}/>
             </Route>
 
