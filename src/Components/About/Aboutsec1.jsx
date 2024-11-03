@@ -67,7 +67,7 @@ const Aboutsec1 = () => {
             mb={4}
             fontFamily={theme.fonts.body}
           >
-            Matric <Box as="span" color={theme.colors.ten}>Services</Box>
+            Matric Services
           </Heading>
           <Heading
             fontSize={["lg", "xl", "2xl"]}

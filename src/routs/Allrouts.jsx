@@ -5,7 +5,7 @@ import AboutUs from "../pages/AboutUs/About"
 import Projects from "../pages/Projects/Projects"
 import Workshop from "../pages/Workshops/Workshop";
 import Mainlayout from "../Layouts/MainLayout/Mainlayout";
-import AdminLayout from "../Layouts/AdminLayout/AdminLayout";
+import AdminLayout from "../Layouts/Adminlayout/AdminLayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
 import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
@@ -13,10 +13,6 @@ import AddProject from "../Components/Admin/Addproject";
 import ProjectTable from "../Components/Admin/ProjectTable";
 import AdminHome from "../Components/Admin/AdminHome";
 import Product from "../pages/Products/Product";
-import AddProject from "../Components/Admin/Addproject";
-import ProjectTable from "../Components/Admin/ProjectTable";
-import AdminHome from "../Components/Admin/AdminHome";
-import AdminLayout from "../Layouts/Adminlayout/Adminlayout";
 import ProductSinglepage from "../pages/Products/ProductSinglepage";
 
 
