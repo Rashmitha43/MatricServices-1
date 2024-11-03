@@ -1,22 +1,13 @@
-// AdminLayout/adminlayout.jsx
-import React from 'react';
-import { Outlet } from 'react-router-dom';  
-import { Flex, Box } from '@chakra-ui/react';
-import AdminNavbar from '../../Components/Admin/AdminNavbar';
-import theme from '../../theme'
-
-const AdminLayout = () => {
+import React from 'react'
+import AdminNavbar from '../../Components/Admin/AdminNavbar'
+import { Outlet } from 'react-router-dom'
+const Adminlayout = () => {
   return (
-    <Flex h="auto" bg="gray.100">
-      <Box w="25%" bg={theme.colors.ten} color="white" p={8}>
-        <AdminNavbar />
-      </Box>
+    <>
+    <AdminNavbar/>
+    <Outlet/>
+    </>
+  )
+}
 
-      <Box flex="1" >
-        <Outlet />
-      </Box>
-    </Flex>
-  );
-};
-
-export default AdminLayout;
+export default Adminlayout
