@@ -20,38 +20,19 @@ import { FaWhatsapp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import theme from "../../theme";
 import logo from "../../assets/logo.png";
+import { ImCross } from "react-icons/im";
 
 const Webnav = () => {
-    const [isScrolled, setIsScrolled] = useState(false); 
-    const { isOpen, onOpen, onClose } = useDisclosure(); 
-    const [scrollPosition, setScrollPosition] = useState(0);
+  const [open, setOpen] = useState(false);
 
-    const toggleNav = () => {
-        if (isOpen) {
-          onClose();
-        } else {
-          setScrollPosition(window.scrollY); // Save current scroll position when opening the drawer
-          onOpen();
-        }
-      };
-
-      // Function to handle scroll and toggle the 'isScrolled' state
-  const handleScroll = () => {
-    const scrollTop = window.scrollY; // Get vertical scroll position
-    setIsScrolled(scrollTop > 0); // Set state to true if scrolled down
+  const toggleNav = () => {
+    setOpen((prev) => !prev);
+    if (open === true) {
+      document.body.style.overflowY = "scroll";
+    } else {
+      document.body.style.overflowY = "hidden";
+    }
   };
-
-  // Restore scroll position when closing the drawer
-  const handleClose = () => {
-    onClose();
-    window.scrollTo(0, scrollPosition); // Restore scroll position
-  };
-
-  // Effect to add scroll event listener and clean up on unmount
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Common styles for navigation links
   const navLinkStyle = ({ isActive }) => ({
@@ -60,19 +41,18 @@ const Webnav = () => {
     paddingBottom: "3px",
   });
 
-
- return(
+  return (
     <>
-    {/* Navbar Container */}
-    <Box
+      {/* Navbar Container */}
+      <Box
         boxShadow="md"
         bg="white"
-        position={isScrolled ? "fixed" : "static"} // Position fixed when scrolled
+        position="fixed" // Position fixed when scrolled
         w="100%"
         top="0"
         zIndex="10"
         transition="position 0.3s ease-in-out"
-        display={isOpen ? "none" : "block"} // Hide navbar when drawer is open
+        display={open ? "none" : "block"} // Hide navbar when drawer is open
       >
         {/* Mobile & Desktop Flex Container */}
         <HStack
@@ -97,8 +77,7 @@ const Webnav = () => {
             <HStack>
               {/* Hamburger Icon for Small Screens */}
               <IconButton
-                icon={isOpen ? <IoMdClose /> : <IoMdMenu />}
-                variant="outline"
+                icon={<IoMdMenu />}
                 aria-label="Toggle navigation"
                 fontSize="2rem"
                 onClick={toggleNav}
@@ -129,13 +108,12 @@ const Webnav = () => {
               borderRadius="30px"
               p="5px 15px"
               bg={theme.colors.ten}
-              display={{ base: "flex", lg: "flex" }} // Show in both mobile and desktop
+              display={{ base: "none", lg: "flex" }} // Show in both mobile and desktop
               alignItems="center"
               justifyContent="center"
               gap="5px"
-              color='white'
+              color="white"
               cursor="pointer" // Change cursor to pointer
-            
             >
               <a
                 href="https://wa.me/919390555433"
@@ -171,7 +149,7 @@ const Webnav = () => {
               justifyContent="space-between"
               fontWeight="700"
               textTransform="uppercase"
-              fontSize={'0.8rem'}
+              fontSize={"0.8rem"}
             >
               <NavLink to="/" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
@@ -188,7 +166,6 @@ const Webnav = () => {
               <NavLink to="/products" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Products</Box>
               </NavLink>
-              
             </Box>
 
             {/* WhatsApp Button for Desktop */}
@@ -209,7 +186,6 @@ const Webnav = () => {
                 justifyContent="center"
                 gap="5px"
                 color="white"
-                
               >
                 <a
                   href="https://wa.me/919390555433"
@@ -226,112 +202,65 @@ const Webnav = () => {
           </Box>
         </HStack>
       </Box>
-
-       {/* Drawer Menu for Mobile */}
-       <Drawer
-        isOpen={isOpen}
-        placement="left"
-        onClose={handleClose} // Use handleClose to restore scroll position
-        trapFocus={true} // Ensure focus is trapped inside the drawer
-        lockFocusAcrossFrames={true} // Lock focus to drawer
-        closeOnOverlayClick={false} // Disable closing when clicking outside
-        zIndex="1000"
-      >
-        <DrawerOverlay />
-        <DrawerContent bg="#fff">
-          <DrawerHeader>
-            {/* Flexbox to align logo and close button in a row */}
-            <Flex
-              justifyContent="space-between"
-              alignItems="center"
-              w="100%"
-              mb={0}
-            >
-              <Box
-                w={{ base: "50%", md: "25%", lg: "15%" }}
-                h={{ base: "100%", md: "80%" }}
-                ml="0px"
-              >
-                <NavLink to="/">
-                  <Image w="100%" h="100%" src={logo} alt="Logo" />
-                </NavLink>
+      {open && (
+        <>
+          <Box
+            position="fixed"
+            w={"100%"}
+            height={"100%"}
+            top="0"
+            display={"flex"}
+            justifyContent={"flex-start"}
+            flexDirection={'column'}
+            alignItems={"flex-start"}
+            bg="white"
+            zIndex={99999}
+          >
+            <Box w='150px' h='auto'>
+            <NavLink to="/" >
+                <Image w="100%" h='100%' src={logo} alt="Logo" />
+              </NavLink>
               </Box>
-              <DrawerCloseButton position="relative" p="10px" />
-            </Flex>
-          </DrawerHeader>
-
-          <DrawerBody>
-            {/* Collapsible Menu for Mobile */}
-            <VStack
-              spacing={4}
-              alignItems="flex-start"
-              textAlign="left"
-              fontWeight="700"
-              textTransform="uppercase"
-              w="full"
-              mt={0}
-              p={4}
-            >
-              <NavLink to="/" style={navLinkStyle} onClick={handleClose}>
+              <Box color="black" fontSize={"1.2rem"} onClick={toggleNav} position='absolute' right='5%' top='5%'>
+                <ImCross />
+              </Box>
+              <VStack w='100%' align='center' mt={8} fontSize={'1.2rem'} >
+              <NavLink to="/" style={navLinkStyle} onClick={toggleNav}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
               </NavLink>
-              <NavLink to="/about" style={navLinkStyle} onClick={handleClose}>
+
+              <NavLink to="/about" style={navLinkStyle} onClick={toggleNav}>
                 <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
+
               <NavLink
                 to="/workshop"
                 style={navLinkStyle}
-                onClick={handleClose}
+                onClick={toggleNav}
               >
                 <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
               </NavLink>
               <NavLink
                 to="/projects"
                 style={navLinkStyle}
-                onClick={handleClose}
+                onClick={toggleNav}
               >
                 <Box _hover={{ cursor: "pointer" }}>Projects</Box>
               </NavLink>
               <NavLink
                 to="/products"
                 style={navLinkStyle}
-                onClick={handleClose}
+                onClick={toggleNav}
               >
                 <Box _hover={{ cursor: "pointer" }}>Products</Box>
               </NavLink>
-              
-              <Box
-                w="max-content"
-                borderRadius="30px"
-                p="5px 15px"
-                bg={theme.colors.ten}
-                display={{ base: "flex", lg: "none" }} // Show only in mobile menu
-                alignItems="center"
-                justifyContent="center"
-                gap="5px"
-                color="white"
-              
-              >
-                <a
-                  href="https://wa.me/919390555433"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <HStack spacing={2} alignItems="center">
-                    <FaWhatsapp cursor="pointer" />
-                    <Text>Chat Now</Text>
-                  </HStack>
-                </a>
-              </Box>
-            </VStack>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-
-      
-
+              </VStack>
+       
+          </Box>
+        </>
+      )}
     </>
- )
-}
+  );
+};
 
-export default Webnav
+export default Webnav;
