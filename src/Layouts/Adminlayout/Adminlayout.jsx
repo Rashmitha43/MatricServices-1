@@ -5,7 +5,7 @@ import { HStack } from '@chakra-ui/react'
 const Adminlayout = () => {
   return (
     <>
-    <HStack>
+    <HStack align='start'>
     <AdminNavbar/>
     <Outlet/>
     </HStack>
