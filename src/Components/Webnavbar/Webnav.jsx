@@ -19,24 +19,23 @@ import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import theme from "../../theme";
-import logo from "../../assets/logo.png"; // Replace with your logo path
+import logo from "../../assets/logo.png";
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false); // State to track scroll position
-  const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra UI's useDisclosure hook
-  const [scrollPosition, setScrollPosition] = useState(0); // State to store the scroll position
+const Webnav = () => {
+    const [isScrolled, setIsScrolled] = useState(false); 
+    const { isOpen, onOpen, onClose } = useDisclosure(); 
+    const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Toggle the mobile navigation menu
-  const toggleNav = () => {
-    if (isOpen) {
-      onClose();
-    } else {
-      setScrollPosition(window.scrollY); // Save current scroll position when opening the drawer
-      onOpen();
-    }
-  };
+    const toggleNav = () => {
+        if (isOpen) {
+          onClose();
+        } else {
+          setScrollPosition(window.scrollY); // Save current scroll position when opening the drawer
+          onOpen();
+        }
+      };
 
-  // Function to handle scroll and toggle the 'isScrolled' state
+      // Function to handle scroll and toggle the 'isScrolled' state
   const handleScroll = () => {
     const scrollTop = window.scrollY; // Get vertical scroll position
     setIsScrolled(scrollTop > 0); // Set state to true if scrolled down
@@ -61,10 +60,11 @@ const Navbar = () => {
     paddingBottom: "3px",
   });
 
-  return (
+
+ return(
     <>
-      {/* Navbar Container */}
-      <Box
+    {/* Navbar Container */}
+    <Box
         boxShadow="md"
         bg="white"
         position={isScrolled ? "fixed" : "static"} // Position fixed when scrolled
@@ -227,8 +227,8 @@ const Navbar = () => {
         </HStack>
       </Box>
 
-      {/* Drawer Menu for Mobile */}
-      <Drawer
+       {/* Drawer Menu for Mobile */}
+       <Drawer
         isOpen={isOpen}
         placement="left"
         onClose={handleClose} // Use handleClose to restore scroll position
@@ -327,9 +327,11 @@ const Navbar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+
+      
+
     </>
-  );
-};
+ )
+}
 
-export default Navbar;
-
+export default Webnav
