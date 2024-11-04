@@ -8,7 +8,7 @@ import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
 import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
-import Adminlayout from "../Layouts/AdminLayout/Adminlayout";
+import Adminlayoutpage from "../Layouts/AdminLayout/Adminlayoutpage";
 import AddProject from "../Components/Admin/Addproject";
 import ProjectTable from "../Components/Admin/ProjectTable";
 import AdminHome from "../Components/Admin/AdminHome";
@@ -33,7 +33,7 @@ const Allrouts = () => {
             <Route path='*' element={<h1>Page not found</h1>}/>
             </Route>
 
-            <Route element={<Adminlayout/>}>
+            <Route element={<Adminlayoutpage/>}>
             <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/Addproject" element={<AddProject/>}/>
             <Route path="/admin/projecttable" element={<ProjectTable/>}/>

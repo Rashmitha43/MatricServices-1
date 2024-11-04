@@ -2,7 +2,7 @@ import React from 'react'
 import AdminNavbar from '../../Components/Admin/AdminNavbar'
 import { Outlet } from 'react-router-dom'
 import { HStack } from '@chakra-ui/react'
-const Adminlayout = () => {
+const Adminlayoutpage = () => {
   return (
     <>
     <HStack align='start'>
@@ -13,4 +13,4 @@ const Adminlayout = () => {
   )
 }
 
-export default Adminlayout
+export default Adminlayoutpage
