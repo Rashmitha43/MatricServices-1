@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 const Mainlayout = () => {
   return (
     <>
-    <Webnav/>
+    <Webnav />
     <Outlet/>
     <Footer/>
     </>

@@ -6,16 +6,9 @@ import {
   VStack,
   HStack,
   Text,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  Flex,
-  useDisclosure, // Import useDisclosure
+ // Import useDisclosure
 } from "@chakra-ui/react";
-import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { IoMdMenu, } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import theme from "../../theme";
@@ -41,18 +34,42 @@ const Webnav = () => {
     paddingBottom: "3px",
   });
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        // If scrolled more than 50px, set the navbar to fixed
+        setIsScrolled(true);
+      } else {
+        // If not scrolled, set the navbar to static
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {/* Navbar Container */}
       <Box
         boxShadow="md"
         bg="white"
-        position="fixed" // Position fixed when scrolled
+        position={isScrolled?'fixed':'static'} // Position fixed when scrolled
         w="100%"
         top="0"
+       
         zIndex="10"
         transition="position 0.3s ease-in-out"
         display={open ? "none" : "block"} // Hide navbar when drawer is open
+        
+        
       >
         {/* Mobile & Desktop Flex Container */}
         <HStack
