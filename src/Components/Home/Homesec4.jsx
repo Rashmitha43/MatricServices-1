@@ -120,13 +120,13 @@ const Homesec4 = () => {
                   justifyContent={"flex-start"}
                   flexDirection={"column"}
                 >
-                  <ImQuotesLeft fontSize={"1rem"} />
+                
                   <Box>
                     <Text>
+                    <ImQuotesLeft fontSize={"1rem"} style={{ display: "inline",marginRight:'8px',position:'relative'}} />
                       {review.des}
                       <ImQuotesRight  style={{ display: "inline",marginLeft:'8px',position:'relative'}} />
-                    
-                     
+
                     </Text>
                   </Box>
                 </Box>
