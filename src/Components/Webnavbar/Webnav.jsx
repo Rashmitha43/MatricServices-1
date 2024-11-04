@@ -108,7 +108,7 @@ const Webnav = () => {
               borderRadius="30px"
               p="5px 15px"
               bg={theme.colors.ten}
-              display={{ base: "none", lg: "flex" }} // Show in both mobile and desktop
+              display={{ base: "flex", lg: "flex" }} // Show in both mobile and desktop
               alignItems="center"
               justifyContent="center"
               gap="5px"
@@ -211,20 +211,35 @@ const Webnav = () => {
             top="0"
             display={"flex"}
             justifyContent={"flex-start"}
-            flexDirection={'column'}
+            flexDirection={"column"}
             alignItems={"flex-start"}
             bg="white"
             zIndex={99999}
           >
-            <Box w='150px' h='auto'>
-            <NavLink to="/" >
-                <Image w="100%" h='100%' src={logo} alt="Logo" />
+           <Box w="150px" h="150px">
+              <NavLink to="/">
+                <Image w="100%" h="100%" src={logo} alt="Logo" objectFit={'contain'}/>
               </NavLink>
-              </Box>
-              <Box color="black" fontSize={"1.2rem"} onClick={toggleNav} position='absolute' right='5%' top='5%'>
-                <ImCross />
-              </Box>
-              <VStack w='100%' align='center' mt={8} fontSize={'1.2rem'} >
+            </Box>
+            <Box
+              color="black"
+              fontSize={"1.2rem"}
+              onClick={toggleNav}
+              position="absolute"
+              right="5%"
+              top="9%"
+            >
+              <ImCross />
+            </Box>
+            <VStack
+              w="100%"
+              align="center"
+              mt={8}
+              fontSize={"1.2rem"}
+              fontWeight={500}
+              spacing={2}
+            >
+             
               <NavLink to="/" style={navLinkStyle} onClick={toggleNav}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
               </NavLink>
@@ -233,29 +248,16 @@ const Webnav = () => {
                 <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
 
-              <NavLink
-                to="/workshop"
-                style={navLinkStyle}
-                onClick={toggleNav}
-              >
+              <NavLink to="/workshop" style={navLinkStyle} onClick={toggleNav}>
                 <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
               </NavLink>
-              <NavLink
-                to="/projects"
-                style={navLinkStyle}
-                onClick={toggleNav}
-              >
+              <NavLink to="/projects" style={navLinkStyle} onClick={toggleNav}>
                 <Box _hover={{ cursor: "pointer" }}>Projects</Box>
               </NavLink>
-              <NavLink
-                to="/products"
-                style={navLinkStyle}
-                onClick={toggleNav}
-              >
+              <NavLink to="/products" style={navLinkStyle} onClick={toggleNav}>
                 <Box _hover={{ cursor: "pointer" }}>Products</Box>
               </NavLink>
-              </VStack>
-       
+            </VStack>
           </Box>
         </>
       )}
