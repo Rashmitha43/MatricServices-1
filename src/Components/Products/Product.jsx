@@ -140,7 +140,7 @@ const Product = () => {
                       View
                     </Box>
                     <Box
-                      bg="black"
+                      bg={theme.colors.ten}
                       color="white"
                       p={{ base: "5px 10px", md: "7px 14px", lg: "8px 16px" }}
                       borderRadius={"5px"}
