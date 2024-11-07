@@ -10,7 +10,7 @@ const AdminLayoutPage = () => {
         <AdminNavbar />
       </Box>
 
-      <Box flex="1" p={4}>
+      <Box flex="1" p={4} overflow="auto">
         <Outlet />
       </Box>
     </Flex>

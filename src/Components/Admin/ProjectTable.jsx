@@ -1,166 +1,430 @@
 import React, { useState, useMemo } from "react";
-import { Edit, Trash2, Eye } from 'lucide-react';
+import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Box,
+  IconButton,
+  Text,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Button,
+  Flex,
+  Heading,
+  Divider,
+} from "@chakra-ui/react";
 
-const ProjectRow = ({ project, index, handleView, handleEdit, handleDelete }) => {
-  return (
-    <tr className="hover:bg-gray-50 transition-colors">
-      <td className="py-4 px-6 text-sm font-medium text-gray-900">{index + 1}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{project.name}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{project.description.split(" ").slice(0, 3).join(" ")}...</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{project.location}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(project.amount)}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{new Date(project.date).toLocaleDateString()}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{project.time}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{project.phoneNumber}</td>
-      <td className="py-4 px-6 text-sm text-gray-500">{project.email}</td>
-      <td className="py-4 px-6 text-sm font-medium space-x-2">
-        <button
-          onClick={() => handleEdit(project)}
-          className="text-indigo-600 hover:text-indigo-900"
-        >
-          <Edit className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => handleDelete(project)}
-          className="text-red-600 hover:text-red-900"
-        >
-          <Trash2 className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => handleView(project)}
-          className="text-green-600 hover:text-green-900"
-        >
-          <Eye className="w-5 h-5" />
-        </button>
-      </td>
-    </tr>
-  );
-};
+const WorkshopRow = ({
+  workshop,
+  index,
+  handleView,
+  handleEdit,
+  handleDelete,
+}) => (
+  <Tr
+    _hover={{ bg: "gray.50" }}
+    transition="background-color 0.3s ease"
+    textAlign="left"
+  >
+    <Td py={6} px={6} textAlign="center">
+      {index + 1}
+    </Td>
+    <Td py={6} px={6} maxW="200px" isTruncated fontWeight="medium">
+      {workshop.name}
+    </Td>
+    <Td py={6} px={6} maxW="250px" color="gray.600" isTruncated>
+      {workshop.description.split(" ").slice(0, 3).join(" ")}...
+    </Td>
+    <Td py={6} px={6} maxW="150px" isTruncated>
+      {workshop.location}
+    </Td>
+    <Td py={6} px={6} fontWeight="bold" color="green.600">
+      {new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(workshop.amount)}
+    </Td>
+    <Td py={6} px={6}>
+      {new Date(workshop.date).toLocaleDateString()}
+    </Td>
+    <Td py={6} px={6} whiteSpace="nowrap">
+      {workshop.time}
+    </Td>
+    <Td py={6} px={6} maxW="200px" isTruncated whiteSpace="nowrap">
+      {workshop.phoneNumber}
+    </Td>
+    <Td py={6} px={6}>
+      {workshop.email}
+    </Td>
+    <Td py={6} px={6} textAlign="center">
+      {workshop.registrations.length}
+    </Td>
+    <Td py={6} px={6} display="flex" justifyContent="center" my="auto">
+      <IconButton
+        icon={<EditIcon />}
+        colorScheme="blue"
+        variant="solid"
+        size="xl"
+        onClick={() => handleEdit(workshop)}
+        aria-label="Edit workshop"
+        mr={4}
+        borderRadius="md"
+        boxShadow="md" 
+        _hover={{ bg: "blue.50" }} 
+      />
+      <IconButton
+        icon={<DeleteIcon />}
+        colorScheme="red"
+        variant="solid"
+        size="xl"
+        onClick={() => handleDelete(workshop)}
+        aria-label="Delete workshop"
+        mr={4} 
+        borderRadius="md"
+        boxShadow="md"
+        _hover={{ bg: "red.50" }}
+      />
+      <IconButton
+        icon={<ViewIcon />}
+        colorScheme="green"
+        variant="solid"
+        size="xl"
+        onClick={() => handleView(workshop)}
+        aria-label="View workshop"
+        borderRadius="md"
+        boxShadow="md"
+        _hover={{ bg: "green.50" }} 
+      />
+    </Td>
+  </Tr>
+);
 
-const ProjectTable = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const projects = useMemo(
+const WorkshopTable = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isRegOpen,
+    onOpen: onRegOpen,
+    onClose: onRegClose,
+  } = useDisclosure();
+  const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  const workshops = useMemo(
     () => [
       {
         id: 1,
-        name: "Project Alpha",
-        description: "Detailed description of Project Alpha with more info.",
+        name: "workshop Alpha",
+        description: "Detailed description of workshop Alpha with more info.",
         location: "New York, USA",
         amount: 10000,
         date: "2024-10-01",
         time: "10:30 AM",
         phoneNumber: "123-456-7890",
         email: "alpha@example.com",
+        registrations: [
+          {
+            userId: 101,
+            name: "John Doe",
+            email: "johndoe@example.com",
+            registrationDate: "2024-09-20",
+          },
+          {
+            userId: 102,
+            name: "Jane Smith",
+            email: "janesmith@example.com",
+            registrationDate: "2024-09-22",
+          },
+        ],
       },
       {
         id: 2,
-        name: "Project Beta",
-        description: "Detailed description of Project Beta with more info.",
+        name: "workshop Beta",
+        description: "Detailed description of workshop Beta with more info.",
         location: "London, UK",
         amount: 20000,
         date: "2024-10-05",
         time: "2:00 PM",
         phoneNumber: "987-654-3210",
         email: "beta@example.com",
+        registrations: [
+          {
+            userId: 103,
+            name: "Alice Johnson",
+            email: "alicejohnson@example.com",
+            registrationDate: "2024-09-25",
+          },
+        ],
       },
       {
         id: 3,
-        name: "Project Gamma",
-        description: "Detailed description of Project Gamma with more info.",
+        name: "workshop Gamma",
+        description: "Detailed description of workshop Gamma with more info.",
         location: "Tokyo, Japan",
         amount: 15000,
         date: "2024-10-10",
         time: "9:00 AM",
         phoneNumber: "456-123-7890",
         email: "gamma@example.com",
+        registrations: [],
+      },
+      {
+        id: 4,
+        name: "workshop Gamma",
+        description: "Detailed description of workshop Gamma with more info.",
+        location: "Tokyo, Japan",
+        amount: 15000,
+        date: "2024-10-10",
+        time: "9:00 AM",
+        phoneNumber: "456-123-7890",
+        email: "gamma@example.com",
+        registrations: [],
+      },
+      {
+        id: 5,
+        name: "workshop Gamma",
+        description: "Detailed description of workshop Gamma with more info.",
+        location: "Tokyo, Japan",
+        amount: 15000,
+        date: "2024-10-10",
+        time: "9:00 AM",
+        phoneNumber: "456-123-7890",
+        email: "gamma@example.com",
+        registrations: [],
+      },
+      {
+        id: 6,
+        name: "workshop Gamma",
+        description: "Detailed description of workshop Gamma with more info.",
+        location: "Tokyo, Japan",
+        amount: 15000,
+        date: "2024-10-10",
+        time: "9:00 AM",
+        phoneNumber: "456-123-7890",
+        email: "gamma@example.com",
+        registrations: [],
+      },
+      {
+        id: 7,
+        name: "workshop Gamma",
+        description: "Detailed description of workshop Gamma with more info.",
+        location: "Tokyo, Japan",
+        amount: 15000,
+        date: "2024-10-10",
+        time: "9:00 AM",
+        phoneNumber: "456-123-7890",
+        email: "gamma@example.com",
+        registrations: [],
+      },
+      {
+        id: 8,
+        name: "workshop Gamma",
+        description: "Detailed description of workshop Gamma with more info.",
+        location: "Tokyo, Japan",
+        amount: 15000,
+        date: "2024-10-10",
+        time: "9:00 AM",
+        phoneNumber: "456-123-7890",
+        email: "gamma@example.com",
+        registrations: [],
       },
     ],
     []
   );
 
-  const handleView = (project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
+  const handleView = (workshop) => {
+    setSelectedWorkshop(workshop);
+    onOpen();
   };
 
-  const handleEdit = (project) => {
-    alert(`Editing ${project.name}`);
+  const handleEdit = (workshop) => {
+    alert(`Editing ${workshop.name}`);
   };
 
-  const handleDelete = (project) => {
-    alert(`Deleting ${project.name}`);
+  const handleDelete = (workshop) => {
+    alert(`Deleting ${workshop.name}`);
   };
 
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project Name</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone Number</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-              <th scope="col" className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {projects.map((project, index) => (
-              <ProjectRow
-                key={project.id}
-                project={project}
-                index={index}
-                handleView={handleView}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <Box bg="white" shadow="lg" rounded="lg" overflow="auto" borderWidth="1px">
+      <Table
+        variant="simple"
+        colorScheme="gray"
+        size="md"
+        minW="100%"
+        textAlign="left"
+      >
+        <Thead bg="gray.100">
+          <Tr>
+            <Th py={4} px={6} textAlign="center">
+              #
+            </Th>
+            <Th py={4} px={6}>
+              Workshop Name
+            </Th>
+            <Th py={4} px={6}>
+              Description
+            </Th>
+            <Th py={4} px={6}>
+              Location
+            </Th>
+            <Th py={4} px={6}>
+              Amount
+            </Th>
+            <Th py={4} px={6}>
+              Date
+            </Th>
+            <Th py={4} px={6}>
+              Time
+            </Th>
+            <Th py={4} px={6}>
+              Phone Number
+            </Th>
+            <Th py={4} px={6}>
+              Email
+            </Th>
+            <Th py={4} px={6} textAlign="center">
+              Registrations
+            </Th>
+            <Th py={4} px={6} textAlign="center">
+              Actions
+            </Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {workshops.map((workshop, index) => (
+            <WorkshopRow
+              key={workshop.id}
+              workshop={workshop}
+              index={index}
+              handleView={handleView}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          ))}
+        </Tbody>
+      </Table>
 
-      {isModalOpen && selectedProject && (
-        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                  Project Details: {selectedProject.name}
-                </h3>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500"><strong>Description:</strong> {selectedProject.description}</p>
-                  <p className="text-sm text-gray-500"><strong>Location:</strong> {selectedProject.location}</p>
-                  <p className="text-sm text-gray-500"><strong>Amount:</strong> {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(selectedProject.amount)}</p>
-                  <p className="text-sm text-gray-500"><strong>Date:</strong> {new Date(selectedProject.date).toLocaleDateString()}</p>
-                  <p className="text-sm text-gray-500"><strong>Time:</strong> {selectedProject.time}</p>
-                  <p className="text-sm text-gray-500"><strong>Phone Number:</strong> {selectedProject.phoneNumber}</p>
-                  <p className="text-sm text-gray-500"><strong>Email:</strong> {selectedProject.email}</p>
-                </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+        <ModalOverlay />
+        <ModalContent bg="gray.50" p={6} shadow="2xl" maxW="100%">
+          <ModalCloseButton
+            position="absolute"
+            top="10px"
+            right="20px"
+            size="lg"
+            color="gray.600"
+            _hover={{ color: "red.500" }}
+          />
+          <ModalHeader textAlign="center">
+            <Heading fontSize="2xl" color="blue.700">
+              Workshop Details: {selectedWorkshop?.name}
+            </Heading>
+          </ModalHeader>
+          <Divider my={3} />
+          <ModalBody>
+            <Flex direction="column" gap={4}>
+              <Text>
+                <strong>Description:</strong> {selectedWorkshop?.description}
+              </Text>
+              <Text>
+                <strong>Location:</strong> {selectedWorkshop?.location}
+              </Text>
+              <Text>
+                <strong>Amount:</strong>{" "}
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(selectedWorkshop?.amount)}
+              </Text>
+              <Text>
+                <strong>Date:</strong>{" "}
+                {new Date(selectedWorkshop?.date).toLocaleDateString()}
+              </Text>
+              <Text>
+                <strong>Time:</strong> {selectedWorkshop?.time}
+              </Text>
+              <Text>
+                <strong>Phone Number:</strong> {selectedWorkshop?.phoneNumber}
+              </Text>
+              <Text>
+                <strong>Email:</strong> {selectedWorkshop?.email}
+              </Text>
+              <Flex align="center">
+                <Text fontSize="md" mr={2}>
+                  <strong>Registrations:</strong>{" "}
+                  {selectedWorkshop?.registrations.length}
+                </Text>
+                {selectedWorkshop?.registrations.length > 0 && (
+                  <Button
+                    colorScheme="blue"
+                    variant="solid"
+                    size="sm"
+                    onClick={onRegOpen}
+                    borderRadius="md"
+                    width="170px"
+                    padding="6px"
+                    bgColor="#02e8a7"
+                    marginLeft="10px"
+                    _hover={{ bg: "blue.500" }}
+                    _active={{ bg: "blue.600" }}
+                  >
+                    View Registrations
+                  </Button>
+                )}
+              </Flex>
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isRegOpen} onClose={onRegClose} size="md">
+        <ModalOverlay />
+        <ModalContent bg="gray.50" p={6} shadow="2xl" maxW="100%">
+          <ModalCloseButton
+            position="absolute"
+            top="10px"
+            right="20px"
+            size="lg"
+            color="gray.600"
+            _hover={{ color: "red.500" }}
+          />
+          <ModalHeader textAlign="center">
+            <Heading fontSize="xl" color="blue.700">
+              Registrations for {selectedWorkshop?.name}
+            </Heading>
+          </ModalHeader>
+          <ModalBody>
+            {selectedWorkshop?.registrations.map((registration, idx) => (
+              <Box
+                key={registration.userId}
+                borderBottom="1px solid"
+                borderColor="gray.200"
+                py={3}
+              >
+                <Text>
+                  <strong>Name:</strong> {registration.name}
+                </Text>
+                <Text>
+                  <strong>Email:</strong> {registration.email}
+                </Text>
+                <Text>
+                  <strong>Registration Date:</strong>{" "}
+                  {new Date(registration.registrationDate).toLocaleDateString()}
+                </Text>
+              </Box>
+            ))}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </Box>
   );
 };
 
-export default ProjectTable;
+export default WorkshopTable;
