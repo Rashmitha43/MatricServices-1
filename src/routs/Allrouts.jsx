@@ -8,7 +8,7 @@ import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
 import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
-import Adminlayoutpage from "../Layouts/AdminLayout/Adminlayoutpage";
+import Adminlayoutpage from "../Layouts/AdminLayout/Adminlayoutpage"
 import AddWorkshop from "../Components/Admin/AddWorkshop";
 import WorkshopTable from "../Components/Admin/WorkshopTable";
 import AdminHome from "../Components/Admin/AdminHome";
