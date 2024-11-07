@@ -144,7 +144,7 @@ const AddWorkshop = () => {
         // bgGradient="linear(to-r, yellow.400, yellow.500)"
         // bgClip="text"
       >
-        ADD A Workshop
+        ADD A WORKSHOP
       </Text>
 
       <form onSubmit={handleSubmit}>

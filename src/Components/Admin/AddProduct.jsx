@@ -139,7 +139,7 @@ const AddProduct = () => {
         // bgGradient="linear(to-r, yellow.400, yellow.500)"
         // bgClip="text"
       >
-        ADD A Product
+        ADD A PRODUCT
       </Text>
 
       <form onSubmit={handleSubmit}>

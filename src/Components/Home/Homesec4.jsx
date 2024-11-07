@@ -28,7 +28,7 @@ const testimonials = [
   {
     name: " Dr. M. Nagamani",
     qualification: "Head of ECE,Government Polytechnic, Visakhapatnam",
-    des: `We recently Conducting the IoT and Sensors Workshop by this team, was an excellent experience. The session was clear, engaging, and full of practical insights. I particularly appreciated how complex concepts were explained in a simple, understandable way. Looking forward to more workshops like this !`,
+    des: `We recently Conducted the IoT and Sensors Workshop by this team, was an excellent experience. The session was clear, engaging, and full of practical insights. I particularly appreciated how complex concepts were explained in a simple, understandable way. Looking forward to more workshops like this !`,
   },
 ];
 const Homesec4 = () => {
