@@ -46,11 +46,12 @@ const Homesec2 = () => {
           textAlign={"center"}
           _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
         >
-          <Box fontSize={'3rem'}><HiOutlineAcademicCap /></Box>
-          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Academic Projects</Text>
+          <Box fontSize={'2rem'}><FaTools /></Box>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Workshops</Text>
           <Text  fontSize={"0.8rem"} >
-          We provide end-to-end assistance with academic projects, offering both guided and done-for-you solutions tailored to the needs of students and educators.
+          We organize expert-led workshops covering a wide range of technologies, customized to meet the specific requirements of educational institutions and organizations.
           </Text>
+
         </Box>
 
         {/* service2 */}
@@ -68,10 +69,12 @@ const Homesec2 = () => {
           _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
 
         >
-          <Box fontSize={'2rem'}><FaTools /></Box>
-          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Workshops</Text>
+          
+          <Box fontSize={'3rem'}><HiOutlineAcademicCap /></Box>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Academic Projects</Text>
+         
           <Text  fontSize={"0.8rem"} >
-          We organize expert-led workshops covering a wide range of technologies, customized to meet the specific requirements of educational institutions and organizations.
+          We provide end-to-end assistance with academic projects, offering both guided and done-for-you solutions tailored to the needs of students and educators.
           </Text>
         </Box>
 

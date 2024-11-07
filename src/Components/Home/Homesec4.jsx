@@ -28,7 +28,7 @@ const testimonials = [
   {
     name: " Dr. M. Nagamani",
     qualification: "Head of ECE,Government Polytechnic, Visakhapatnam",
-    des: `We recently Conducting the IoT and Sensors Workshop by this team, was an excellent experience. The session was clear, engaging, and full of practical insights. I particularly appreciated how complex concepts were explained in a simple, understandable way. Looking forward to more workshops like this !`,
+    des: `We recently Conducted the IoT and Sensors Workshop by this team, was an excellent experience. The session was clear, engaging, and full of practical insights. I particularly appreciated how complex concepts were explained in a simple, understandable way. Looking forward to more workshops like this !`,
   },
 ];
 const Homesec4 = () => {
@@ -90,7 +90,7 @@ const Homesec4 = () => {
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        h="300px"
+        h={{base:'400px',md:'300px'}}
         p={10}
       >
         {testimonials?.map((review, index) => (
@@ -120,13 +120,13 @@ const Homesec4 = () => {
                   justifyContent={"flex-start"}
                   flexDirection={"column"}
                 >
-                  <ImQuotesLeft fontSize={"1rem"} />
+                
                   <Box>
                     <Text>
+                    <ImQuotesLeft fontSize={"1rem"} style={{ display: "inline",marginRight:'8px',position:'relative'}} />
                       {review.des}
                       <ImQuotesRight  style={{ display: "inline",marginLeft:'8px',position:'relative'}} />
-                    
-                     
+
                     </Text>
                   </Box>
                 </Box>

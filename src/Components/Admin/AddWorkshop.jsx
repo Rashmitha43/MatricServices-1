@@ -28,10 +28,10 @@ import {
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
 
-const AddProject = () => {
+const AddWorkshop = () => {
   const [formData, setFormData] = useState({
-    projectName: "",
-    projectDescription: "",
+    workshopName: "",
+    workshopDescription: "",
     location: "",
     amount: "",
     criteria: "",
@@ -79,8 +79,8 @@ const AddProject = () => {
     e.preventDefault();
 
     if (
-      !formData.projectName ||
-      !formData.projectDescription ||
+      !formData.workshopName ||
+      !formData.workshopDescription ||
       !formData.email ||
       !formData.phoneNumber
     ) {
@@ -95,11 +95,11 @@ const AddProject = () => {
       return;
     }
 
-    console.log("Project Data:", formData);
+    console.log("workshop Data:", formData);
 
     toast({
       title: "Success",
-      description: "Project submitted successfully!",
+      description: "workshop submitted successfully!",
       status: "success",
       duration: 3000,
       isClosable: true,
@@ -144,20 +144,20 @@ const AddProject = () => {
         // bgGradient="linear(to-r, yellow.400, yellow.500)"
         // bgClip="text"
       >
-        ADD A PROJECT
+        ADD A WORKSHOP
       </Text>
 
       <form onSubmit={handleSubmit}>
         <VStack spacing={8} align="stretch">
           <FormControl isRequired>
             <FormLabel fontSize="lg" fontWeight="medium">
-              Project Name
+              Workshop Name
             </FormLabel>
             <Input
-              name="projectName"
-              value={formData.projectName}
+              name="workshopName"
+              value={formData.workshopName}
               onChange={handleInputChange}
-              placeholder="Enter your project name"
+              placeholder="Enter your workshop name"
               size="lg"
               {...inputStyles}
             />
@@ -165,13 +165,13 @@ const AddProject = () => {
 
           <FormControl isRequired>
             <FormLabel fontSize="lg" fontWeight="medium">
-              Project Description
+              workshop Description
             </FormLabel>
             <Textarea
-              name="projectDescription"
-              value={formData.projectDescription}
+              name="workshopDescription"
+              value={formData.workshopDescription}
               onChange={handleInputChange}
-              placeholder="Describe the project"
+              placeholder="Describe the workshop"
               size="lg"
               {...inputStyles}
             />
@@ -384,7 +384,7 @@ const AddProject = () => {
                 transition: "all 0.5s ease",
               }}
             >
-              Add Project
+              Add workshop
             </Button>
           </Box>
         </VStack>
@@ -422,4 +422,4 @@ const AddProject = () => {
   );
 };
 
-export default AddProject;
+export default AddWorkshop;

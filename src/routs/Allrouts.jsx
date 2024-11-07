@@ -8,10 +8,13 @@ import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
 import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
-// import AddProject from "../Components/Admin/Addproject";
-// import ProjectTable from "../Components/Admin/ProjectTable";
-// import AdminHome from "../Components/Admin/AdminHome";
-// import AdminLayout from "../Layouts/Adminlayout/Adminlayout";
+import Adminlayoutpage from "../Layouts/AdminLayout/Adminlayoutpage";
+import AddWorkshop from "../Components/Admin/AddWorkshop";
+import ProjectTable from "../Components/Admin/ProjectTable";
+import AdminHome from "../Components/Admin/AdminHome";
+import Product from "../pages/Products/Product";
+import ProductSinglepage from "../pages/Products/ProductSinglepage";
+import AddProduct from "../Components/Admin/AddProduct";
 
 
 const Allrouts = () => {
@@ -26,14 +29,17 @@ const Allrouts = () => {
             <Route path="/workshopcard" element={<Workshopcard/>}/>  
             <Route path='/footer' element={<Footer/>}/>
             <Route path ='/singlepage' element={<Workshopsinglepage/>}/>
+            <Route path='/products' element={<Product/>}/>
+            <Route path='/productsinglepage' element={<ProductSinglepage/>}/>
             <Route path='*' element={<h1>Page not found</h1>}/>
             </Route>
 
-            {/* <Route element={<AdminLayout/>}>
+            <Route element={<Adminlayoutpage/>}>
             <Route path="/admin" element={<AdminHome/>}/>
-            <Route path="/admin/Addproject" element={<AddProject/>}/>
+            <Route path="/admin/addworkshop" element={<AddWorkshop/>}/>
             <Route path="/admin/projecttable" element={<ProjectTable/>}/>
-            </Route> */}
+            <Route path="/admin/addproduct" element={<AddProduct/>}/>
+           </Route>
         </Routes>
         </>
     )
