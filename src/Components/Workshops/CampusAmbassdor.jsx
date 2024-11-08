@@ -212,7 +212,7 @@ const CampusAmbassdor = () => {
                   </HStack>
 
                   <Textarea
-                    placeholder="How did get to you know about Matric Services?"
+                    placeholder="How did you get to know about Matric Services?"
                     size={{base:'sm',md:'lg'}}
                     fontSize={{base:'0.9rem',md:'1rem'}}
                     border={`2px solid ${theme.colors.thirty}`}
