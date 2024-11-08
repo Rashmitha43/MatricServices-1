@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-const api = `http://localhost:2345/api`;
+const api = `https://matricservices.onrender.com/api`;
 
 // PostGetInTouchInfo
 export const postGetInTouchInfo = (payload) => (dispatch) => {
