@@ -283,7 +283,7 @@ const WorkshopTable = () => {
             <Th py={4} px={6}>
               Time
             </Th>
-            <Th py={4} px={6}>
+            <Th py={4} px={6} whiteSpace="nowrap">
               Phone Number
             </Th>
             <Th py={4} px={6}>

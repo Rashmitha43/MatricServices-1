@@ -8,13 +8,14 @@ import Mainlayout from "../Layouts/MainLayout/Mainlayout";
 import Footer from "../Components/Footer/Footer";
 import Workshopcard from "../Components/Workshops/Workshopcard";
 import Workshopsinglepage from "../pages/Workshops/Workshopsinglepage";
-import Adminlayoutpage from "../Layouts/AdminLayout/Adminlayoutpage";
+import Adminlayoutpage from "../Layouts/AdminLayout/Adminlayoutpage"
 import AddWorkshop from "../Components/Admin/AddWorkshop";
-import ProjectTable from "../Components/Admin/ProjectTable";
+import WorkshopTable from "../Components/Admin/WorkshopTable";
 import AdminHome from "../Components/Admin/AdminHome";
 import Product from "../pages/Products/Product";
 import ProductSinglepage from "../pages/Products/ProductSinglepage";
 import AddProduct from "../Components/Admin/AddProduct";
+import ProductTable from "../Components/Admin/ProductTable";
 
 
 const Allrouts = () => {
@@ -37,8 +38,9 @@ const Allrouts = () => {
             <Route element={<Adminlayoutpage/>}>
             <Route path="/admin" element={<AdminHome/>}/>
             <Route path="/admin/addworkshop" element={<AddWorkshop/>}/>
-            <Route path="/admin/projecttable" element={<ProjectTable/>}/>
+            <Route path="/admin/workshoptable" element={<WorkshopTable/>}/>
             <Route path="/admin/addproduct" element={<AddProduct/>}/>
+            <Route path="/admin/producttable" element={<ProductTable/>}/>
            </Route>
         </Routes>
         </>
