@@ -16,11 +16,15 @@ const AdminNavbar = () => {
       </NavLink>
 
       <NavLink to="/admin/addproduct">
-      <HStack ><FaTableList fontSize={'2rem'} /><Text fontSize="2xl">Add Product</Text></HStack>
+      <HStack ><RiFunctionAddFill fontSize={'2rem'} /><Text fontSize="2xl">Add Product</Text></HStack>
       </NavLink>
 
       <NavLink to="/admin/projecttable">
-      <HStack ><FaTableList fontSize={'2rem'} /><Text fontSize="2xl">Project Table</Text></HStack>
+      <HStack ><FaTableList fontSize={'2rem'} /><Text fontSize="2xl">Workshop Table</Text></HStack>
+      </NavLink>
+
+      <NavLink to="/admin/producttable">
+      <HStack ><FaTableList fontSize={'2rem'} /><Text fontSize="2xl">Product Table</Text></HStack>
       </NavLink>
     </VStack>
   );

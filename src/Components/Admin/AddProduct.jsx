@@ -34,7 +34,6 @@ const AddProduct = () => {
     desc: "",
     price: "",
     productCode: "",
-    quantity: "",
     img: [],
   });
 
@@ -196,20 +195,6 @@ const AddProduct = () => {
                 value={formData.productCode}
                 onChange={handleInputChange}
                 placeholder="Your Products code"
-                size="lg"
-                {...inputStyles}
-              />
-            </FormControl>
-
-            <FormControl isRequired width="50%">
-              <FormLabel fontSize="lg" fontWeight="medium">
-                Quantity
-              </FormLabel>
-              <Input
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleInputChange}
-                placeholder="Quantity "
                 size="lg"
                 {...inputStyles}
               />
