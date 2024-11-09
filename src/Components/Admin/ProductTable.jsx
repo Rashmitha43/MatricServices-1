@@ -124,17 +124,17 @@ const ProductTable = () => {
     },
   ]);
 
-  useEffect(() => {
-    const updatedProduct = location.state?.updatedProduct;
-    if (updatedProduct) {
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === updatedProduct.id ? updatedProduct : product
-        )
-      );
-      navigate(location.pathname, { replace: true });
-    }
-  }, [location.state, navigate]);
+//   useEffect(() => {
+//     const updatedProduct = location.state?.updatedProduct;
+//     if (updatedProduct) {
+//       setProducts((prevProducts) =>
+//         prevProducts.map((product) =>
+//           product.id === updatedProduct.id ? updatedProduct : product
+//         )
+//       );
+//       navigate(location.pathname, { replace: true });
+//     }
+//   }, [location.state, navigate]);
   
 
   const handleView = (product) => {
@@ -149,11 +149,11 @@ const ProductTable = () => {
 
   const handleDelete = (productToDelete) => {
     const confirmed = window.confirm(`Are you sure you want to delete ${productToDelete.title}?`);
-    if (confirmed) {
-      setProducts((prevProducts) => 
-        prevProducts.filter((product) => product.id !== productToDelete.id)
-      );
-    }
+    // if (confirmed) {
+    //   setProducts((prevProducts) => 
+    //     prevProducts.filter((product) => product.id !== productToDelete.id)
+    //   );
+    // }
   };
 
 

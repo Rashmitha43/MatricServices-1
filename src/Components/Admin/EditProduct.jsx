@@ -31,7 +31,7 @@ import theme from "../../theme";
 
 const EditProduct = () => {
   const location = useLocation();
-  const product = location.state?.product || {};
+  // const product = location.state?.product || {};
   const [formData, setFormData] = useState({
     title: "",
     desc: "",
@@ -40,17 +40,17 @@ const EditProduct = () => {
     img: [],
   });
 
-  useEffect(() => {
-    if (product) {
-      setFormData({
-        title: product.title,
-        desc: product.desc,
-        price: product.price,
-        productCode: product.productCode,
-        img: product.img || [],
-      });
-    }
-  }, [product]);
+  // useEffect(() => {
+  //   if (product) {
+  //     setFormData({
+  //       title: product.title,
+  //       desc: product.desc,
+  //       price: product.price,
+  //       productCode: product.productCode,
+  //       img: product.img || [],
+  //     });
+  //   }
+  // }, [product]);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,7 +77,7 @@ const EditProduct = () => {
 
   const handleImageRemove = (index) => {
     const updatedImages = [...formData.img];
-    updatedImages.splice(index, 1); 
+    updatedImages.splice(index, 1);
     setFormData({ ...formData, img: updatedImages });
   };
 
@@ -88,7 +88,7 @@ const EditProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!formData.title || !formData.desc) {
       toast({
         title: "Error",
@@ -100,11 +100,11 @@ const EditProduct = () => {
       });
       return;
     }
-  
-    navigate("/admin/producttable", { state: { updatedProduct: { ...product, ...formData } } });
+
+    navigate("/admin/producttable",
+      // { state: { updatedProduct: { ...product, ...formData } },}
+  );
   };
-  
-  
 
   const inputStyles = {
     borderRadius: "md",
@@ -174,17 +174,19 @@ const EditProduct = () => {
           </FormControl>
 
           <HStack spacing={6} width="100%">
-          <FormControl isRequired width="50%">
-  <FormLabel fontSize="lg" fontWeight="medium">Price</FormLabel>
-  <Input
-    name="price"
-    value={formData.price}
-    onChange={handleInputChange}
-    placeholder="Price of the Product"
-    size="lg"
-    {...inputStyles}
-  />
-</FormControl>
+            <FormControl isRequired width="50%">
+              <FormLabel fontSize="lg" fontWeight="medium">
+                Price
+              </FormLabel>
+              <Input
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                placeholder="Price of the Product"
+                size="lg"
+                {...inputStyles}
+              />
+            </FormControl>
 
             <FormControl isRequired width="50%">
               <FormLabel fontSize="lg" fontWeight="medium">
@@ -213,8 +215,8 @@ const EditProduct = () => {
               borderRadius="md"
               width="170px"
               textAlign="center"
-              cursor='pointer'
-              _hover={{backgroundColor:'blue.200'}}
+              cursor="pointer"
+              _hover={{ backgroundColor: "blue.200" }}
             >
               <Button
                 colorScheme="yellow"
@@ -223,7 +225,7 @@ const EditProduct = () => {
                 position="relative"
                 overflow="hidden"
                 leftIcon={<Icon as={AiOutlineCloudUpload} boxSize={6} />}
-                cursor={'pointer'}
+                cursor={"pointer"}
               >
                 Upload Images
                 <Input
