@@ -6,6 +6,7 @@ import { IoNewspaperSharp } from "react-icons/io5";
 import { FaTools } from "react-icons/fa";
 import { MdQuestionAnswer } from "react-icons/md";
 import { FaHandsHelping } from "react-icons/fa";
+import { FaBoxArchive } from "react-icons/fa6";
 const Homesec2 = () => {
   return (
     <Box
@@ -138,6 +139,31 @@ const Homesec2 = () => {
           <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Assistance for Colleges</Text>
           <Text  fontSize={"0.8rem"} >
           We offer comprehensive technical assistance to colleges, ensuring that their hardware and software infrastructure is optimized for both teaching and research purposes.
+          </Text>
+        </Box>
+
+
+        {/* service6 */}
+        <Box
+          bg={theme.colors.thirty}
+          p="30px 30px"
+          height="auto"
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          color='black'
+          textAlign={'center'}
+          gap='10px'
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
+
+        >
+          
+          <Box fontSize={'1.8rem'}><FaBoxArchive /></Box>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Products Service</Text>
+         
+          <Text  fontSize={"0.8rem"} >
+          Matric Services offers custom Project and Learning Kits for hands-on experience in various tech fields. We also provide high-quality, innovative products made to order, all at competitive prices to empower learners in their educational journeys.
           </Text>
         </Box>
 

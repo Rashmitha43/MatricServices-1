@@ -5,6 +5,7 @@ import img3 from "../../assets/Sliderimage3.png";
 import React, { useEffect, useState } from "react";
 import theme from "../../theme";
 import { NavLink } from "react-router-dom";
+import img4 from '../../assets/Sliderimage4.png'
 
 const Sliderimages = [
   {
@@ -27,6 +28,14 @@ const Sliderimages = [
     subtext: "Transform Your Ideas into Reality",
     buttontext: "View Projects",
     navlink:'projects'
+  },
+
+  {
+    image: img4,
+    maintext: "Explore Our Custom Kits & Products",
+    subtext: "Quality Kits & Products Designed for Success",
+    buttontext: "View Products",
+    navlink:'products'
   },
 ];
 
@@ -122,6 +131,15 @@ const Carousel = () => {
                 style={{
                   background: 2 === currentImg ? "white" : "gray",
                   scale: 2 === currentImg ? "1.2" : "1",
+                }}
+              ></Box>
+              <Box
+                w={{ base: "6px", md: "8px", lg: "10px" }}
+                h={{ base: "6px", md: "8px", lg: "10px" }}
+                borderRadius={"50%"}
+                style={{
+                  background: 3 === currentImg ? "white" : "gray",
+                  scale: 3 === currentImg ? "1.2" : "1",
                 }}
               ></Box>
             </Box>

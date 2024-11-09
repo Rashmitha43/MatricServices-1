@@ -39,7 +39,6 @@ const Singlepage = () => {
           <Box fontWeight={'500'}>Venue:</Box>
           <Box fontWeight={'500'}>Date:</Box>
           <Box fontWeight={'500'}>Time:</Box>
-          <Box fontWeight={'500'}>Cost:</Box>
           <Box fontWeight={'500'}>Eligibility Criteria:</Box>
           {/* contact info */}
           <HStack fontSize={{base:'1rem',md:'1.2rem'}} fontWeight={'500'}><Box><RiContactsBook2Fill/></Box> <Text>Contact Info</Text></HStack>
