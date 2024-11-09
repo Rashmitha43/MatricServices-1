@@ -19,7 +19,7 @@ const AdminNavbar = () => {
       <HStack ><RiFunctionAddFill fontSize={'2rem'} /><Text fontSize="2xl">Add Product</Text></HStack>
       </NavLink>
 
-      <NavLink to="/admin/projecttable">
+      <NavLink to="/admin/workshoptable">
       <HStack ><FaTableList fontSize={'2rem'} /><Text fontSize="2xl">Workshop Table</Text></HStack>
       </NavLink>
 
