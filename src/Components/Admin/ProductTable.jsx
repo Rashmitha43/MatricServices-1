@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Table,
   Thead,
@@ -82,6 +83,7 @@ const ProductRow = ({ product, index, handleView, handleEdit, handleDelete }) =>
 );
 
 const ProductTable = () => {
+  const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isRegOpen,
@@ -89,8 +91,8 @@ const ProductTable = () => {
     onClose: onRegClose,
   } = useDisclosure();
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const products = useMemo(() => [
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([
     {
       id: 1,
       title: "Product One",
@@ -118,9 +120,22 @@ const ProductTable = () => {
       desc: "This is a detailed description of Product Two with extra details.",
       price: 79.99,
       productCode: "P002",
-      registrations: []
+      registrations: [],
     },
-  ], []);
+  ]);
+
+//   useEffect(() => {
+//     const updatedProduct = location.state?.updatedProduct;
+//     if (updatedProduct) {
+//       setProducts((prevProducts) =>
+//         prevProducts.map((product) =>
+//           product.id === updatedProduct.id ? updatedProduct : product
+//         )
+//       );
+//       navigate(location.pathname, { replace: true });
+//     }
+//   }, [location.state, navigate]);
+  
 
   const handleView = (product) => {
     setSelectedProduct(product);
@@ -128,12 +143,19 @@ const ProductTable = () => {
   };
 
   const handleEdit = (product) => {
-    alert(`Editing ${product.title}`);
+    navigate(`/admin/projecttable/editproduct/${product.id}`, { state: { product } });
+  };
+  
+
+  const handleDelete = (productToDelete) => {
+    const confirmed = window.confirm(`Are you sure you want to delete ${productToDelete.title}?`);
+    // if (confirmed) {
+    //   setProducts((prevProducts) => 
+    //     prevProducts.filter((product) => product.id !== productToDelete.id)
+    //   );
+    // }
   };
 
-  const handleDelete = (product) => {
-    alert(`Deleting ${product.title}`);
-  };
 
   return (
     <Box bg="white" shadow="lg" rounded="lg" overflow="auto" borderWidth="1px">
