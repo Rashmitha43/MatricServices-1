@@ -43,7 +43,6 @@ const Carousel = () => {
   const [currentImg, setCurrentImg] = useState(0);
 
   const increment = () => {
-    console.log(currentImg);
     setCurrentImg((prev) => (prev === Sliderimages.length - 1 ? 0 : prev + 1));
   };
   useEffect(() => {
