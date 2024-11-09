@@ -16,7 +16,8 @@ import Product from "../pages/Products/Product";
 import ProductSinglepage from "../pages/Products/ProductSinglepage";
 import AddProduct from "../Components/Admin/AddProduct";
 import ProductTable from "../Components/Admin/ProductTable";
-import EditProduct from "../Components/Admin/EditProduct"
+import EditProduct from "../Components/Admin/EditProduct";
+import LoginPage from "../Components/Admin/LoginPage";
 
 
 const Allrouts = () => {
@@ -37,7 +38,8 @@ const Allrouts = () => {
             </Route>
 
             <Route element={<Adminlayoutpage/>}>
-            <Route path="/admin" element={<AdminHome/>}/>
+            <Route path="/admin" element={<LoginPage/>}/>
+            <Route path="/admin/adminhome" element={<AdminHome/>}/>
             <Route path="/admin/addworkshop" element={<AddWorkshop/>}/>
             <Route path="/admin/workshoptable" element={<WorkshopTable/>}/>
             <Route path="/admin/addproduct" element={<AddProduct/>}/>
