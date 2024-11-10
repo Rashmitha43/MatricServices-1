@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import {useNavigate} from "react-router-dom"
 import {
   Table,
   Thead,
@@ -116,6 +117,7 @@ const WorkshopTable = () => {
     onClose: onRegClose,
   } = useDisclosure();
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
+  const navigate = useNavigate();
   const workshops = useMemo(
     () => [
       {
@@ -244,7 +246,7 @@ const WorkshopTable = () => {
   };
 
   const handleEdit = (workshop) => {
-    alert(`Editing ${workshop.name}`);
+    navigate(`/admin/workshoptable/editworkshop/${workshop.id}`);
   };
 
   const handleDelete = (workshop) => {
