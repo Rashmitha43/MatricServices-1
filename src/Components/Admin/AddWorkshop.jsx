@@ -192,26 +192,7 @@ const AddWorkshop = () => {
           </FormControl>
 
           <HStack spacing={6} width="100%">
-            <FormControl w="100%">
-              <FormLabel fontSize="lg" fontWeight="medium" w="100%">
-                Amount
-              </FormLabel>
-              <select
-                name="amount"
-                value={formData.amount}
-                placeholder="select Amount"
-                onChange={handleInputChange}
-                style={{
-                  padding: "10px",
-                  border: `2px solid ${theme.colors.thirty}`,
-                  width: "100%",
-                  borderRadius: "5px",
-                }}
-              >
-                <option value="free">free</option>
-                <option value="paid">paid</option>
-              </select>
-            </FormControl>
+           
 
             <FormControl width="100%">
               <FormLabel fontSize="lg" fontWeight="medium" w="100%">

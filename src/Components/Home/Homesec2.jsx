@@ -163,7 +163,8 @@ const Homesec2 = () => {
           <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Products Service</Text>
          
           <Text  fontSize={"0.8rem"} >
-          Matric Services offers custom Project and Learning Kits for hands-on experience in various tech fields. We also provide high-quality, innovative products made to order, all at competitive prices to empower learners in their educational journeys.
+        
+Matric Services offers custom Project and Learning Kits for hands-on tech experience, along with high-quality, made-to-order products at competitive prices to support learners.
           </Text>
         </Box>
 
