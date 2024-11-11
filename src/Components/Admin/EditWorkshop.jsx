@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Input,
@@ -29,28 +29,19 @@ import {
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
 
-const EditProduct = () => {
-  const location = useLocation();
-  // const product = location.state?.product || {};
+const EditWorkshop = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    desc: "",
-    price: "",
-    productCode: "",
-    img: [],
+    workshopName: "",
+    workshopDescription: "",
+    location: "",
+    amount: "",
+    criteria: "",
+    date: "",
+    time: "",
+    phoneNumber: "",
+    email: "",
+    uploadImages: [],
   });
-
-  // useEffect(() => {
-  //   if (product) {
-  //     setFormData({
-  //       title: product.title,
-  //       desc: product.desc,
-  //       price: product.price,
-  //       productCode: product.productCode,
-  //       img: product.img || [],
-  //     });
-  //   }
-  // }, [product]);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,7 +54,7 @@ const EditProduct = () => {
   };
 
   const handleFileUpload = (e) => {
-    const files = Array.from(e.target.files); 
+    const files = Array.from(e.target.files); // Convert to array for multiple uploads
     const newImages = files.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
@@ -71,14 +62,14 @@ const EditProduct = () => {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      img: [...prevFormData.img, ...newImages],
+      uploadImages: [...prevFormData.uploadImages, ...newImages], // Add new images to the existing array
     }));
   };
 
   const handleImageRemove = (index) => {
-    const updatedImages = [...formData.img];
-    updatedImages.splice(index, 1);
-    setFormData({ ...formData, img: updatedImages });
+    const updatedImages = [...formData.uploadImages];
+    updatedImages.splice(index, 1); // Remove the image at the specified index
+    setFormData({ ...formData, uploadImages: updatedImages });
   };
 
   const handleImageClick = (imagePreview) => {
@@ -89,7 +80,12 @@ const EditProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.desc) {
+    if (
+      !formData.workshopName ||
+      !formData.workshopDescription ||
+      !formData.email ||
+      !formData.phoneNumber
+    ) {
       toast({
         title: "Error",
         description: "Please fill all required fields",
@@ -101,9 +97,18 @@ const EditProduct = () => {
       return;
     }
 
-    navigate("/admin/producttable",
-      // { state: { updatedProduct: { ...product, ...formData } },}
-  );
+    console.log("workshop Data:", formData);
+
+    toast({
+      title: "Success",
+      description: "workshop submitted successfully!",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
+
+    navigate("/admin/workshoptable",);
   };
 
   const inputStyles = {
@@ -140,20 +145,20 @@ const EditProduct = () => {
         textAlign="center"
         color="black"
       >
-        UPDATE A PRODUCT
+        UPDATE THE WORKSHOP
       </Text>
 
       <form onSubmit={handleSubmit}>
         <VStack spacing={8} align="stretch">
           <FormControl isRequired>
             <FormLabel fontSize="lg" fontWeight="medium">
-              Product Name
+              Workshop Name
             </FormLabel>
             <Input
-              name="title"
-              value={formData.title}
+              name="workshopName"
+              value={formData.workshopName}
               onChange={handleInputChange}
-              placeholder="Enter your product name"
+              placeholder="Enter your workshop name"
               size="lg"
               {...inputStyles}
             />
@@ -161,28 +166,113 @@ const EditProduct = () => {
 
           <FormControl isRequired>
             <FormLabel fontSize="lg" fontWeight="medium">
-              Product Description
+              workshop Description
             </FormLabel>
             <Textarea
-              name="desc"
-              value={formData.desc}
+              name="workshopDescription"
+              value={formData.workshopDescription}
               onChange={handleInputChange}
-              placeholder="Describe the project"
+              placeholder="Describe the workshop"
+              size="lg"
+              {...inputStyles}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel fontSize="lg" fontWeight="medium">
+              Location
+            </FormLabel>
+            <Input
+              name="location"
+              value={formData.location}
+              onChange={handleInputChange}
+              placeholder="City, Country"
               size="lg"
               {...inputStyles}
             />
           </FormControl>
 
           <HStack spacing={6} width="100%">
-            <FormControl isRequired width="50%">
-              <FormLabel fontSize="lg" fontWeight="medium">
-                Price
+            <FormControl w="100%">
+              <FormLabel fontSize="lg" fontWeight="medium" w="100%">
+                Amount
+              </FormLabel>
+              <select
+                name="amount"
+                value={formData.amount}
+                placeholder="select Amount"
+                onChange={handleInputChange}
+                style={{
+                  padding: "10px",
+                  border: `2px solid ${theme.colors.thirty}`,
+                  width: "100%",
+                  borderRadius: "5px",
+                }}
+              >
+                <option value="free">free</option>
+                <option value="paid">paid</option>
+              </select>
+            </FormControl>
+
+            <FormControl width="100%">
+              <FormLabel fontSize="lg" fontWeight="medium" w="100%">
+                Criteria
               </FormLabel>
               <Input
-                name="price"
-                value={formData.price}
+                name="criteria"
+                value={formData.criteria}
                 onChange={handleInputChange}
-                placeholder="Price of the Product"
+                placeholder="Selection criteria"
+                size="lg"
+                {...inputStyles}
+                w="100%"
+              />
+            </FormControl>
+          </HStack>
+
+          <HStack spacing={6} width="100%">
+            <FormControl width="50%">
+              <FormLabel fontSize="lg" fontWeight="medium">
+                Date
+              </FormLabel>
+              <InputGroup size="lg">
+                <Input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  {...inputStyles}
+                />
+              </InputGroup>
+            </FormControl>
+
+            <FormControl width="50%">
+              <FormLabel fontSize="lg" fontWeight="medium">
+                Time
+              </FormLabel>
+              <InputGroup size="lg">
+                <Input
+                  type="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleInputChange}
+                  {...inputStyles}
+                />
+              </InputGroup>
+            </FormControl>
+          </HStack>
+
+          <HStack spacing={6} width="100%">
+            <FormControl isRequired width="50%">
+              <FormLabel fontSize="lg" fontWeight="medium">
+                Phone Number
+              </FormLabel>
+              <Input
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+                placeholder="Your contact number"
                 size="lg"
                 {...inputStyles}
               />
@@ -190,13 +280,14 @@ const EditProduct = () => {
 
             <FormControl isRequired width="50%">
               <FormLabel fontSize="lg" fontWeight="medium">
-                Product Code
+                Email
               </FormLabel>
               <Input
-                name="productCode"
-                value={formData.productCode}
+                type="email"
+                name="email"
+                value={formData.email}
                 onChange={handleInputChange}
-                placeholder="Your Products code"
+                placeholder="Your email address"
                 size="lg"
                 {...inputStyles}
               />
@@ -215,8 +306,8 @@ const EditProduct = () => {
               borderRadius="md"
               width="170px"
               textAlign="center"
-              cursor="pointer"
-              _hover={{ backgroundColor: "blue.200" }}
+              cursor='pointer'
+              _hover={{backgroundColor:'blue.200'}}
             >
               <Button
                 colorScheme="yellow"
@@ -225,7 +316,7 @@ const EditProduct = () => {
                 position="relative"
                 overflow="hidden"
                 leftIcon={<Icon as={AiOutlineCloudUpload} boxSize={6} />}
-                cursor={"pointer"}
+                cursor={'pointer'}
               >
                 Upload Images
                 <Input
@@ -247,7 +338,7 @@ const EditProduct = () => {
             </Box>
 
             <HStack spacing={4} mt={4} wrap="wrap">
-              {formData.img.map((image, index) => (
+              {formData.uploadImages.map((image, index) => (
                 <Box key={index} position="relative" boxSize="120px">
                   <CloseButton
                     position="absolute"
@@ -281,7 +372,7 @@ const EditProduct = () => {
             <Button
               type="submit"
               size="lg"
-              width="150px"
+              width="180px"
               borderRadius="10px"
               bgColor="blue.200"
               padding="10px"
@@ -294,7 +385,7 @@ const EditProduct = () => {
                 transition: "all 0.5s ease",
               }}
             >
-              Update Product
+              Update Workshop
             </Button>
           </Box>
         </VStack>
@@ -332,4 +423,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default EditWorkshop;
