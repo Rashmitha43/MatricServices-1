@@ -79,11 +79,12 @@ const AddWorkshop = () => {
     onOpen();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => 
+    {
     e.preventDefault();
-    // if(!formData.topic || !formData.desc || !formData.venue || !formData.date || !formData.time || !formData.criteria || !formData.contact || !formData.email){
-    //   alert('Please Fill all the Input Fields')
-    // }else{
+    if(!formData.topic || !formData.desc || !formData.venue || !formData.date || !formData.time || !formData.criteria || !formData.contact || !formData.email){
+      alert('Please Fill all the Input Fields')
+    }else{
       dispatch(postWorkshop(formData))
       .then(res=>{
         alert('successfully submitted');
@@ -94,8 +95,8 @@ const AddWorkshop = () => {
       })
     
 
-
-  };
+    }
+  }
 
   const inputStyles = {
     borderRadius: "md",
