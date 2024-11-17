@@ -1,17 +1,51 @@
-import { Box, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, SimpleGrid, StackDivider, Text, VStack } from '@chakra-ui/react'
+import { Box, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent,Button, ModalOverlay, SimpleGrid, StackDivider, Textarea, Text, VStack, Heading,  Input} from '@chakra-ui/react'
 import React, { useState } from 'react'
 import theme from '../../theme'
 import { GrWorkshop } from "react-icons/gr";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
 
+const init = {
+  name: "",
+  phone: "",
+  email: "",
+  institution: "",
+  enquiry:""
+};
 const photos=[
   '/images/Homegallery/galleryimg1.jpeg',
     '/images/Homegallery/galleryimg1.jpeg'
 ]
 const Singlepage = () => {
   const [photoIndex, setPhotoIndex] = useState(-1);
+  const [form,setForm]=useState(false)
+  const [formdata,setFormdata]=useState(init)
+
+
+  const handleFormdata=(event)=>{
+    const {name,value}=event.target
+    setFormdata((prev)=>({
+      ...prev,
+      [name]:value
+    }))
+  }
+
+  const toggleform = () => {
+    setForm(!form);
+    if (form === true) {
+      document.body.style.overflowY = "scroll";
+    } else {
+      document.body.style.overflowY = "hidden";
+    }
+  };
+
+  const handleSubmit=(e)=>{
+      e.preventDefault()
+      setFormdata(init)
+
+  }
   return (
     <>
     <Box
@@ -44,6 +78,18 @@ const Singlepage = () => {
           <HStack fontSize={{base:'1rem',md:'1.2rem'}} fontWeight={'500'}><Box><RiContactsBook2Fill/></Box> <Text>Contact Info</Text></HStack>
           <HStack  ><Box fontWeight={'500'}><FaPhoneAlt/></Box> <a href="tel:+18475555555"><Text>234567890</Text></a></HStack>
           <HStack ><Box fontWeight ={'500'}><IoMdMail/></Box> <a href="mailto:someone@example.com"><Text>someone@example.com</Text></a></HStack>
+          <HStack>   
+              <Button
+                bg={theme.colors.ten}
+                w="max-content"
+                p={{base:'5px 15px',md:'10px 30px'}}
+                color="white"
+                borderRadius={{base:'7px',md:'15px'}}
+                onClick={toggleform}
+                >
+                  Register
+                </Button>
+          </HStack>
 
         </VStack>
        </Box>
@@ -105,7 +151,148 @@ const Singlepage = () => {
         </ModalContent>
       </Modal>
 
-      
+      {form && (
+        <>
+          <Box
+            position="fixed"
+            w={"100%"}
+            height={"100%"}
+            top="0"
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bg="rgb(0,0,0,0.9)"
+            zIndex={99999}
+          >
+            <HStack
+              spacing={"3"}
+              align={"start"} 
+              w={{ base: "90%", md: "70%", lg: "50%",xl:'40%' }}
+            >
+              <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+                <VStack w="100%" mx="auto" gap={"1rem"} bg="white" p="20px">
+                  <Heading
+                    fontSize={{ base: "1.2rem", md: "1.5rem", lg: "2rem" }}
+                    fontWeight={"500"}
+                  >
+                    Register for Workshop
+                  </Heading>
+                  <Input
+                    type="text"
+                    name="name"
+                    placeholder="Name*"
+                    size={{base:'md',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                    value={formdata.name}
+                    w="100%"
+                    onChange={handleFormdata}
+                    border={`2px solid ${theme.colors.thirty}`}
+                    p="10px"
+                  />
+                  <HStack
+                    w="100%"
+                    flexDirection={{ base: "column", md: "row" }}
+                  >
+                    <Input
+                      type="text"
+                      name="phone"
+                      placeholder="Phone*"
+                      size={{base:'md',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                      value={formdata.phone}
+                      w="100%"
+                      onChange={handleFormdata}
+                      border={`2px solid ${theme.colors.thirty}`}
+                      p="10px"
+                    />
+
+                    <Input
+                      type="text"
+                      name="email"
+                      placeholder="Email*"
+                      value={formdata.email}
+                      size={{base:'md',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                      w="100%"
+                      onChange={handleFormdata}
+                      border={`2px solid ${theme.colors.thirty}`}
+                      p="10px"
+                    />
+                  </HStack>
+                  <HStack
+                    w="100%"
+                    flexDirection={{ base: "column", md: "row" }}
+                  >
+                    <Input
+                      type="text"
+                      name="education"
+                      placeholder="Area of Study*"
+                      size={{base:'md',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                      value={formdata.education}
+                      w="100%"
+                      onChange={handleFormdata}
+                      border={`2px solid ${theme.colors.thirty}`}
+                      p="10px"
+                    />
+                    <Input
+                      type="text"
+                      name="institution"
+                      placeholder="Name of College/Institute*"
+                      size={{base:'md',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                      value={formdata.institution}
+                      w="100%"
+                      onChange={handleFormdata}
+                      border={`2px solid ${theme.colors.thirty}`}
+                      p="10px"
+                    />
+                  </HStack>
+
+                  <Textarea
+                    placeholder="Any queries regarding registration?, please post here..."
+                    size={{base:'sm',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                    border={`2px solid ${theme.colors.thirty}`}
+                    style={{ width: "100%", padding: "10px" }}
+                    name='enquiry'
+                    value={formdata.enquiry}
+                    onChange={handleFormdata}
+                  />
+
+                  
+
+                  <Input
+                    type="submit"
+                    p="10px 30px"
+                    bg={theme.colors.ten}
+                    color="white"
+                    borderRadius="15px"
+                    cursor="pointer"
+                    size={{base:'md',md:'lg'}}
+                    fontSize={{base:'0.9rem',md:'1rem'}}
+                  />
+                </VStack>
+              </form>
+              <Box
+                position="absolute"
+                right={{ base: "2%", md: "5%" }}
+                top={{ base: "2%", md: "5%" }}
+                bg="white"
+                p={{ base: "2px", md: "5px" }}
+                borderRadius={"50%"}
+                boxShadow={"md"}
+                fontSize={{ base: "1.2rem", md: "1.8rem" }}
+                color="black"
+                onClick={toggleform}
+                cursor="pointer"
+              >
+                <RxCross2 />
+              </Box>
+            </HStack>
+          </Box>
+        </>
+      )}
     </Box>
     </>
   )
