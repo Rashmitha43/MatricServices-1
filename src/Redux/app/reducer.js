@@ -7,7 +7,8 @@ const initalState = {
   contactUs: [],
   campusAmbReg: [],
   workshopReg:[],
-  workshopadd:[]
+  workshopadd:[],
+  productadd:[]
 };
 
 export const reducer = (state = initalState, action) => {
@@ -236,6 +237,50 @@ export const reducer = (state = initalState, action) => {
           isError:payload,
           workshopadd:[]
         }
+
+      //post products
+      case types.POST_PRODUCT_REQUEST:
+        return{
+         ...state,
+         isLoading:true,
+         isError:false
+        };
+      case types.POST_PRODUCT_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false
+        };
+      case types.POST_PRODUCT_FAILURE:
+        return{
+        ...state,
+        isLoading:false,
+        isError:payload
+        };
+
+      //get products
+      case types.GET_PRODUCT_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false,
+          productadd:[]
+        };
+      case types.GET_PRODUCT_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false,
+          productadd:payload
+        };
+      case types.GET_PRODUCT_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload,
+          workshopadd:[]
+        }
+
 
     default: {
       return state;

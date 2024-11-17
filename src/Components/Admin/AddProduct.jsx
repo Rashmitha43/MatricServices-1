@@ -27,19 +27,24 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
+import { postProducts } from "../../Redux/app/action";
+import { useDispatch } from "react-redux";
+
 
 const AddProduct = () => {
-  const [formData, setFormData] = useState({
+  const dispatch=useDispatch();
+  const init={
     title: "",
     desc: "",
     price: "",
     productCode: "",
     img: [],
-  });
+  }
+  const [formData, setFormData] = useState(init);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,33 +77,21 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (
-      !formData.title ||
-      !formData.desc 
-    ) {
-      toast({
-        title: "Error",
-        description: "Please fill all required fields",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-      return;
+    console.log(formData)
+    if(!formData.title || !formData.desc || !formData.price || !formData.productCode){
+      alert('Please fill the Input fields')
+    }else{
+      dispatch(postProducts(formData))
+      .then(res=>{
+        alert("submitted successfully")
+      })
+      .catch(err=>{
+        console.log('error',err.message)
+      })
     }
 
-    console.log("Project Data:", formData);
+    
 
-    toast({
-      title: "Success",
-      description: "Project submitted successfully!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-      position: "top",
-      bg: "#fff",
-    });
   };
 
   const inputStyles = {
@@ -177,8 +170,8 @@ const AddProduct = () => {
                Price
               </FormLabel>
               <Input
-                name="Price"
-                value={formData.Price}
+                name="price"
+                value={formData.price}
                 onChange={handleInputChange}
                 placeholder="Price of the Product"
                 size="lg"

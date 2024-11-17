@@ -1,9 +1,9 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-// const api = `https://matricservices.onrender.com/api`;
+const api = `https://matricservices.onrender.com/api`;
 
-const api=`http://localhost:2345/api`
+// const api=`http://localhost:2345/api`
 
 // PostGetInTouchInfo
 export const postGetInTouchInfo = (payload) => (dispatch) => {
@@ -200,5 +200,43 @@ export const getWorkshop=()=>(dispatch)=>{
       type:types.GET_WORKSHOP_FAILURE,
       payload:err.message
     })
+  })
+}
+
+//post products
+export const postProducts=(payload)=>(dispatch)=>{
+  dispatch({type:types.POST_PRODUCT_REQUEST})
+  return axios
+  .get(api+"/adminProduct/addProduct",payload)
+  .then((res)=>{
+    return dispatch({
+      type:types.POST_PRODUCT_SUCCESS,
+      payload:res.data
+    });
+  })
+  .catch((err)=>{
+    return dispatch({
+     type:types.POST_PRODUCT_FAILURE,
+     payload:err.message
+    });
+  })
+}
+
+//get products
+export const getProducts=()=>(dispatch)=>{
+  dispatch({type:types.GET_PRODUCT_REQUEST})
+  return axios
+  .get(api+"/adminProduct")
+  .then((res)=>{
+   return dispatch({
+    type:types.GET_PRODUCT_SUCCESS,
+    payload:res.data.data
+   });
+  })
+  .catch((err)=>{
+    return dispatch({
+    type:types.GET_PRODUCT_FAILURE,
+    payload:err.message
+    });
   })
 }
