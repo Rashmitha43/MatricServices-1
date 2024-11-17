@@ -1,16 +1,36 @@
 import { Box, HStack, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, SimpleGrid, StackDivider, Text, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import theme from '../../theme'
 import { GrWorkshop } from "react-icons/gr";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
+import { useDispatch } from 'react-redux';
+import { getworkshopRegister } from '../../Redux/app/action';
 
-const photos=[
-  '/images/Homegallery/galleryimg1.jpeg',
-    '/images/Homegallery/galleryimg1.jpeg'
-]
+
+
+
+
 const Singlepage = () => {
+
+  // const [details,setDetails]=useState([]);
+  // const dispatch=useDispatch();
+  // useEffect(()=>{
+  //   dispatch(getworkshopRegister)
+  //   .then(res=>{
+  //     setDetails(res)
+  //   })
+  //   .catch(err=>{
+  //     console.log('error',err.message)
+  //   })
+  // },[dispatch])
+  
+  const photos=[
+    '/images/Homegallery/galleryimg1.jpeg',
+      '/images/Homegallery/galleryimg1.jpeg'
+  ]
+
   const [photoIndex, setPhotoIndex] = useState(-1);
   return (
     <>
