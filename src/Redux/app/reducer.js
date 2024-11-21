@@ -6,6 +6,9 @@ const initalState = {
   getInTouch: [],
   contactUs: [],
   campusAmbReg: [],
+  workshopReg:[],
+  workshopadd:[],
+  productadd:[]
 };
 
 export const reducer = (state = initalState, action) => {
@@ -148,6 +151,136 @@ export const reducer = (state = initalState, action) => {
         isError: payload,
         campusAmbReg: [],
       };
+
+    // post workshopreg
+    case types.POST_WORKSHOP_REG_REQUEST:
+      return{
+        ...state,
+        isLoading:true,
+        isError:false
+      };
+    case types.POST_WORKSHOP_REG_SUCCESS:
+      return{
+        ...state,
+        isLoading:false,
+        isError:false
+      };
+    case types.POST_WORKSHOP_REG_FAILURE:
+      return{
+        ...state,
+        isLoading:false,
+        isError:payload
+      };
+    
+      //get workshopreg
+    case types.GET_WORKSHOP_REG_REQUEST:
+      return{
+       ...state,
+       isLoading:true,
+       isError:false,
+       workshopReg:[]
+      };
+    case types.GET_WORKSHOP_REG_SUCCESS:
+      return{
+        ...state,
+        isLoading:false,
+        isError:false,
+        workshopReg:payload
+      };
+    case types.GET_WORKSHOP_REG_FAILURE:
+      return{
+        ...state,
+        isLoading:false,
+        isError:payload,
+        workshopReg:[]
+      }
+
+      //post workshop
+    case types.POST_WORKSHOP_REQUEST:
+      return{
+       ...state,
+       isLoading:true,
+       isError:false
+      };
+    case types.POST_WORKSHOP_SUCCESS:
+      return{
+        ...state,
+        isLoading:false,
+        isError:true
+      };
+    case types.POST_WORKSHOP_FAILURE:
+      return{
+        ...state,
+        isLoading:false,
+        isError:payload
+      };
+      
+      //get workshop
+      case types.GET_WORKSHOP_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false,
+          workshopadd:[]
+        };
+      case types.GET_WORKSHOP_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false,
+          workshopadd:payload
+        };
+      case types.GET_WORKSHOP_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload,
+          workshopadd:[]
+        }
+
+      //post products
+      case types.POST_PRODUCT_REQUEST:
+        return{
+         ...state,
+         isLoading:true,
+         isError:false
+        };
+      case types.POST_PRODUCT_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false
+        };
+      case types.POST_PRODUCT_FAILURE:
+        return{
+        ...state,
+        isLoading:false,
+        isError:payload
+        };
+
+      //get products
+      case types.GET_PRODUCT_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false,
+          productadd:[]
+        };
+      case types.GET_PRODUCT_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false,
+          productadd:payload
+        };
+      case types.GET_PRODUCT_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload,
+          workshopadd:[]
+        }
+
 
     default: {
       return state;

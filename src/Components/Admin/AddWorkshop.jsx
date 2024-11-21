@@ -27,24 +27,28 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
+import { useDispatch } from "react-redux";
+import { postWorkshop } from "../../Redux/app/action";
 
 const AddWorkshop = () => {
-  const [formData, setFormData] = useState({
-    workshopName: "",
-    workshopDescription: "",
-    location: "",
-    amount: "",
-    criteria: "",
-    date: "",
-    time: "",
-    phoneNumber: "",
-    email: "",
-    uploadImages: [],
-  });
+
+  const dispatch=useDispatch();
+  const init={
+      topic: "",
+      desc: "",
+      venue: "",
+      date: "",
+      time: "",
+      criteria: "",
+      contact: "",
+      email: "",
+      img: [],
+    
+  }
+  const [formData, setFormData] = useState(init);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,14 +64,14 @@ const AddWorkshop = () => {
 
     setFormData((prevFormData) => ({
       ...prevFormData,
-      uploadImages: [...prevFormData.uploadImages, ...newImages], // Add new images to the existing array
+    img: [...prevFormData.img, ...newImages], // Add new images to the existing array
     }));
   };
 
   const handleImageRemove = (index) => {
-    const updatedImages = [...formData.uploadImages];
+    const updatedImages = [...formData.img];
     updatedImages.splice(index, 1); // Remove the image at the specified index
-    setFormData({ ...formData, uploadImages: updatedImages });
+    setFormData({ ...formData, img: updatedImages });
   };
 
   const handleImageClick = (imagePreview) => {
@@ -75,37 +79,24 @@ const AddWorkshop = () => {
     onOpen();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => 
+    {
     e.preventDefault();
+    if(!formData.topic || !formData.desc || !formData.venue || !formData.date || !formData.time || !formData.criteria || !formData.contact || !formData.email){
+      alert('Please Fill all the Input Fields')
+    }else{
+      dispatch(postWorkshop(formData))
+      .then(res=>{
+        alert('successfully submitted');
+        // setFormData(init)
+      })
+      .catch(err=>{
+        console.log('error',err.message)
+      })
+    
 
-    if (
-      !formData.workshopName ||
-      !formData.workshopDescription ||
-      !formData.email ||
-      !formData.phoneNumber
-    ) {
-      toast({
-        title: "Error",
-        description: "Please fill all required fields",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
-      });
-      return;
     }
-
-    console.log("workshop Data:", formData);
-
-    toast({
-      title: "Success",
-      description: "workshop submitted successfully!",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-      position: "top",
-    });
-  };
+  }
 
   const inputStyles = {
     borderRadius: "md",
@@ -154,8 +145,8 @@ const AddWorkshop = () => {
               Workshop Name
             </FormLabel>
             <Input
-              name="workshopName"
-              value={formData.workshopName}
+              name="topic"
+              value={formData.topic}
               onChange={handleInputChange}
               placeholder="Enter your workshop name"
               size="lg"
@@ -168,8 +159,8 @@ const AddWorkshop = () => {
               workshop Description
             </FormLabel>
             <Textarea
-              name="workshopDescription"
-              value={formData.workshopDescription}
+              name="desc"
+              value={formData.desc}
               onChange={handleInputChange}
               placeholder="Describe the workshop"
               size="lg"
@@ -182,8 +173,8 @@ const AddWorkshop = () => {
               Location
             </FormLabel>
             <Input
-              name="location"
-              value={formData.location}
+              name="venue"
+              value={formData.venue}
               onChange={handleInputChange}
               placeholder="City, Country"
               size="lg"
@@ -192,26 +183,7 @@ const AddWorkshop = () => {
           </FormControl>
 
           <HStack spacing={6} width="100%">
-            <FormControl w="100%">
-              <FormLabel fontSize="lg" fontWeight="medium" w="100%">
-                Amount
-              </FormLabel>
-              <select
-                name="amount"
-                value={formData.amount}
-                placeholder="select Amount"
-                onChange={handleInputChange}
-                style={{
-                  padding: "10px",
-                  border: `2px solid ${theme.colors.thirty}`,
-                  width: "100%",
-                  borderRadius: "5px",
-                }}
-              >
-                <option value="free">free</option>
-                <option value="paid">paid</option>
-              </select>
-            </FormControl>
+           
 
             <FormControl width="100%">
               <FormLabel fontSize="lg" fontWeight="medium" w="100%">
@@ -267,9 +239,9 @@ const AddWorkshop = () => {
                 Phone Number
               </FormLabel>
               <Input
-                type="tel"
-                name="phoneNumber"
-                value={formData.phoneNumber}
+                type="phoneNumber"
+                name="contact"
+                value={formData.contact}
                 onChange={handleInputChange}
                 placeholder="Your contact number"
                 size="lg"
@@ -337,7 +309,7 @@ const AddWorkshop = () => {
             </Box>
 
             <HStack spacing={4} mt={4} wrap="wrap">
-              {formData.uploadImages.map((image, index) => (
+              {formData.img.map((image, index) => (
                 <Box key={index} position="relative" boxSize="120px">
                   <CloseButton
                     position="absolute"

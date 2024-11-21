@@ -73,19 +73,34 @@ const Product = () => {
         flexDirection={"column"}
         fontFamily={theme.fonts.body}
         mx="auto"
-        my={{ base: "2rem", md: "3rem", lg: "5rem" }}
+        my={{ base: "2rem", md: "3rem" }}
       >
         <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
           Our Products
         </Text>
-        <Box
-        w="80px"
-        h="3px"
-        bg={theme.colors.ten}
-        borderRadius={"20px"}
-      ></Box>
-        <Box  h="auto" mx='auto'>
-          <SimpleGrid columns={[1, 2, 3, 3]} spacing={{base:'2',md:'3',lg:'5'}} mt={10} >
+        <Box w="80px" h="3px" bg={theme.colors.ten} borderRadius={"20px"} mt='-2px'></Box>
+
+        <Text
+          fontSize={{ base: "0.7rem", md: "1rem", lg: "1.2rem" }}
+          textAlign={"justify"}
+          mt={3}
+        >
+          At Matric Services, we provide custom project kits and components
+          tailored for both educational and professional needs. We handle small
+          and bulk orders, ensuring each kit is high-quality to support
+          practical learning. With options for branded customization, our kits
+          are crafted to align with your organization’s identity. From
+          specialized parts to complete kits, we’re here to bring your vision to
+          life—at competitive prices. Contact us to discuss how we can support
+          your needs!
+        </Text>
+        
+        <Box h="auto" mx="auto">
+          <SimpleGrid
+            columns={[1, 2, 3, 3]}
+            spacing={{ base: "2", md: "3", lg: "5" }}
+            mt={10}
+          >
             {products.map((details) => (
               <>
                 <Card
@@ -103,7 +118,7 @@ const Product = () => {
                       borderBottomRadius={"0px"}
                     />
                     <VStack
-                      mt={{base:'2',md:'4',lg:'6'}}
+                      mt={{ base: "2", md: "4", lg: "6" }}
                       spacing={{ base: "1", md: "2", lg: "3" }}
                       align={"stretch"}
                       px={{ base: "5px", md: "20px" }}
