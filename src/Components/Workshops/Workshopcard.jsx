@@ -17,79 +17,22 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import hooks from react-router-dom
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import hooks from react-router-dom
 import theme from "../../theme";
 import img from "../../assets/Sliderimage1.png";
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { getWorkshop } from "../../Redux/app/action";
+import axios from "axios";
 
-
-const init = {
-  name: "",
-  phone: "",
-  email: "",
-  institution: "",
-  enquiry:""
-};
-
-
-
-const workshops = [
-  {
-    topic: "Workshop 1",
-    date: new Date().toISOString().split("T")[0],
-    venue: "Venue 1",
-    image: img,
-  },
-  {
-    topic: "Workshop 2",
-    date: new Date().toISOString().split("T")[0],
-    venue: "Venue 2",
-    image: img,
-  },
-  {
-    topic: "Workshop 3",
-    date: new Date().toISOString().split("T")[0],
-    venue: "Venue 3",
-    image: img,
-  },
-  {
-    topic: "Workshop 4",
-    date: new Date().toISOString().split("T")[0],
-    venue: "Venue 4",
-    image: img,
-  },
-];
 
 const Workshopcard = () => {
   const [viewAll, setViewAll] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  // const [form,setForm]=useState(false)
-  // const [formdata,setFormdata]=useState(init)
+  const dispatch=useDispatch();
+  const [workshops,setWorkshop]=useState([]);
 
-
-  // const handleFormdata=(event)=>{
-  //   const {name,value}=event.target
-  //   setFormdata((prev)=>({
-  //     ...prev,
-  //     [name]:value
-  //   }))
-  // }
-
-  // const toggleform = () => {
-  //   setForm(!form);
-  //   if (form === true) {
-  //     document.body.style.overflowY = "scroll";
-  //   } else {
-  //     document.body.style.overflowY = "hidden";
-  //   }
-  // };
-
-  // const handleSubmit=(e)=>{
-  //     e.preventDefault()
-  //     setFormdata(init)
-
-  // }
   const handleViewAll = () => {
     navigate("/workshopcard", { state: { showAll: true } });
   };
@@ -99,6 +42,19 @@ const Workshopcard = () => {
       setViewAll(true);
     }
   }, [location.state]);
+
+  useEffect(()=>{
+    dispatch(getWorkshop())
+    .then(res=>{
+     setWorkshop(res.payload)
+
+    })
+    .catch(err=>{
+      console.log('error',err.message)
+    })
+  },[dispatch])
+
+
 
   return (<>
     <Box
@@ -135,18 +91,26 @@ const Workshopcard = () => {
       <SimpleGrid columns={[1, 2, 2, 3]} spacingX={3} spacingY={10} mt={6}>
         {viewAll
           ? workshops.map((event, index) => (
+      
               <Card
-                key={index}
+                key={event._id}
                 maxW="sm"
                 bg={theme.colors.thirty}
                 borderRadius={"15px"}
               >
+                     
                 <CardBody>
+                  <Box  w='100%'
+                    h={'250px'}>
                   <Image
-                    src={event.image}
+                    src={event.img[0]}
                     alt="Workshop image"
                     borderTopRadius="lg"
+                    w='100%'
+                    h='100%'
+                    objectFit={'cover'}
                   />
+                  </Box>
                   <Stack my="6" spacing="3" px="20px">
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.topic}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.venue}</Text>
@@ -156,42 +120,41 @@ const Workshopcard = () => {
                 <Divider />
                 <CardFooter px="20px" pb="20px">
                   <ButtonGroup spacing="2">
-                    <Button
+                
+                  <Button
                       bg={theme.colors.ten}
                       w="max-content"
                       p={{base:'5px 15px',md:'10px 30px'}}
                       color="white"
                       borderRadius={{base:'7px',md:'15px'}}
+                      onClick={()=>navigate(`/singlepage/${event._id}`)}
                     >
                       View Details
                     </Button>
-                    {/* <Button
-                      bg={theme.colors.ten}
-                      w="max-content"
-                      p={{base:'5px 15px',md:'10px 30px'}}
-                      color="white"
-                      borderRadius={{base:'7px',md:'15px'}}
-                      onClick={toggleform}
-                    >
-                      Register
-                    </Button> */}
+                  
                   </ButtonGroup>
                 </CardFooter>
               </Card>
+             
             ))
           : workshops.slice(0, 3).map((event, index) => (
+              
               <Card
-                key={index}
+                key={event._id}
                 maxW="sm"
                 bg={theme.colors.thirty}
                 borderRadius={"15px"}
               >
                 <CardBody>
+                  <Box w='100%' h='250px'>
                   <Image
-                    src={event.image}
+                    src={event.img[0]}
                     alt="Workshop image"
                     borderTopRadius="lg"
-                  />
+                    width={'100%'}
+                    h={'100%'}
+                    objectFit={'cover'}
+                  /></Box>
                   <Stack my="6" spacing="3" px="20px">
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.topic}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.venue}</Text>
@@ -207,22 +170,15 @@ const Workshopcard = () => {
                       p={{base:'5px 15px',md:'10px 30px'}}
                       color="white"
                       borderRadius={{base:'7px',md:'15px'}}
+                      onClick={()=>navigate(`/singlepage/${event._id}`)}
                     >
                       View Details
                     </Button>
-                    {/* <Button
-                      bg={theme.colors.ten}
-                      w="max-content"
-                      p={{base:'5px 15px',md:'10px 30px'}}
-                      color="white"
-                      borderRadius={{base:'7px',md:'15px'}}
-                      onClick={toggleform}
-                    >
-                      Register
-                    </Button> */}
+            
                   </ButtonGroup>
                 </CardFooter>
               </Card>
+            
             ))}
       </SimpleGrid>
 

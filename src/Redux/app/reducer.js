@@ -8,7 +8,9 @@ const initalState = {
   campusAmbReg: [],
   workshopReg:[],
   workshopadd:[],
-  productadd:[]
+  productadd:[],
+  workshopsingledata:[],
+  updateworkshop:[]
 };
 
 export const reducer = (state = initalState, action) => {
@@ -237,6 +239,68 @@ export const reducer = (state = initalState, action) => {
           isError:payload,
           workshopadd:[]
         }
+
+        //get workshop by id
+      case types.GET_WORKSHOPID_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false,
+          workshopsingledata:[]
+        }
+      case types.GET_WORKSHOPID_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false,
+          workshopsingledata:payload
+        }
+      case types.GET_WORKSHOPID_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload,
+          workshopsingledata:[]
+        }
+      //patch workhop
+      case types.PATCH_WORKSHOPID_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false,
+        }
+      case types.PATCH_WORKSHOPID_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false
+        }
+      case types.PATCH_WORKSHOPID_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload
+        }
+        //delete workshop
+        case types.DELETE_WORKSHOPID_REQUEST:
+          return{
+            ...state,
+            isLoading:true,
+            isError:false
+          }
+        case types.DELETE_WORKSHOPID_SUCCESS:
+          return{
+            ...state,
+            isLoading:false,
+            isError:false
+          }
+        case types.DELETE_WORKSHOPID_FAILURE:
+          return{
+            ...state,
+            isLoading:false,
+            isError:true
+          }
+      
 
       //post products
       case types.POST_PRODUCT_REQUEST:

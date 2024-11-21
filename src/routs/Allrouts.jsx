@@ -30,9 +30,9 @@ const Allrouts = () => {
             <Route path='/about' element={<AboutUs/>}/>
             <Route path='/projects' element={<Projects/>}/>
             <Route path='/workshop' element={<Workshop/>}/>
+            <Route path ='/singlepage/:id' element={<Workshopsinglepage/>}/>
             <Route path="/workshopcard" element={<Workshopcard/>}/>  
             <Route path='/footer' element={<Footer/>}/>
-            <Route path ='/singlepage' element={<Workshopsinglepage/>}/>
             <Route path='/products' element={<Product/>}/>
             <Route path='/productsinglepage' element={<ProductSinglepage/>}/>
             <Route path='*' element={<h1>Page not found</h1>}/>
