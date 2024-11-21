@@ -3,7 +3,7 @@ import * as types from "./actionTypes";
 
 const api = `https://matricservices.onrender.com/api`;
 
-// const api=`http://localhost:2345/api`
+// const api = `http://localhost:2345/api`;
 
 // PostGetInTouchInfo
 export const postGetInTouchInfo = (payload) => (dispatch) => {
@@ -126,117 +126,185 @@ export const getCampusAmbReg = () => (dispatch) => {
 };
 
 //post workshop register
-export const postworkshopRegister=(payload)=>(dispatch)=>{
-  dispatch({type:types.POST_WORKSHOP_REG_REQUEST});
+export const postworkshopRegister = (payload) => async (dispatch) => {
+  dispatch({ type: types.POST_WORKSHOP_REG_REQUEST });
 
-  return axios
-  .post(api + "/workShopRegister/addEventRegistration",payload)
-  .then((res)=>{
+  try {
+    const res = await axios.post(
+      api + "/workShopRegister/addEventRegistration",
+      payload
+    );
     return dispatch({
-      type:types.POST_WORKSHOP_REG_SUCCESS,
-      payload:res.data,
+      type: types.POST_WORKSHOP_REG_SUCCESS,
+      payload: res.data,
     });
-  })
-  .catch((err)=>{
+  } catch (err) {
     return dispatch({
-      type:types.POST_WORKSHOP_REG_FAILURE,
-      payload:err.message,
+      type: types.POST_WORKSHOP_REG_FAILURE,
+      payload: err.message,
     });
-  })
+  }
 };
 
 //get workshop register
-export const getworkshopRegister=()=>(dispatch)=>{
-  dispatch({type:types.GET_WORKSHOP_REG_REQUEST});
+export const getworkshopRegister = () => (dispatch) => {
+  dispatch({ type: types.GET_WORKSHOP_REG_REQUEST });
 
   return axios
-  .get(api + '/workShopRegister')
-  .then((res)=>{
-    return dispatch({
-        type:types.GET_WORKSHOP_REG_SUCCESS,
-        payload:res.data.data,
+    .get(api + "/workShopRegister")
+    .then((res) => {
+      return dispatch({
+        type: types.GET_WORKSHOP_REG_SUCCESS,
+        payload: res.data.data,
+      });
+    })
+    .catch((err) => {
+      return dispatch({
+        type: types.GET_WORKSHOP_REG_FAILURE,
+        payload: err.message,
+      });
     });
-  })
-.catch((err)=>{
-  return dispatch({
-    type:types.GET_WORKSHOP_REG_FAILURE,
-    payload:err.message,
-  });
-})
 };
 
+
+
+
+
 //post workshop
-export const postWorkshop=(formdata)=>(dispatch)=>{
-  dispatch({type:types.POST_WORKSHOP_REQUEST});
-  console.log(formdata)
-  return axios.post(api + "/adminWorkShop/addWorkShop",formdata)
-  .then((res)=>{
-    return dispatch({
-      type:types.POST_WORKSHOP_SUCCESS,
-      payload:res.data
-    });
-  })
-  .catch((err)=>{
-    return dispatch({
-      type:types.POST_WORKSHOP_FAILURE,
-      payload:err.message
+
+export const postWorkshop = (payload) => (dispatch) => {
+  dispatch({ type: types.POST_WORKSHOP_REQUEST });
+  return axios
+    .post(api + "/adminWorkShop/addWorkShop", payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     })
-  })
-}
+    .then((res) => {
+      return dispatch({
+        type: types.POST_WORKSHOP_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      return dispatch({
+        type: types.POST_WORKSHOP_FAILURE,
+        payload: err.message,
+      });
+    });
+};
 
 //get workshop
-export const getWorkshop=()=>(dispatch)=>{
-  dispatch({type:types.GET_WORKSHOP_REQUEST})
+export const getWorkshop = () => (dispatch) => {
+  dispatch({ type: types.GET_WORKSHOP_REQUEST });
+
   return axios
-  .get(api+"/adminWorkShop")
+    .get(api + "/adminWorkShop")
+    .then((res) => {
+      return dispatch({
+        type: types.GET_WORKSHOP_SUCCESS,
+        payload: res.data.data,
+      });
+    })
+    .catch((err) => {
+      return dispatch({
+        type: types.GET_WORKSHOP_FAILURE,
+        payload: err.message,
+      });
+    });
+};
+
+//get workshop by id
+export const getWorkshopbyId=(id)=>(dispatch)=>{
+  dispatch({type:types.GET_WORKSHOPID_REQUEST});
+  return axios
+  .get(api+`/adminWorkshop/${id}`)
   .then((res)=>{
     return dispatch({
-      type:types.GET_WORKSHOP_SUCCESS,
+      type:types.GET_WORKSHOPID_SUCCESS,
       payload:res.data.data
     });
   })
-  .catch((err)=>{
+  .catch((err) => {
     return dispatch({
-      type:types.GET_WORKSHOP_FAILURE,
-      payload:err.message
-    })
-  })
+      type: types.GET_WORKSHOPID_FAILURE,
+      payload: err.message,
+    });
+  });
 }
 
-//post products
-export const postProducts=(payload)=>(dispatch)=>{
-  dispatch({type:types.POST_PRODUCT_REQUEST})
+//patch workshop
+export const patchWorkshop=(payload,id)=>(dispatch)=>{
+  dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
   return axios
-  .get(api+"/adminProduct/addProduct",payload)
+  .patch(api+`/adminWorkshop/${id}`,payload)
   .then((res)=>{
     return dispatch({
-      type:types.POST_PRODUCT_SUCCESS,
+      type:types.PATCH_WORKSHOPID_SUCCESS,
       payload:res.data
     });
   })
   .catch((err)=>{
     return dispatch({
-     type:types.POST_PRODUCT_FAILURE,
-     payload:err.message
-    });
+      type:types.PATCH_WORKSHOPID_FAILURE,
+      payload:err.message
+    })
   })
 }
-
-//get products
-export const getProducts=()=>(dispatch)=>{
-  dispatch({type:types.GET_PRODUCT_REQUEST})
+//delete workhopid
+export const delWorkshopId=(id)=>(dispatch)=>{
+  dispatch({type:types.DELETE_WORKSHOPID_REQUEST});
   return axios
-  .get(api+"/adminProduct")
+  .delete(api+`/adminWorkshop/${id}`)
   .then((res)=>{
-   return dispatch({
-    type:types.GET_PRODUCT_SUCCESS,
-    payload:res.data.data
-   });
+    return dispatch({
+      type:types.DELETE_WORKSHOPID_SUCCESS
+    });
   })
   .catch((err)=>{
     return dispatch({
-    type:types.GET_PRODUCT_FAILURE,
-    payload:err.message
-    });
+      type:types.DELETE_WORKSHOPID_FAILURE,
+      payload:err.message
+    })
   })
+
 }
+
+
+//post products
+export const postProducts = (payload) => (dispatch) => {
+  dispatch({ type: types.POST_PRODUCT_REQUEST });
+  return axios
+    .post(api + "/adminProduct/addProduct", payload)
+    .then((res) => {
+      return dispatch({
+        type: types.POST_PRODUCT_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      return dispatch({
+        type: types.POST_PRODUCT_FAILURE,
+        payload: err.message,
+      });
+    });
+};
+
+//get products
+export const getProducts = () => (dispatch) => {
+  dispatch({ type: types.GET_PRODUCT_REQUEST });
+  return axios
+    .get(api + "/adminProduct")
+    .then((res) => {
+      return dispatch({
+        type: types.GET_PRODUCT_SUCCESS,
+        payload: res.data.data,
+      });
+    })
+    .catch((err) => {
+      return dispatch({
+        type: types.GET_PRODUCT_FAILURE,
+        payload: err.message,
+      });
+    });
+};
