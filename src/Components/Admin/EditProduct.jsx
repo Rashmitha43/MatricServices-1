@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Input,
@@ -14,98 +13,109 @@ import {
   Select,
   InputGroup,
   useColorModeValue,
-  useToast,
-  Image,
-  CloseButton,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
+  Stack,
+  IconButton,
 } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
-
+import { getProducts, postProducts } from "../../Redux/app/action";
+import { useDispatch, useSelector } from "react-redux";
+import { CloseIcon } from "@chakra-ui/icons";
+import { getProductsbyId } from "../../Redux/app/action";
+import { useParams } from "react-router-dom";
+import { patchProduct } from "../../Redux/app/action";
 const EditProduct = () => {
-  const location = useLocation();
-  // const product = location.state?.product || {};
-  const [formData, setFormData] = useState({
+  const dispatch=useDispatch();
+  const {productsingledata}=useSelector(state=>state.app)
+  const id=useParams()
+
+  useEffect(()=>{
+      dispatch(getProductsbyId(id.productId))
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        console.log("error:",err.message)
+      })
+    
+  
+    
+  },[dispatch,id.productId])
+
+
+  const init={
     title: "",
     desc: "",
     price: "",
     productCode: "",
     img: [],
-  });
+  }
+  const [formData, setFormData] = useState(init);
 
-  // useEffect(() => {
-  //   if (product) {
-  //     setFormData({
-  //       title: product.title,
-  //       desc: product.desc,
-  //       price: product.price,
-  //       productCode: product.productCode,
-  //       img: product.img || [],
-  //     });
-  //   }
-  // }, [product]);
-
-  const [selectedImage, setSelectedImage] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
-  const navigate = useNavigate();
+  useEffect(()=>{
+   if(productsingledata){
+    setFormData({
+      title:productsingledata.title || "",
+      desc:productsingledata.desc || "",
+      price:productsingledata.price || "",
+      productCode:productsingledata.productCode|| "",
+      img:productsingledata.img||[]
+    })
+   }
+  },[productsingledata])
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      const fileArray = Array.from(files);
+      console.log(fileArray);
+      setFormData((prev) => ({
+        ...prev,
+        [name]: [...fileArray],
+      }));
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleFileUpload = (e) => {
-    const files = Array.from(e.target.files); 
-    const newImages = files.map((file) => ({
-      file,
-      preview: URL.createObjectURL(file),
-    }));
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      img: [...prevFormData.img, ...newImages],
-    }));
+
+
+  const handleimageInput = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.multiple = true;
+    input.name = "img";
+    input.addEventListener("change", handleInputChange);
+    input.click();
   };
 
-  const handleImageRemove = (index) => {
-    const updatedImages = [...formData.img];
-    updatedImages.splice(index, 1);
-    setFormData({ ...formData, img: updatedImages });
-  };
 
-  const handleImageClick = (imagePreview) => {
-    setSelectedImage(imagePreview);
-    onOpen();
-  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!formData.title || !formData.desc) {
-      toast({
-        title: "Error",
-        description: "Please fill all required fields",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: "top",
+    if (
+      !formData.title ||
+      !formData.desc ||
+      !formData.price ||
+      !formData.productCode 
+      
+    ) {
+      alert("Please Fill all the Input Fields");
+    } else {
+      
+      dispatch(patchProduct(formData,productsingledata._id))
+      .then((res) => {
+        alert("successfully submitted");
+        setFormData(init)
+        
+      })
+      .catch((err) => {
+        console.log("error", err.message);
       });
-      return;
     }
-
-    navigate("/admin/producttable",
-      // { state: { updatedProduct: { ...product, ...formData } },}
-  );
   };
-
   const inputStyles = {
     borderRadius: "md",
     borderStyle: "solid",
@@ -139,6 +149,7 @@ const EditProduct = () => {
         mb={6}
         textAlign="center"
         color="black"
+       
       >
         UPDATE A PRODUCT
       </Text>
@@ -176,7 +187,7 @@ const EditProduct = () => {
           <HStack spacing={6} width="100%">
             <FormControl isRequired width="50%">
               <FormLabel fontSize="lg" fontWeight="medium">
-                Price
+               Price
               </FormLabel>
               <Input
                 name="price"
@@ -204,77 +215,56 @@ const EditProduct = () => {
           </HStack>
 
           <FormControl>
-            <FormLabel fontSize="lg" fontWeight="medium">
-              Upload Images
-            </FormLabel>
-
-            <Box
-              border="2px dashed"
-              borderColor="gray.300"
-              p={2}
-              borderRadius="md"
-              width="170px"
-              textAlign="center"
-              cursor="pointer"
-              _hover={{ backgroundColor: "blue.200" }}
-            >
-              <Button
-                colorScheme="yellow"
-                variant="solid"
-                size="lg"
-                position="relative"
-                overflow="hidden"
-                leftIcon={<Icon as={AiOutlineCloudUpload} boxSize={6} />}
-                cursor={"pointer"}
+            <Stack w={"100%"}>
+              <Box
+                display={"flex"}
+                justifyContent={"left"}
+                alignItems={"center"}
+                gap={"50px"}
               >
-                Upload Images
-                <Input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleFileUpload}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    opacity: 0,
-                    width: "100%",
-                    height: "100%",
-                    cursor: "pointer",
-                  }}
-                />
-              </Button>
-            </Box>
-
-            <HStack spacing={4} mt={4} wrap="wrap">
-              {formData.img.map((image, index) => (
-                <Box key={index} position="relative" boxSize="120px">
-                  <CloseButton
-                    position="absolute"
-                    fontSize="10px"
-                    borderRadius="50%"
-                    padding="5px"
-                    bgColor="yellow.400"
-                    top="0"
-                    right="0"
-                    onClick={() => handleImageRemove(index)}
-                  />
-                  <Image
-                    src={image.preview}
-                    alt={`Uploaded Image ${index + 1}`}
-                    objectFit="cover"
-                    width="100%"
-                    height="100%"
-                    borderRadius="md"
-                    boxShadow="lg"
-                    cursor="pointer"
-                    onClick={() => handleImageClick(image.preview)}
-                    _hover={{ transform: "scale(1.1)" }}
-                    transition="transform 0.3s ease"
-                  />
+                <Box>
+                  <FormLabel fontWeight={"500"} fontFamily={"body"}>
+                    Upload image
+                  </FormLabel>
                 </Box>
-              ))}
-            </HStack>
+                <Box display={"flex"} alignItems={"center"}>
+                  <input
+                    type="file"
+                    multiple
+                    name="img"
+                    onChange={handleInputChange}
+                    style={{ display: "none" }}
+                  />
+                  <Button
+                    onClick={handleimageInput}
+                    colorScheme={"teal"}
+                    mr={2}
+                  >
+                    Add Images
+                  </Button>
+
+                  {formData.img?.length > 0 && (
+                    <HStack gap={"0.5rem"}>
+                      {formData?.img?.map((image, index) => (
+                        <Box key={index} display={"flex"} alignItems={"center"}>
+                          <IconButton
+                            aria-label="Remove Image"
+                            icon={<CloseIcon />}
+                            onClick={() => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                img: prev.img.filter((_, i) => i !== index),
+                              }));
+                            }}
+                          />
+                          <Box>{image.name}</Box>
+                        </Box>
+                      ))}
+                    </HStack>
+                  )}
+                </Box>
+              </Box>
+            </Stack>
           </FormControl>
 
           <Box display="flex" justifyContent="center" mt={6}>
@@ -300,34 +290,7 @@ const EditProduct = () => {
         </VStack>
       </form>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>View Image</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            p={0}
-            maxHeight="80vh"
-            overflowY="auto"
-          >
-            <Image
-              src={selectedImage}
-              alt="Selected Image"
-              maxHeight="100%"
-              maxWidth="100%"
-              objectFit="contain"
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+  
     </Box>
   );
 };

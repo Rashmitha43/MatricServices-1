@@ -34,7 +34,7 @@ const Allrouts = () => {
             <Route path="/workshopcard" element={<Workshopcard/>}/>  
             <Route path='/footer' element={<Footer/>}/>
             <Route path='/products' element={<Product/>}/>
-            <Route path='/productsinglepage' element={<ProductSinglepage/>}/>
+            <Route path='/productsinglepage/:id' element={<ProductSinglepage/>}/>
             <Route path='*' element={<h1>Page not found</h1>}/>
             </Route>
 

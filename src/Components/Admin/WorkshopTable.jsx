@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState,  useEffect } from "react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import { ImCross } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   delWorkshopId,
   getWorkshop,
@@ -23,23 +23,18 @@ import {
 } from "../../Redux/app/action";
 
 const WorkshopTable = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isRegOpen,
-    onOpen: onRegOpen,
-    onClose: onRegClose,
-  } = useDisclosure();
+
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [workshops, setWorkshop] = useState([]);
+  const {workshopadd}=useSelector(state=>state.app)
   const [registrations, setRegistrations] = useState([]);
   const [viewReg, setViewReg] = useState(null);
   const [deletestatus,setDeletestatus]=useState(false)
   useEffect(() => {
     dispatch(getWorkshop())
       .then((res) => {
-        setWorkshop(res.payload);
+        console.log(res.payload);
       })
       .catch((err) => {
         console.log("error", err.message);
@@ -124,7 +119,7 @@ const WorkshopTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {workshops?.map((workshop, index) => (
+          {workshopadd?.map((workshop, index) => (
             
               <Tr key={workshop._id}>
                 <Td py={4} px={6} textAlign={"center"}>

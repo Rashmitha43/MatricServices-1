@@ -274,8 +274,13 @@ export const delWorkshopId=(id)=>(dispatch)=>{
 //post products
 export const postProducts = (payload) => (dispatch) => {
   dispatch({ type: types.POST_PRODUCT_REQUEST });
+  console.log(payload)
   return axios
-    .post(api + "/adminProduct/addProduct", payload)
+    .post(api + "/adminProduct/addProduct", payload,{
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
     .then((res) => {
       return dispatch({
         type: types.POST_PRODUCT_SUCCESS,
@@ -308,3 +313,59 @@ export const getProducts = () => (dispatch) => {
       });
     });
 };
+
+//get products by id
+export const getProductsbyId=(id)=>(dispatch)=>{
+
+  dispatch({type:types.GET_PRODUCTID_REQUEST});
+  return axios
+  .get(api+`/adminProduct/${id}`)
+  .then((res)=>{
+    dispatch({
+      type:types.GET_PRODUCTID_SUCCESS,
+      payload:res.data.data
+    });
+  })
+  .catch((err)=>{
+    dispatch({
+      type:types.GET_PRODUCTID_FAILURE,
+      payload:err.message
+    })
+  })
+}
+//patch product
+export const patchProduct=(payload,id)=>(dispatch)=>{
+  dispatch({type:types.PATCH_PRODUCTID_REQUEST});
+  return axios
+  .patch(api+`/adminProduct/${id}`,payload)
+  .then((res)=>{
+    return dispatch({
+      type:types.PATCH_PRODUCTID_SUCCESS,
+      payload:res.data
+    });
+  })
+  .catch((err)=>{
+    return dispatch({
+      type:types.PATCH_PRODUCTID_FAILURE,
+      payload:err.message
+    })
+  })
+}
+//delete productid
+export const delProductId=(id)=>(dispatch)=>{
+  dispatch({type:types.DELETE_PRODUCTID_REQUEST});
+  return axios
+  .delete(api+`/adminProduct/${id}`)
+  .then((res)=>{
+    return dispatch({
+      type:types.DELETE_PRODUCTID_SUCCESS
+    });
+  })
+  .catch((err)=>{
+    return dispatch({
+      type:types.DELETE_PRODUCTID_FAILURE,
+      payload:err.message
+    })
+  })
+
+}
