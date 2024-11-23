@@ -161,6 +161,7 @@ const WorkshopTable = () => {
                   px={6}
                   display="flex"
                   justifyContent="center"
+                  alignItems={'center'}
                   my="auto"
                 >
                   <IconButton

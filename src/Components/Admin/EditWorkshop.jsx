@@ -79,7 +79,7 @@ const EditWorkshop = () => {
       console.log(fileArray);
       setFormData((prev) => ({
         ...prev,
-        [name]: [...fileArray],
+        [name]: prev[name] ? [...prev[name], ...fileArray] : [...fileArray],
       }));
     } else {
       setFormData({ ...formData, [name]: value });

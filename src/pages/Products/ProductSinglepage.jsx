@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Box, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Input,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import dummyimg from "../../assets/Sliderimage1.png";
 import theme from "../../theme";
 import { useParams } from "react-router-dom";
 import { getProductsbyId } from "../../Redux/app/action";
 import { useDispatch, useSelector } from "react-redux";
+import { RxCross2 } from "react-icons/rx";
 const ProductSinglepage = () => {
   const dispatch = useDispatch();
   const id = useParams();
   const { productsingledata } = useSelector((state) => state.app);
-  const [index,setIndex]=useState(0)
+  const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+  let message = "";
+  const init = {
+    name: "",
+    email: "",
+    phone: "",
+  };
+  const [formdata, setFormData] = useState(init);
+
   useEffect(() => {
-    console.log(id)
     dispatch(getProductsbyId(id.id))
       .then((res) => {
         console.log(res.payload);
@@ -20,7 +38,41 @@ const ProductSinglepage = () => {
         console.log("error:", err);
       });
   }, [dispatch, id.id]);
-  console.log(productsingledata)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormData(formdata);
+    if (!formdata.name || !formdata.email || !formdata.phone) {
+      alert("please fill out all the fields");
+    } else {
+      message = `Hello! 👋\n
+
+      Thank you for your purchase. Here are the details of your order:\n
+      
+      Name: ${formdata.name}\n
+      Email: ${formdata.email}\n
+      Phone: ${formdata.phone}\n
+      Product: ${productsingledata.title}\n
+      Price: ${productsingledata.price}\n
+      
+      We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
+      
+      Best regards,\n
+      MatricServices`;
+      const whatsappMessage = `https://api.whatsapp.com/send?phone=919390555433&text=${encodeURIComponent(
+        message
+      )}`;
+      window.open(whatsappMessage, "_blank");
+      setFormData(init);
+    }
+  };
+  const handleFormdata = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <>
@@ -29,7 +81,6 @@ const ProductSinglepage = () => {
         width={"95%"}
         mx="auto"
         my={{ base: "3rem", md: "5rem" }}
-       
       >
         <Stack
           direction={{ base: "column", md: "row" }}
@@ -37,7 +88,7 @@ const ProductSinglepage = () => {
           boxShadow={"lg"}
           align="center"
           spacing={5}
-          padding={'20px'}
+          padding={"20px"}
         >
           <Box
             w={{ base: "100%", md: "50%", lg: "49%" }}
@@ -45,7 +96,6 @@ const ProductSinglepage = () => {
             position="relative"
             display={{ base: "flex", md: "column" }}
             justifyContent={{ base: "space-between", md: "none" }}
-            
           >
             <VStack
               w="18%"
@@ -53,16 +103,20 @@ const ProductSinglepage = () => {
               align="space-evenly"
               h="100%"
             >
-              
-              {productsingledata?.img?.map((img,ind) => (
+              {productsingledata?.img?.map((img, ind) => (
                 <>
-                  <Box h={{ base: "100%" }} onClick={()=>setIndex(ind)} border={index===ind?'1px solid black':'none'} p='2px'>
+                  <Box
+                    h={{ base: "100%" }}
+                    onClick={() => setIndex(ind)}
+                    border={index === ind ? "1px solid black" : "none"}
+                    p="2px"
+                  >
                     <Image
                       w="100%"
                       h="100%"
                       src={img}
                       objectFit={"contain"}
-                      cursor={'pointer'}
+                      cursor={"pointer"}
                     />
                   </Box>
                 </>
@@ -70,16 +124,23 @@ const ProductSinglepage = () => {
             </VStack>
             {productsingledata?.img && productsingledata?.img.length > 0 ? (
               <Image
-                w={{base:'80%',md:'100%'}}
+                w={{ base: "80%", md: "100%" }}
                 h="100%"
                 src={productsingledata.img[index]}
-                objectFit={'contain'}
-              />):(<Text>No images available</Text>)}
+                objectFit={"contain"}
+              />
+            ) : (
+              <Text>No images available</Text>
+            )}
           </Box>
           <Box w={{ base: "100%", md: "40%", lg: "50%" }}>
             <VStack align={"stretch"} spacing={5} w="100%">
-              <Text fontSize={{ base: "1.2rem", md: "2rem" }}>{productsingledata.title}</Text>
-              <Text fontSize={{ base: "0.9rem", md: "1rem" }}>{productsingledata.desc}</Text>
+              <Text fontSize={{ base: "1.2rem", md: "2rem" }}>
+                {productsingledata.title}
+              </Text>
+              <Text fontSize={{ base: "0.9rem", md: "1rem" }}>
+                {productsingledata.desc}
+              </Text>
               <Text fontSize={{ base: "1.2rem", md: "2rem" }} color="green">
                 {productsingledata.price}/-
               </Text>
@@ -90,24 +151,135 @@ const ProductSinglepage = () => {
                 color="white"
                 p="10px 20px"
                 textAlign={"center"}
+                cursor="pointer"
+                onClick={() => setOpen(true)}
               >
                 Place Order
               </Box>
               <HStack w="100%" Spacing={3} mt="auto">
-              {productsingledata?.img?.map((img,ind) => (
-                <>
-                    <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }} onClick={()=>setIndex(ind)} border={index===ind?'1px solid black':'none'} p='2px'>
-                  <Image w="100%" h="100%" src={img} cursor={'pointer'} objectFit={'contain'}/>
-                </Box>
-                </>
-              ))}
-              
-             
+                {productsingledata?.img?.map((img, ind) => (
+                  <>
+                    <Box
+                      h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }}
+                      onClick={() => setIndex(ind)}
+                      border={index === ind ? "1px solid black" : "none"}
+                      p="2px"
+                    >
+                      <Image
+                        w="100%"
+                        h="100%"
+                        src={img}
+                        cursor={"pointer"}
+                        objectFit={"contain"}
+                      />
+                    </Box>
+                  </>
+                ))}
               </HStack>
             </VStack>
           </Box>
         </Stack>
       </Box>
+      {open && (
+        <>
+          <Box
+            position="fixed"
+            w={"100%"}
+            height={"100%"}
+            top="0"
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bg="rgb(0,0,0,0.9)"
+            zIndex={99999}
+          >
+            <HStack
+              spacing={"3"}
+              align={"start"}
+              w={{ base: "90%", md: "70%", lg: "50%", xl: "40%" }}
+            >
+              <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+                <VStack w="100%" mx="auto" gap={"1rem"} bg="white" p="20px">
+                  <Text
+                    fontSize={{ base: "1.2rem", md: "1.5rem", lg: "2rem" }}
+                    fontWeight={"500"}
+                  >
+                    Fill out the details for Placing order
+                  </Text>
+                  <Input
+                    type="text"
+                    name="name"
+                    placeholder="Name*"
+                    size={{ base: "md", md: "lg" }}
+                    fontSize={{ base: "0.9rem", md: "1rem" }}
+                    value={formdata.name}
+                    w="100%"
+                    onChange={handleFormdata}
+                    border={`2px solid ${theme.colors.thirty}`}
+                    p="10px"
+                  />
+                  <HStack
+                    w="100%"
+                    flexDirection={{ base: "column", md: "row" }}
+                  >
+                    <Input
+                      type="number"
+                      name="phone"
+                      placeholder="Phone*"
+                      size={{ base: "md", md: "lg" }}
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      value={formdata.phone}
+                      w="100%"
+                      onChange={handleFormdata}
+                      border={`2px solid ${theme.colors.thirty}`}
+                      p="10px"
+                    />
+
+                    <Input
+                      type="text"
+                      name="email"
+                      placeholder="Email*"
+                      value={formdata.email}
+                      size={{ base: "md", md: "lg" }}
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      w="100%"
+                      onChange={handleFormdata}
+                      border={`2px solid ${theme.colors.thirty}`}
+                      p="10px"
+                    />
+                  </HStack>
+
+                  <Input
+                    type="submit"
+                    p="10px 30px"
+                    bg={theme.colors.ten}
+                    color="white"
+                    borderRadius="15px"
+                    cursor="pointer"
+                    size={{ base: "md", md: "lg" }}
+                    fontSize={{ base: "0.9rem", md: "1rem" }}
+                  />
+                </VStack>
+              </form>
+              <Box
+                position="absolute"
+                right={{ base: "2%", md: "5%" }}
+                top={{ base: "2%", md: "5%" }}
+                bg="white"
+                p={{ base: "2px", md: "5px" }}
+                borderRadius={"50%"}
+                boxShadow={"md"}
+                fontSize={{ base: "1.2rem", md: "1.8rem" }}
+                color="black"
+                onClick={() => setOpen(false)}
+                cursor="pointer"
+              >
+                <RxCross2 />
+              </Box>
+            </HStack>
+          </Box>
+        </>
+      )}
     </>
   );
 };
