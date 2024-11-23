@@ -83,6 +83,7 @@ const Product = () => {
                   borderRadius="lg"
                   fontSize={{ base: "0.7rem", md: "0.8rem", lg: "1rem" }}
                   key={details._id}
+                  boxShadow={'lg'}
                 >
                   <CardBody w="100%">
                     <Image
@@ -91,6 +92,7 @@ const Product = () => {
                       w="100%"
                       borderRadius="lg"
                       borderBottomRadius={"0px"}
+                      objectFit={'contain'}
                     />
                     <VStack
                       mt={{ base: "2", md: "4", lg: "6" }}
@@ -98,7 +100,7 @@ const Product = () => {
                       align={"stretch"}
                       px={{ base: "5px", md: "20px" }}
                     >
-                      <Heading fontSize={{ base: "1.2rem", md: "2rem" }}>
+                      <Heading fontSize={{ base: "1.2rem", md: "1.5rem" }}>
                         {details.title.length > 18
                           ? `${details.title.substring(0, 14)}...`
                           : details.title}

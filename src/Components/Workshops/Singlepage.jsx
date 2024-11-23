@@ -124,6 +124,7 @@ const Singlepage = () => {
                 w="100%"
                 h="100%"
                 src={workshopsingledata.img[0]}
+                objectFit={'contain'}
               />):(<Text>No images available</Text>)}
             </Box>
             <Box textAlign={"justify"}>
