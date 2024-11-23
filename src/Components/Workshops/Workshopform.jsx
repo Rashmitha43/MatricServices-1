@@ -9,11 +9,11 @@ const Workshopform = () => {
 
 
   const init={
-    name:'',
-    phone:'',
-    email:'',
-    askYourQuestions:'',
-    collageOrInstitute:''
+    Name:'',
+    Phone:'',
+    Email:'',
+    AskYourQuestions:'',
+    CollegeOrInstitute:''
   }
   const [formdata,setFormdata]=useState(init)
  
@@ -26,24 +26,69 @@ const Workshopform = () => {
     }))
 
   }
-  const handleSubmit=(e)=>{
-  e.preventDefault();
-  
-   if(!formdata.name || !formdata.phone || !formdata.email || !formdata.collageOrInstitute || ! formdata.askYourQuestions){
-    alert('Please Fill the Input fields')
-   }
-   else{
-      dispatch(postGetInTouchInfo(formdata))
-      .then(res=>{
-         alert('Submitted');
-         setFormdata(init)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formdata.Name || !formdata.Phone || !formdata.Email || !formdata.CollegeOrInstitute || !formdata.AskYourQuestions) {
+      alert('Please Fill the Input fields');
+      return
+    } 
+
+    const formBody = new URLSearchParams();
+    for (const key in formdata) {
+      formBody.append(key, formdata[key]);
+    }
+
+    fetch(
+      "https://script.google.com/macros/s/AKfycbzYbeCx05ZbGpDVm2FHmOWp3FyrVRy7vy78Y_6YmRfrr155Ju9GRuVGZffUuoNV3JFK/exec",
+      {
+        method: "POST",
+        body: formBody,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        if (data.includes("successfully sent")) {
+          setFormdata({ Name: "",Phone:"", Email: "", AskYourQuestions: "", CollegeOrInstitute: "" });
+        } else {
+        }
       })
-      .catch(error=>{
-         console.log('error',error.message)
-      })
-   }
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
   
-  }
+  //   if (!formdata.Name || !formdata.Phone || !formdata.Email || !formdata.CollegeOrInstitute || !formdata.AskYourQuestions) {
+  //     alert('Please Fill the Input fields');
+  //   } else {
+  //     fetch('https://script.google.com/macros/s/AKfycbzF-T6MxiHEg2mSS-tXBIWymrGDszPukrn2tFvXHn52aYcaMx0RHZwHV4ZpFokqgvZG/exec', {
+  //       method: 'POST',
+  //       body: JSON.stringify(formdata),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         if (data.result === 'success') {
+  //           alert('Submitted');
+  //           setFormdata(init);
+  //         } else {
+  //           alert('Failed to submit: ' + data.error);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error:', error);
+  //       });
+  //   }
+  // };
+  
   return (
    <>
    <Box
@@ -71,15 +116,15 @@ const Workshopform = () => {
         <form onSubmit={handleSubmit}  >
         <VStack w='90%' mx='auto' gap={'1rem'}>
         
-        <Input type='text' size={'lg'} name='name' placeholder='Name'value={formdata.name} w='100%' onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+        <Input type='text' size={'lg'} name='Name' placeholder='Name'value={formdata.Name} w='100%' onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px'/>
        
-        <Input type='text' name='phone' placeholder='Phone'value={formdata.phone} w='100%' onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+        <Input type='text' name='Phone' placeholder='Phone'value={formdata.Phone} w='100%' onChange={handleFormdata}  border={`2px solid ${theme.colors.thirty}`} p='10px'/>
        
-        <Input type='text' name='email' placeholder='Email' value={formdata.email}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+        <Input type='text' name='Email' placeholder='Email' value={formdata.Email}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <Input type='text' name='collageOrInstitute' placeholder='College/Institute' value={formdata.collageOrInstitute}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
+        <Input type='text' name='CollegeOrInstitute' placeholder='College/Institute' value={formdata.CollegeOrInstitute}  w='100%'onChange={handleFormdata} border={`2px solid ${theme.colors.thirty}`} p='10px'/>
 
-        <textarea  placeholder='Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="askYourQuestions" value={formdata.askYourQuestions} ></textarea>
+        <textarea  placeholder='Ask your questions!' style={{width:'100%',padding:'10px'}} rows='5' onChange={handleFormdata} name="AskYourQuestions" value={formdata.AskYourQuestions} ></textarea>
        
         <Input type='submit' p='10px 30px' bg={theme.colors.ten} color='white' borderRadius='15px' cursor='pointer'/>
         </VStack>
