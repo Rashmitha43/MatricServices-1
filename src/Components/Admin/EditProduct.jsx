@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   Stack,
   IconButton,
+  Image,
 } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
@@ -63,6 +64,7 @@ const EditProduct = () => {
     })
    }
   },[productsingledata])
+  console.log(productsingledata)
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -219,15 +221,15 @@ const EditProduct = () => {
               <Box
                 display={"flex"}
                 justifyContent={"left"}
-                alignItems={"center"}
-                gap={"50px"}
+                flexDirection={'column'}
+                gap='10px'
               >
                 <Box>
-                  <FormLabel fontWeight={"500"} fontFamily={"body"}>
+                  <FormLabel fontSize="lg" fontWeight="medium">
                     Upload image
                   </FormLabel>
                 </Box>
-                <Box display={"flex"} alignItems={"center"}>
+                <Box display={"flex"} alignItems={"start"} flexDirection={'column'} gap='10px'>
                   <input
                     type="file"
                     multiple
@@ -237,18 +239,23 @@ const EditProduct = () => {
                   />
                   <Button
                     onClick={handleimageInput}
-                    colorScheme={"teal"}
-                    mr={2}
+                    bg='#1A202C'
+                    color='white'
+                    p='5px 10px'
+                    borderRadius={'5px'}
                   >
                     Add Images
                   </Button>
 
                   {formData.img?.length > 0 && (
-                    <HStack gap={"0.5rem"}>
+                    <HStack gap={"1rem"}>
                       {formData?.img?.map((image, index) => (
-                        <Box key={index} display={"flex"} alignItems={"center"}>
+                        <Box key={index} display={"flex"} alignItems={"start"}>
+                          
+                          <Box w='100px' h='100px' mt='10px'><Image src={image} w='100%' h='100%'/></Box>
                           <IconButton
                             aria-label="Remove Image"
+                            fontSize={'0.8rem'}
                             icon={<CloseIcon />}
                             onClick={() => {
                               setFormData((prev) => ({
@@ -257,7 +264,6 @@ const EditProduct = () => {
                               }));
                             }}
                           />
-                          <Box>{image.name}</Box>
                         </Box>
                       ))}
                     </HStack>
@@ -271,7 +277,7 @@ const EditProduct = () => {
             <Button
               type="submit"
               size="lg"
-              width="150px"
+              width="max-content"
               borderRadius="10px"
               bgColor="blue.200"
               padding="10px"

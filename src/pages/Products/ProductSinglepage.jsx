@@ -29,6 +29,7 @@ const ProductSinglepage = () => {
         width={"95%"}
         mx="auto"
         my={{ base: "3rem", md: "5rem" }}
+       
       >
         <Stack
           direction={{ base: "column", md: "row" }}
@@ -36,13 +37,15 @@ const ProductSinglepage = () => {
           boxShadow={"lg"}
           align="center"
           spacing={5}
+          padding={'20px'}
         >
           <Box
-            w={{ base: "100%", md: "50%", lg: "40%" }}
+            w={{ base: "100%", md: "50%", lg: "49%" }}
             h={{ base: "300px", md: "400px", lg: "500px" }}
             position="relative"
             display={{ base: "flex", md: "column" }}
             justifyContent={{ base: "space-between", md: "none" }}
+            
           >
             <VStack
               w="18%"
@@ -51,14 +54,14 @@ const ProductSinglepage = () => {
               h="100%"
             >
               
-              {productsingledata?.img?.map((img,index) => (
+              {productsingledata?.img?.map((img,ind) => (
                 <>
-                  <Box h={{ base: "100%" }} onClick={()=>setIndex(index)}>
+                  <Box h={{ base: "100%" }} onClick={()=>setIndex(ind)} border={index===ind?'1px solid black':'none'} p='2px'>
                     <Image
                       w="100%"
                       h="100%"
                       src={img}
-                      objectFit={"cover"}
+                      objectFit={"contain"}
                       cursor={'pointer'}
                     />
                   </Box>
@@ -67,10 +70,10 @@ const ProductSinglepage = () => {
             </VStack>
             {productsingledata?.img && productsingledata?.img.length > 0 ? (
               <Image
-                w="100%"
+                w={{base:'80%',md:'100%'}}
                 h="100%"
                 src={productsingledata.img[index]}
-                objectFit={'cover'}
+                objectFit={'contain'}
               />):(<Text>No images available</Text>)}
           </Box>
           <Box w={{ base: "100%", md: "40%", lg: "50%" }}>
@@ -78,7 +81,7 @@ const ProductSinglepage = () => {
               <Text fontSize={{ base: "1.2rem", md: "2rem" }}>{productsingledata.title}</Text>
               <Text fontSize={{ base: "0.9rem", md: "1rem" }}>{productsingledata.desc}</Text>
               <Text fontSize={{ base: "1.2rem", md: "2rem" }} color="green">
-                {productsingledata.price}
+                {productsingledata.price}/-
               </Text>
               <Box
                 w="100%"
@@ -91,10 +94,10 @@ const ProductSinglepage = () => {
                 Place Order
               </Box>
               <HStack w="100%" Spacing={3} mt="auto">
-              {productsingledata?.img?.map((img,index) => (
+              {productsingledata?.img?.map((img,ind) => (
                 <>
-                    <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }} onClick={()=>setIndex(index)}>
-                  <Image w="100%" h="100%" src={img} cursor={'pointer'}/>
+                    <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }} onClick={()=>setIndex(ind)} border={index===ind?'1px solid black':'none'} p='2px'>
+                  <Image w="100%" h="100%" src={img} cursor={'pointer'} objectFit={'contain'}/>
                 </Box>
                 </>
               ))}

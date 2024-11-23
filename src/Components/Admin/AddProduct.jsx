@@ -87,7 +87,7 @@ const AddProduct = () => {
       dispatch(postProducts(formData))
         .then((res) => {
           alert("successfully submitted");
-          // setFormData(init)
+          setFormData(init)
         })
         .catch((err) => {
           console.log("error", err.message);
@@ -197,15 +197,15 @@ const AddProduct = () => {
               <Box
                 display={"flex"}
                 justifyContent={"left"}
-                alignItems={"center"}
-                gap={"50px"}
+                flexDirection={'column'}
+                gap='10px'
               >
                 <Box>
-                  <FormLabel fontWeight={"500"} fontFamily={"body"}>
+                  <FormLabel fontSize="lg" fontWeight="medium">
                     Upload image
                   </FormLabel>
                 </Box>
-                <Box display={"flex"} alignItems={"center"}>
+                <Box display={"flex"} alignItems={"center"} gap='10px'>
                   <input
                     type="file"
                     multiple
@@ -215,18 +215,21 @@ const AddProduct = () => {
                   />
                   <Button
                     onClick={handleimageInput}
-                    colorScheme={"teal"}
-                    mr={2}
+                      bg='#1A202C'
+                    color='white'
+                    p='5px 10px'
+                    borderRadius={'5px'}
                   >
                     Add Images
                   </Button>
 
                   {formData.img?.length > 0 && (
-                    <HStack gap={"0.5rem"}>
+                    <HStack gap={"1rem"}>
                       {formData?.img?.map((image, index) => (
-                        <Box key={index} display={"flex"} alignItems={"center"}>
+                        <Box key={index} display={"flex"} alignItems={"start"} gap='2px'>
                           <IconButton
                             aria-label="Remove Image"
+                            fontSize={'0.8rem'}
                             icon={<CloseIcon />}
                             onClick={() => {
                               setFormData((prev) => ({
