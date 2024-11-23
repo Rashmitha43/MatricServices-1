@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import { useNavigate, useLocation } from "react-router-dom";
+import Loading from "../Loading/Loading";
 import {
   Table,
   Thead,
@@ -12,6 +13,8 @@ import {
   IconButton,
   Text,
   VStack,
+  Center,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { getProducts } from "../../Redux/app/action";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +26,7 @@ import { ImCross } from "react-icons/im";
 const ProductTable = () => {
  
   const navigate = useNavigate();
-  const{productadd} =useSelector(state=>state.app)
+  const {productadd, isLoading } = useSelector((state) => state.app);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [deletestatus,setDeletestatus]=useState(false)
   const dispatch=useDispatch();
@@ -60,9 +63,10 @@ const ProductTable = () => {
     })
   };
 
+  if (isLoading) {
+    return <Loading message="Loading Projects..." />;
+  }
  
-
-
   return (
     <Box bg="white" shadow="lg" rounded="lg" overflow="auto" borderWidth="1px">
       <Table variant="simple" colorScheme="gray" size="md" width="100%" textAlign="left">

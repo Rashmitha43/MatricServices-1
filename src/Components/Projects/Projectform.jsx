@@ -9,11 +9,11 @@ const Projectform = () => {
 
 
   const init = {
-    name: "",
-    phone: "",
-    email: "",
-    collageOrInstitute: "",
-    askYourQuestions: "",
+    Name: "",
+    Phone: "",
+    Email: "",
+    CollegeOrInstitute: "",
+    AskYourQuestions: "",
   };
   const [formdata, setFormdata] = useState(init);
 
@@ -26,26 +26,40 @@ const Projectform = () => {
       [name]: value,
     }));
   };
-  const handleSubmit=(e)=>{
-  e.preventDefault();
-  
-   if(!formdata.name || !formdata.phone || !formdata.email || !formdata.collageOrInstitute || !formdata.askYourQuestions){
-    alert('Please Fill the Input Fields')
-   }
-   else{
-     dispatch(postContactInfo(formdata))
-     .then(res=>{
-        alert("Form Submitted");
-        setFormdata(init)
-     })
-     .catch(err=>{
-       console.log('error',err.message)
-     })
-   }
-   
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formdata.Name || !formdata.Phone || !formdata.Email || !formdata.CollegeOrInstitute || !formdata.AskYourQuestions) {
+      alert('Please Fill the Input fields');
+      return
+    } 
 
+    const formBody = new URLSearchParams();
+    for (const key in formdata) {
+      formBody.append(key, formdata[key]);
+    }
 
-  }
+    fetch(
+      "https://script.google.com/macros/s/AKfycbwER_t-GGyRNq40gA5UPl6PT9x7sVmWCLZWbi3QeBYvEVWlOKdmcwxJTQZY77JcjMLDBg/exec",
+      {
+        method: "POST",
+        body: formBody,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        if (data.includes("successfully sent")) {
+          setFormdata({ Name: "",Phone:"", Email: "", AskYourQuestions: "", CollegeOrInstitute: "" });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
 
   const isFormFilled = () => {
     return Object.values(formdata).every((value) => value.trim() !== "");
@@ -82,9 +96,9 @@ const Projectform = () => {
               <Input
                 type="text"
                 size={"lg"}
-                name="name"
+                name="Name"
                 placeholder="Name"
-                value={formdata.name}
+                value={formdata.Name}
                 w="100%"
                 onChange={handleFormdata}
                 border={`2px solid ${theme.colors.thirty}`}
@@ -93,9 +107,9 @@ const Projectform = () => {
 
               <Input
                 type="text"
-                name="phone"
+                name="Phone"
                 placeholder="Phone"
-                value={formdata.phone}
+                value={formdata.Phone}
                 w="100%"
                 onChange={handleFormdata}
                 border={`2px solid ${theme.colors.thirty}`}
@@ -104,9 +118,9 @@ const Projectform = () => {
 
               <Input
                 type="text"
-                name="email"
+                name="Email"
                 placeholder="Email"
-                value={formdata.email}
+                value={formdata.Email}
                 w="100%"
                 onChange={handleFormdata}
                 border={`2px solid ${theme.colors.thirty}`}
@@ -115,9 +129,9 @@ const Projectform = () => {
 
               <Input
                 type="text"
-                name="collageOrInstitute"
+                name="CollegeOrInstitute"
                 placeholder="College/Institute"
-                value={formdata.collageOrInstitute}
+                value={formdata.CollegeOrInstitute}
                 w="100%"
                 onChange={handleFormdata}
                 border={`2px solid ${theme.colors.thirty}`}
@@ -129,8 +143,8 @@ const Projectform = () => {
                 style={{ width: "100%", padding: "10px" }}
                 rows="5"
                 onChange={handleFormdata}
-                name="askYourQuestions"
-                value={formdata.askYourQuestions}
+                name="AskYourQuestions"
+                value={formdata.AskYourQuestions}
               ></textarea>
 
               <Input
