@@ -14,8 +14,11 @@ import {
   Text,
   useDisclosure,
   VStack,
+  Center,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../Loading/Loading";
 import {
   delWorkshopId,
   getWorkshop,
@@ -27,7 +30,7 @@ const WorkshopTable = () => {
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {workshopadd}=useSelector(state=>state.app)
+  const { workshopadd, isLoading } = useSelector((state) => state.app);
   const [registrations, setRegistrations] = useState([]);
   const [viewReg, setViewReg] = useState(null);
   const [deletestatus,setDeletestatus]=useState(false)
@@ -71,7 +74,9 @@ const WorkshopTable = () => {
       console.log("error:",err)
     })
   };
-
+  if (isLoading) {
+    return <Loading message="Loading Workshops..." />;
+  }
   return (
     <Box bg="white" shadow="lg" rounded="lg" overflow="auto" borderWidth="1px">
       <Table

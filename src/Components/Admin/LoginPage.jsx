@@ -16,10 +16,28 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { Infinity } from "lucide-react";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const init={
+    name:"",
+    email:"",
+    password:""
+  }
+  const [formdata,setFormData]=useState(init)
+  const handleInputChange=(e)=>{
+    const {name,value}=e.target
+    setFormData((prev)=>({
+      ...prev,
+      [name]:value
+    }))
+  }
+  const handleSubmit=(e)=>{
+         e.preventDefault()
+         setFormData(init)
+  }
 
   return (
     <ChakraProvider>
@@ -45,12 +63,27 @@ function LoginPage() {
               Please log in to continue
             </Text>
 
+            <FormControl id="name">
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="text"
+                name="name"
+                value={formdata.name}
+                focusBorderColor="teal.400"
+                placeholder="Enter your email"
+                onChange={handleInputChange}
+              />
+            </FormControl>
+
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
               <Input
                 type="email"
+                name="email"
+                value={formdata.email}
                 focusBorderColor="teal.400"
                 placeholder="Enter your email"
+                onChange={handleInputChange}
               />
             </FormControl>
 
@@ -58,9 +91,12 @@ function LoginPage() {
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
+                  name="password"
+                  value={formdata.password}
                   type={showPassword ? "text" : "password"}
                   focusBorderColor="teal.400"
                   placeholder="Enter your password"
+                  onChange={handleInputChange}
                 />
                 <InputRightElement width="4.5rem">
                   <Button
@@ -75,6 +111,7 @@ function LoginPage() {
             </FormControl>
 
             <Button
+              type='submit'
               colorScheme="teal"
               size="lg"
               width="full"
@@ -83,6 +120,7 @@ function LoginPage() {
               _hover={{
                 bg: "teal.500",
               }}
+              onClick={handleSubmit }
             >
               Log In
             </Button>
