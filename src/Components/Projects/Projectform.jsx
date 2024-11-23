@@ -4,9 +4,7 @@ import theme from "../../theme";
 import { useDispatch } from "react-redux";
 import { postContactInfo } from "../../Redux/app/action";
 const Projectform = () => {
-
   const dispatch = useDispatch();
-
 
   const init = {
     Name: "",
@@ -16,9 +14,8 @@ const Projectform = () => {
     AskYourQuestions: "",
   };
   const [formdata, setFormdata] = useState(init);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-
- 
   const handleFormdata = (e) => {
     const { name, value } = e.target;
     setFormdata((prev) => ({
@@ -26,13 +23,38 @@ const Projectform = () => {
       [name]: value,
     }));
   };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formdata.Name || !formdata.Phone || !formdata.Email || !formdata.CollegeOrInstitute || !formdata.AskYourQuestions) {
-      alert('Please Fill the Input fields');
-      return
-    } 
+    if (
+      !formdata.Name ||
+      !formdata.Phone ||
+      !formdata.Email ||
+      !formdata.CollegeOrInstitute ||
+      !formdata.AskYourQuestions
+    ) {
+      alert("Please Fill the Input fields");
+      return;
+    }
+    if (!validatePhone(formdata.Phone)) {
+      alert("Phone number must be 10 digits.");
+      return;
+    }
 
+    if (!validateEmail(formdata.Email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    setIsSubmitting(true);
     const formBody = new URLSearchParams();
     for (const key in formdata) {
       formBody.append(key, formdata[key]);
@@ -51,13 +73,24 @@ const Projectform = () => {
     )
       .then((response) => response.text())
       .then((data) => {
+        setIsSubmitting(false);
         if (data.includes("successfully sent")) {
-          setFormdata({ Name: "",Phone:"", Email: "", AskYourQuestions: "", CollegeOrInstitute: "" });
+          alert("Form successfully submitted!");
+          setFormdata({
+            Name: "",
+            Phone: "",
+            Email: "",
+            AskYourQuestions: "",
+            CollegeOrInstitute: "",
+          });
         } else {
+          alert("Failed to submit the form. Please try again.");
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
+        setIsSubmitting(false);
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
       });
   };
 
@@ -150,11 +183,19 @@ const Projectform = () => {
               <Input
                 type="submit"
                 p="10px 30px"
-                bg={isFormFilled() ? theme.colors.thirty : theme.colors.ten}
+                bg={theme.colors.ten}
                 color="white"
                 borderRadius="15px"
                 cursor="pointer"
+                value={isSubmitting ? "Submitting..." : "Submit"}
+                disabled={isSubmitting}
               />
+
+              {isSubmitting && (
+                <Text mt="1rem" color={theme.colors.ten}>
+                  Submitting your form, please wait...
+                </Text>
+              )}
             </VStack>
           </form>
         </Box>

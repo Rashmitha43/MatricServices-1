@@ -23,6 +23,7 @@ import img from "../../assets/Sliderimage1.png";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { getWorkshop } from "../../Redux/app/action";
+import Loading from "../Loading/Loading";
 import axios from "axios";
 
 
@@ -31,7 +32,7 @@ const Workshopcard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch=useDispatch();
-  const {workshopadd}=useSelector(state=>state.app)
+  const { workshopadd, isLoading } = useSelector((state) => state.app);
 
   const handleViewAll = () => {
     navigate("/workshopcard", { state: { showAll: true } });
@@ -54,7 +55,9 @@ const Workshopcard = () => {
     })
   },[dispatch])
 
-
+  if (isLoading) {
+    return <Loading message="Upcoming Workshops..." />;
+  }
 
   return (<>
     <Box

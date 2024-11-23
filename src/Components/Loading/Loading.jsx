@@ -1,7 +1,7 @@
 import React from "react";
 import { Center, VStack, CircularProgress, Text } from "@chakra-ui/react";
 
-const Loading = ({ message = "Loading...", bgOpacity = 0.5 }) => {
+const Loading = ({ message = "Loading...", bgOpacity = 0.8 }) => {
   return (
     <Center
       height="100vh"

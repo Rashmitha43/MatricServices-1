@@ -11,21 +11,21 @@ import React, { useEffect, useState } from "react";
 import theme from "../../theme";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import {  postCampusAmbReg } from "../../Redux/app/action";
+import { postCampusAmbReg } from "../../Redux/app/action";
 const CampusAmbassdor = () => {
   const [form, setForm] = useState(false);
 
   const dispatch = useDispatch();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const init = {
-    name: "",
-    phone: "",
-    email: "",
-    collageOrInstitute: "",
-    areaOfStudy: "",
-    knowAboutMatricService: "",
-    whyBecAmb: "",
+    Name: "",
+    Phone: "",
+    Email: "",
+    CollegeOrInstitute: "",
+    AreaOfStudy: "",
+    KnowAboutMatricService: "",
+    WhyBecAmb: "",
   };
   const [formdata, setFormdata] = useState(init);
   const handleFormdata = (event) => {
@@ -35,6 +35,15 @@ const CampusAmbassdor = () => {
       [name]: value,
     }));
   };
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
   const toggleform = () => {
     setForm(!form);
     if (form === true) {
@@ -43,25 +52,90 @@ const CampusAmbassdor = () => {
       document.body.style.overflowY = "hidden";
     }
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
 
-    if(!formdata.name || !formdata.phone || !formdata.email || !formdata.collageOrInstitute || !formdata.areaOfStudy  || !formdata.knowAboutMatricService || !formdata.whyBecAmb){
-      alert("Please Fill the Input Fields")
+  //   if(!formdata.name || !formdata.Phone || !formdata.Email || !formdata.CollegeOrInstitute || !formdata.AreaOfStudy  || !formdata.KnowAboutMatricService || !formdata.WhyBecAmb){
+  //     alert("Please Fill the Input Fields")
+  //   }
+  //   else{
+  //     dispatch(postCampusAmbReg(formdata))
+  //     .then(res=>{
+  //         alert("Form Submitted");
+  //         setForm(init)
+  //     })
+  //     .catch(err=>{
+  //       console.log('error',err.message)
+  //     })
+  //   }
+  //   setFormdata(init);
+  // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !formdata.Name ||
+      !formdata.Phone ||
+      !formdata.Email ||
+      !formdata.CollegeOrInstitute ||
+      !formdata.AreaOfStudy ||
+      !formdata.KnowAboutMatricService ||
+      !formdata.WhyBecAmb
+    ) {
+      alert("Please Fill the Input Fields");
+      return;
     }
-    else{
-      dispatch(postCampusAmbReg(formdata))
-      .then(res=>{
-          alert("Form Submitted");
-          setForm(init)
-      })
-      .catch(err=>{
-        console.log('error',err.message)
-      })
+    if (!validatePhone(formdata.Phone)) {
+      alert("Phone number must be 10 digits.");
+      return;
     }
 
-    setFormdata(init);
+    if (!validateEmail(formdata.Email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    setIsSubmitting(true);
+    const formBody = new URLSearchParams();
+    for (const key in formdata) {
+      formBody.append(key, formdata[key]);
+    }
+
+    fetch(
+      "https://script.google.com/macros/s/AKfycbygt9VIadGPg9CC4nS4i2BLrSNUvvZtFuOgkJIrAFI-UAsP9a0LDOfpgNfasp-OF7pFDg/exec",
+      {
+        method: "POST",
+        body: formBody,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        setIsSubmitting(false);
+        if (data.includes("successfully sent")) {
+          alert("Form successfully submitted!");
+          setFormdata({
+            Name: "",
+            Phone: "",
+            Email: "",
+            CollegeOrInstitute: "",
+            AreaOfStudy: "",
+            KnowAboutMatricService: "",
+            WhyBecAmb: "",
+          });
+        } else {
+          alert("Failed to submit the form. Please try again.");
+        }
+      })
+      .catch((error) => {
+        setIsSubmitting(false);
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      });
   };
+
   return (
     <>
       <Box
@@ -129,7 +203,7 @@ const CampusAmbassdor = () => {
             <HStack
               spacing={"3"}
               align={"start"}
-              w={{ base: "90%", md: "70%", lg: "50%",xl:'40%' }}
+              w={{ base: "90%", md: "70%", lg: "50%", xl: "40%" }}
             >
               <form onSubmit={handleSubmit} style={{ width: "100%" }}>
                 <VStack w="100%" mx="auto" gap={"1rem"} bg="white" p="20px">
@@ -141,11 +215,11 @@ const CampusAmbassdor = () => {
                   </Heading>
                   <Input
                     type="text"
-                    name="name"
+                    name="Name"
                     placeholder="Name*"
-                    size={{base:'md',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
-                    value={formdata.name}
+                    size={{ base: "md", md: "lg" }}
+                    fontSize={{ base: "0.9rem", md: "1rem" }}
+                    value={formdata.Name}
                     w="100%"
                     onChange={handleFormdata}
                     border={`2px solid ${theme.colors.thirty}`}
@@ -157,11 +231,11 @@ const CampusAmbassdor = () => {
                   >
                     <Input
                       type="text"
-                      name="phone"
+                      name="Phone"
                       placeholder="Phone*"
-                      size={{base:'md',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
-                      value={formdata.phone}
+                      size={{ base: "md", md: "lg" }}
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      value={formdata.Phone}
                       w="100%"
                       onChange={handleFormdata}
                       border={`2px solid ${theme.colors.thirty}`}
@@ -170,11 +244,11 @@ const CampusAmbassdor = () => {
 
                     <Input
                       type="text"
-                      name="email"
+                      name="Email"
                       placeholder="Email*"
-                      value={formdata.email}
-                      size={{base:'md',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
+                      value={formdata.Email}
+                      size={{ base: "md", md: "lg" }}
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
                       w="100%"
                       onChange={handleFormdata}
                       border={`2px solid ${theme.colors.thirty}`}
@@ -187,11 +261,11 @@ const CampusAmbassdor = () => {
                   >
                     <Input
                       type="text"
-                      name="areaOfStudy"
+                      name="AreaOfStudy"
                       placeholder="Area of Study*"
-                      size={{base:'md',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
-                      value={formdata.areaOfStudy}
+                      size={{ base: "md", md: "lg" }}
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      value={formdata.AreaOfStudy}
                       w="100%"
                       onChange={handleFormdata}
                       border={`2px solid ${theme.colors.thirty}`}
@@ -199,11 +273,11 @@ const CampusAmbassdor = () => {
                     />
                     <Input
                       type="text"
-                      name="collageOrInstitute"
+                      name="CollegeOrInstitute"
                       placeholder="Name of College/Institute*"
-                      size={{base:'md',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
-                      value={formdata.collageOrInstitute}
+                      size={{ base: "md", md: "lg" }}
+                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      value={formdata.CollegeOrInstitute}
                       w="100%"
                       onChange={handleFormdata}
                       border={`2px solid ${theme.colors.thirty}`}
@@ -213,25 +287,24 @@ const CampusAmbassdor = () => {
 
                   <Textarea
                     placeholder="How did you get to know about Matric Services?"
-                    size={{base:'sm',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
+                    size={{ base: "sm", md: "lg" }}
+                    fontSize={{ base: "0.9rem", md: "1rem" }}
                     border={`2px solid ${theme.colors.thirty}`}
                     style={{ width: "100%", padding: "10px" }}
                     onChange={handleFormdata}
-                    name='knowAboutMatricService'
-                    value={formdata.knowAboutMatricService}
+                    name="KnowAboutMatricService"
+                    value={formdata.KnowAboutMatricService}
                   />
 
                   <Textarea
                     placeholder="Why do you wanna become a campus Ambassador?"
                     border={`2px solid ${theme.colors.thirty}`}
                     style={{ width: "100%", padding: "10px" }}
-                    size={{base:'sm',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
-                    name='whyBecAmb'
-                    value={formdata.whyBecAmb}
+                    size={{ base: "sm", md: "lg" }}
+                    fontSize={{ base: "0.9rem", md: "1rem" }}
+                    name="WhyBecAmb"
+                    value={formdata.WhyBecAmb}
                     onChange={handleFormdata}
-
                   ></Textarea>
 
                   <Input
@@ -241,9 +314,15 @@ const CampusAmbassdor = () => {
                     color="white"
                     borderRadius="15px"
                     cursor="pointer"
-                    size={{base:'md',md:'lg'}}
-                    fontSize={{base:'0.9rem',md:'1rem'}}
+                    value={isSubmitting ? "Submitting..." : "Submit"}
+                    disabled={isSubmitting}
                   />
+
+                  {isSubmitting && (
+                    <Text mt="1rem" color={theme.colors.ten}>
+                      Submitting your form, please wait...
+                    </Text>
+                  )}
                 </VStack>
               </form>
               <Box
