@@ -21,7 +21,7 @@ import theme from "../../theme";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../Redux/app/action";
 import { useNavigate } from "react-router-dom";
-
+import Loading from "../Loading/Loading";
 
 
 
@@ -29,13 +29,17 @@ const Product = () => {
 
   const navigate = useNavigate();
  const dispatch=useDispatch();
- const { productadd}=useSelector(state=>state.app)
+ const {productadd, isLoading } = useSelector((state) => state.app);
   useEffect(()=>{
     dispatch(getProducts())
     .then((res)=>{
       console.log(res.payload)
     })
   },[dispatch])
+
+  if (isLoading) {
+    return <Loading message="Loading Products..." />;
+  }
   return (
     <>
       <Box
