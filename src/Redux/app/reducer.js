@@ -9,8 +9,10 @@ const initalState = {
   workshopReg:[],
   workshopadd:[],
   productadd:[],
-  workshopsingledata:[],
-  updateworkshop:[]
+  workshopsingledata:{},
+  productsingledata:{},
+
+
 };
 
 export const reducer = (state = initalState, action) => {
@@ -246,7 +248,7 @@ export const reducer = (state = initalState, action) => {
           ...state,
           isLoading:true,
           isError:false,
-          workshopsingledata:[]
+          workshopsingledata:{}
         }
       case types.GET_WORKSHOPID_SUCCESS:
         return{
@@ -260,7 +262,7 @@ export const reducer = (state = initalState, action) => {
           ...state,
           isLoading:false,
           isError:payload,
-          workshopsingledata:[]
+          workshopsingledata:{}
         }
       //patch workhop
       case types.PATCH_WORKSHOPID_REQUEST:
@@ -342,7 +344,68 @@ export const reducer = (state = initalState, action) => {
           ...state,
           isLoading:false,
           isError:payload,
-          workshopadd:[]
+          productadd:[]
+        };
+      //get product by id
+      case types.GET_PRODUCTID_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false,
+          productsingledata:{}
+        };
+      case types.GET_PRODUCTID_SUCCESS:
+       
+        return{
+          ...state,
+          isLoading:false,
+          isError:false,
+          productsingledata:payload
+        };
+      case types.GET_PRODUCTID_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload,
+          productsingledata:{}
+        };
+        //patch products
+      case types.PATCH_PRODUCTID_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false
+        };
+      case types.PATCH_PRODUCTID_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false
+        }
+      case types.PATCH_PRODUCTID_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload
+        }
+        //delete product
+      case types.DELETE_PRODUCTID_REQUEST:
+        return{
+          ...state,
+          isLoading:true,
+          isError:false
+        };
+      case types.DELETE_PRODUCTID_SUCCESS:
+        return{
+          ...state,
+          isLoading:false,
+          isError:false
+        };
+      case types.DELETE_PRODUCTID_FAILURE:
+        return{
+          ...state,
+          isLoading:false,
+          isError:payload
         }
 
 

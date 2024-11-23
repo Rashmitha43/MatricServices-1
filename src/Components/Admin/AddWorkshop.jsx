@@ -36,8 +36,7 @@ const AddWorkshop = () => {
   };
   const [formData, setFormData] = useState(init);
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -120,9 +119,7 @@ const AddWorkshop = () => {
         mb={6}
         textAlign="center"
         color="black"
-        // color={useColorModeValue("gray.800", "yellow.300")}
-        // bgGradient="linear(to-r, yellow.400, yellow.500)"
-        // bgClip="text"
+        
       >
         ADD A WORKSHOP
       </Text>

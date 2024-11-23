@@ -22,16 +22,17 @@ import { patchWorkshop, postWorkshop } from "../../Redux/app/action";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 import { getWorkshopbyId } from "../../Redux/app/action";
+import { useSelector } from "react-redux";
 
 const EditWorkshop = () => {
   const dispatch = useDispatch();
-  const [update,setUpdate]=useState([])
   const id=useParams()
+  const {workshopsingledata}=useSelector(state=>state.app)
   useEffect(()=>{
     
     dispatch(getWorkshopbyId(id.workshopId))
     .then((res)=>{
-      setUpdate(res.payload);
+      console.log(res.payload)
     })
     .catch((err)=>{
       console.log("error:",err)
@@ -53,23 +54,22 @@ const EditWorkshop = () => {
   const [formData, setFormData] = useState(init);
 
   useEffect(() => {
-    if (update) {
+    if (workshopsingledata) {
       setFormData({
-        topic: update.topic || "",
-        desc: update.desc || "",
-        venue: update.venue || "",
-        date: update.date || "",
-        time: update.time || "",
-        criteria: update.criteria || "",
-        contact: update.contact || "",
-        email: update.email || "",
-        img:update.img||[]
+        topic: workshopsingledata.topic || "",
+        desc: workshopsingledata.desc || "",
+        venue: workshopsingledata.venue || "",
+        date: workshopsingledata.date || "",
+        time: workshopsingledata.time || "",
+        criteria: workshopsingledata.criteria || "",
+        contact: workshopsingledata.contact || "",
+        email: workshopsingledata.email || "",
+        img:workshopsingledata.img||[]
       });
     }
-  }, [update]);
+  }, [workshopsingledata]);
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -108,7 +108,7 @@ const EditWorkshop = () => {
     ) {
       alert("Please Fill all the Input Fields");
     } else {
-      dispatch(patchWorkshop(formData,update._id))
+      dispatch(patchWorkshop(formData,workshopsingledata._id))
         .then((res) => {
           alert("successfully submitted");
           setFormData(init)

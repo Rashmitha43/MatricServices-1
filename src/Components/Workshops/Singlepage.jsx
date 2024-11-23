@@ -21,7 +21,7 @@ import { GrWorkshop } from "react-icons/gr";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getworkshopRegister } from "../../Redux/app/action";
 import { RxCross2 } from "react-icons/rx";
 import { Heading } from "lucide-react";
@@ -33,7 +33,7 @@ import { postworkshopRegister } from "../../Redux/app/action";
 const Singlepage = () => {
  
   const dispatch = useDispatch();
-  const [workshop, setWorkshop] = useState({});
+  const {workshopsingledata}=useSelector(state=>state.app)
   const eventid = useParams();
 
   const init = {
@@ -49,7 +49,6 @@ const Singlepage = () => {
     dispatch(getWorkshopbyId(eventid.id))
       .then((res) => {
         console.log(res.payload)
-        setWorkshop(res.payload);
       })
       .catch((err) => {
         console.log("error", err.message);
@@ -96,7 +95,7 @@ const Singlepage = () => {
       dispatch(postworkshopRegister(formdata))
       .then((res)=>{
         alert("form submitted successfully")
-        setWorkshop(init);
+        setFormdata(init);
       })
       .catch((err)=>{
         console.log("error:",err)
@@ -117,21 +116,33 @@ const Singlepage = () => {
         gap="2%"
         my={{ base: "3rem", md: "4rem" }}
       >
-        <Box w={{ base: "100%", md: "60%" }} boxShadow={"lg"}>
+        <Box w={{ base: "100%", md: "60%" }} boxShadow={{base:'sm',md:'lg'}}>
           <VStack spacing={"8"} align={"center"} p="20px">
             <Box w={{ base: "100%", md: "80%" }} h="300px">
-            {workshop?.img && workshop?.img.length > 0 ? (
+            {workshopsingledata?.img && workshopsingledata?.img.length > 0 ? (
               <Image
                 w="100%"
                 h="100%"
-                src={workshop.img[0]}
+                src={workshopsingledata.img[0]}
               />):(<Text>No images available</Text>)}
             </Box>
             <Box textAlign={"justify"}>
               <Text>
-               {workshop.desc}
+               {workshopsingledata.desc}
               </Text>
             </Box>
+            <HStack w='100%' justifyContent={'center'}>
+              <Button
+                bg={theme.colors.ten}
+                w={{base:'40%',md:'30%',lg:'25%'}}
+                p={{ base: "5px 15px", md: "10px 30px" }}
+                color="white"
+                borderRadius={{ base: "7px", md: "15px" }}
+                onClick={toggleform}
+              >
+                Register
+              </Button>
+            </HStack>
           </VStack>
         </Box>
         <Box w={{ base: "100%", md: "38%" }} boxShadow={"lg"}>
@@ -151,11 +162,11 @@ const Singlepage = () => {
               </Box>{" "}
               <Text>workshop details</Text>
             </HStack>
-            <Box fontWeight={"500"}>Topic:{workshop?.topic}</Box>
-            <Box fontWeight={"500"}>Venue:{workshop?.venue}</Box>
-            <Box fontWeight={"500"}>Date:{workshop?.date}</Box>
-            <Box fontWeight={"500"}>Time:{workshop?.time}</Box>
-            <Box fontWeight={"500"}>Eligibility Criteria:{workshop?.criteria}</Box>
+            <Box fontWeight={"500"}>Topic:{workshopsingledata?.topic}</Box>
+            <Box fontWeight={"500"}>Venue:{workshopsingledata?.venue}</Box>
+            <Box fontWeight={"500"}>Date:{workshopsingledata?.date}</Box>
+            <Box fontWeight={"500"}>Time:{workshopsingledata?.time}</Box>
+            <Box fontWeight={"500"}>Eligibility Criteria:{workshopsingledata?.criteria}</Box>
             {/* contact info */}
             <HStack
               fontSize={{ base: "1rem", md: "1.2rem" }}
@@ -170,31 +181,20 @@ const Singlepage = () => {
               <Box fontWeight={"500"}>
                 <FaPhoneAlt />
               </Box>{" "}
-              <a href={`tel:+91${workshop.contact}`}>
+              <a href={`tel:+91${workshopsingledata.contact}`}>
 
-                <Text>{workshop?.contact}</Text>
+                <Text>{workshopsingledata?.contact}</Text>
               </a>
             </HStack>
             <HStack>
               <Box fontWeight={"500"}>
                 <IoMdMail />
               </Box>{" "}
-              <a href={`mailto:${workshop.email}`}>
-                <Text>{workshop?.email}</Text>
+              <a href={`mailto:${workshopsingledata.email}`}>
+                <Text>{workshopsingledata?.email}</Text>
               </a>
             </HStack>
-            <HStack>
-              <Button
-                bg={theme.colors.ten}
-                w="max-content"
-                p={{ base: "5px 15px", md: "10px 30px" }}
-                color="white"
-                borderRadius={{ base: "7px", md: "15px" }}
-                onClick={toggleform}
-              >
-                Register
-              </Button>
-            </HStack>
+           
           </VStack>
         </Box>
       </Box>
@@ -217,7 +217,7 @@ const Singlepage = () => {
         <Box w="80px" h="3px" bg={theme.colors.ten} borderRadius={"20px"}></Box>
 
         <SimpleGrid columns={[2, 2, 3, 3]} spacing={5} mt={10}>
-          {workshop.img?.map((image, index) => (
+          {workshopsingledata.img?.map((image, index) => (
             <Box
               cursor="pointer"
               key={index}
@@ -264,7 +264,7 @@ const Singlepage = () => {
                   gap={{ base: "5px", md: "10px", lg: "20px" }}
                 >
                   <Image
-                    src={workshop.img[photoIndex]}
+                    src={workshopsingledata.img[photoIndex]}
                     objectFit="cover"
                     width={{ base: "80%", md: "90%", lg: "100%" }}
                     maxH={{ base: "50vh", md: "70vh" }}

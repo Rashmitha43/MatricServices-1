@@ -11,150 +11,56 @@ import {
   Box,
   IconButton,
   Text,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  Image,
-  Button,
-  Heading,
-  Divider,
-  Flex,
   VStack,
 } from "@chakra-ui/react";
+import { getProducts } from "../../Redux/app/action";
+import { useDispatch, useSelector } from "react-redux";
+import { delProductId } from "../../Redux/app/action";
+import { ImCross } from "react-icons/im";
 
-const ProductRow = ({ product, index, handleView, handleEdit, handleDelete }) => (
-  <Tr _hover={{ bg: "gray.50" }} transition="background-color 0.3s ease" textAlign="left">
-    <Td py={6} px={6}  textAlign="center">{index + 1}</Td>
-    <Td py={6} px={6}  maxW="200px" isTruncated fontWeight="medium">
-      {product.title}
-    </Td>
-    <Td py={6} px={6}  maxW="250px" color="gray.600" isTruncated>
-      {product.desc.slice(0, 50)}...
-    </Td>
-    <Td py={6} px={6}  fontWeight="bold" color="green.600">
-      ${product.price}
-    </Td>
-    <Td py={6} px={6} >{product.productCode}</Td>
-    <Td py={6} px={6}>
-      {product.registrations.length}
-    </Td>
-    <Td py={6} px={6} display="flex" justifyContent="center" my="auto">
-      <IconButton
-        icon={<EditIcon />}
-        colorScheme="blue"
-        variant="solid"
-        size="xl"
-        onClick={() => handleEdit(product)}
-        aria-label="Edit workshop"
-        mr={4}
-        borderRadius="md"
-        boxShadow="md" 
-        _hover={{ bg: "blue.50" }} 
-      />
-      <IconButton
-        icon={<DeleteIcon />}
-        colorScheme="red"
-        variant="solid"
-        size="xl"
-        onClick={() => handleDelete(product)}
-        aria-label="Delete workshop"
-        mr={4} 
-        borderRadius="md"
-        boxShadow="md"
-        _hover={{ bg: "red.50" }}
-      />
-      <IconButton
-        icon={<ViewIcon />}
-        colorScheme="green"
-        variant="solid"
-        size="xl"
-        onClick={() => handleView(product)}
-        aria-label="View workshop"
-        borderRadius="md"
-        boxShadow="md"
-        _hover={{ bg: "green.50" }} 
-      />
-    </Td>
-  </Tr>
-);
+
 
 const ProductTable = () => {
-  const location = useLocation();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isRegOpen,
-    onOpen: onRegOpen,
-    onClose: onRegClose,
-  } = useDisclosure();
-  const [selectedProduct, setSelectedProduct] = useState(null);
+ 
   const navigate = useNavigate();
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      title: "Product One",
-      desc: "This is a detailed description of Product One with extra details.",
-      price: 49.99,
-      productCode: "P001",
-      registrations: [
-        {
-          userId: 101,
-          name: "John Doe",
-          email: "johndoe@example.com",
-          registrationDate: "2024-09-20",
-        },
-        {
-          userId: 102,
-          name: "Jane Smith",
-          email: "janesmith@example.com",
-          registrationDate: "2024-09-22",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Product Two",
-      desc: "This is a detailed description of Product Two with extra details.",
-      price: 79.99,
-      productCode: "P002",
-      registrations: [],
-    },
-  ]);
-
-//   useEffect(() => {
-//     const updatedProduct = location.state?.updatedProduct;
-//     if (updatedProduct) {
-//       setProducts((prevProducts) =>
-//         prevProducts.map((product) =>
-//           product.id === updatedProduct.id ? updatedProduct : product
-//         )
-//       );
-//       navigate(location.pathname, { replace: true });
-//     }
-//   }, [location.state, navigate]);
+  const{productadd} =useSelector(state=>state.app)
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [deletestatus,setDeletestatus]=useState(false)
+  const dispatch=useDispatch();
+  useEffect(() => {
+    dispatch(getProducts())
+      .then((res) => {
+       console.log(res.payload)
+      })
+      .catch((err) => {
+        console.log("error", err.message);
+      });
   
-
+  }, [dispatch,deletestatus]);
+  
   const handleView = (product) => {
     setSelectedProduct(product);
-    onOpen();
   };
 
   const handleEdit = (product) => {
-    navigate(`/admin/projecttable/editproduct/${product.id}`, { state: { product } });
+    navigate(`/admin/projecttable/editproduct/${product._id}`);
   };
-  
 
-  const handleDelete = (productToDelete) => {
-    const confirmed = window.confirm(`Are you sure you want to delete ${productToDelete.title}?`);
-    // if (confirmed) {
-    //   setProducts((prevProducts) => 
-    //     prevProducts.filter((product) => product.id !== productToDelete.id)
-    //   );
-    // }
+
+  const handleDelete = (product) => {
+ 
+    dispatch(delProductId(product._id))
+    .then((res)=>{
+      alert("successfully deleted")
+      setDeletestatus(true)
+
+    })
+    .catch((err)=>{
+      console.log("error:",err)
+    })
   };
+
+ 
 
 
   return (
@@ -167,115 +73,150 @@ const ProductTable = () => {
             <Th py={4} px={6}>Description</Th>
             <Th py={4} px={6}>Price</Th>
             <Th py={4} px={6}>Product Code</Th>
-            <Th py={4} px={6}>
-              Registrations
-            </Th>
+            
             <Th py={4} px={6} textAlign="center">Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {products.map((product, index) => (
-            <ProductRow
-              key={product.id}
-              product={product}
-              index={index}
-              handleView={handleView}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          ))}
+          {
+            productadd?.map((product,index)=>(
+              <Tr key={product._id}>
+                 <Td py={4} px={6} textAlign={"center"}>
+                  {index + 1}
+                </Td>
+                <Td py={4} px={6}>
+                  {product.title}
+                </Td>
+                <Td py={4} px={6}>
+                  {product.desc.substring(0, 40)}...
+                </Td>
+                <Td py={4} px={6}>
+                  {product.price}
+                </Td>
+                <Td py={4} px={6}>
+                  {product.productCode}
+                </Td>
+                <Td
+                  py={6}
+                  px={6}
+                  display="flex"
+                  justifyContent="center"
+                  my="auto"
+                >
+                  <IconButton
+                    icon={<EditIcon />}
+                    colorScheme="blue"
+                    variant="solid"
+                    size="xl"
+                    aria-label="Edit workshop"
+                    mr={4}
+                    borderRadius="md"
+                    boxShadow="md"
+                    _hover={{ bg: "blue.50" }}
+                    onClick={() => handleEdit(product)}
+                  />
+                  <IconButton
+                    icon={<DeleteIcon />}
+                    colorScheme="red"
+                    variant="solid"
+                    size="xl"
+                    aria-label="Delete workshop"
+                    mr={4}
+                    borderRadius="md"
+                    boxShadow="md"
+                    _hover={{ bg: "red.50" }}
+                    onClick={() => handleDelete(product)}
+                  />
+                  <IconButton
+                    icon={<ViewIcon />}
+                    colorScheme="green"
+                    variant="solid"
+                    size="xl"
+                    aria-label="View workshop"
+                    borderRadius="md"
+                    boxShadow="md"
+                    _hover={{ bg: "green.50" }}
+                    onClick={() => handleView(product)}
+                  />
+                </Td>
+              </Tr>
+            ))
+          }
         </Tbody>
       </Table>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
-        <ModalOverlay />
-        <ModalContent bg="gray.50" p={6} shadow="2xl" maxW="100%">
-          <ModalCloseButton
-            position="absolute"
-            top="10px"
-            right="20px"
-            size="lg"
-            color="gray.600"
-            _hover={{ color: "red.500" }}
-          />
-          <ModalHeader textAlign="center">
-            <Heading fontSize="2xl" color="blue.700">
-              Product Details: {selectedProduct?.title}
-            </Heading>
-          </ModalHeader>
-          <Divider my={3} />
-          <ModalBody>
-            <VStack spacing={4} align="flex-start">
-              <Text><strong>Description:</strong> {selectedProduct?.desc}</Text>
-              <Text><strong>Price:</strong> ${selectedProduct?.price}</Text>
-              <Text><strong>Product Code:</strong> {selectedProduct?.productCode}</Text>
-              <Flex align="center">
-                <Text fontSize="md" mr={2}>
-                  <strong>Registrations:</strong>{" "}
-                  {selectedProduct?.registrations.length}
+      {selectedProduct && (
+        <>
+          <Box
+            position="fixed"
+            w={"100%"}
+            inset={0}
+            height={"100vh"}
+            bgColor={"rgb(0,0,0,0.6)"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            flexDirection={"column"}
+          >
+            <Box
+              position="absolute"
+              right={{ base: "2%", md: "5%" }}
+              top={{ base: "2%", md: "5%" }}
+              bg="white"
+              p="10px"
+              borderRadius={"50%"}
+              boxShadow={"md"}
+              fontSize="1rem"
+              color="black"
+              onClick={() => setSelectedProduct(null)}
+              cursor="pointer"
+            >
+              <ImCross />
+            </Box>
+            <Box
+              bgColor={"white"}
+              w={"auto"}
+              py={"10"}
+              px={"20"}
+              pl="10"
+              borderRadius={"10px"}
+            >
+              <VStack align={"stretch"} w="100%" spacing={5}>
+                <Text>
+                  <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
+                    Product Name:
+                  </Box>
+                  {selectedProduct.title}
                 </Text>
-                {selectedProduct?.registrations.length > 0 && (
-                  <Button
-                    colorScheme="blue"
-                    variant="solid"
-                    size="sm"
-                    onClick={onRegOpen}
-                    borderRadius="md"
-                    width="170px"
-                    padding="6px"
-                    bgColor="#02e8a7"
-                    marginLeft="10px"
-                    _hover={{ bg: "blue.500" }}
-                    _active={{ bg: "blue.600" }}
-                  >
-                    View Registrations
-                  </Button>
-                )}
-              </Flex>
-            </VStack>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+                <Text>
+                  <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
+                    Description:
+                  </Box>
+                  {selectedProduct.desc}
+                </Text>
+                <Text>
+                  <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
+                    Price:
+                  </Box>
+                  {selectedProduct.price}
+                </Text>
+                <Text>
+                  <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
+                    Product Code
+                  </Box>
+                  {selectedProduct.productCode}
+                </Text>
+                
+                
+              
+                
+   
+              </VStack>
+            </Box>
+          </Box>
+        </>
+      )}
 
-      <Modal isOpen={isRegOpen} onClose={onRegClose} size="md">
-        <ModalOverlay />
-        <ModalContent bg="gray.50" p={6} shadow="2xl" maxW="100%">
-          <ModalCloseButton
-            position="absolute"
-            top="10px"
-            right="20px"
-            size="lg"
-            color="gray.600"
-            _hover={{ color: "red.500" }}
-          />
-          <ModalHeader textAlign="center">
-            <Heading fontSize="xl" color="blue.700">
-              Registrations for {selectedProduct?.name}
-            </Heading>
-          </ModalHeader>
-          <ModalBody>
-            {selectedProduct?.registrations.map((registration, idx) => (
-              <Box
-                key={registration.userId}
-                borderBottom="1px solid"
-                borderColor="gray.200"
-                py={3}
-              >
-                <Text>
-                  <strong>Name:</strong> {registration.name}
-                </Text>
-                <Text>
-                  <strong>Email:</strong> {registration.email}
-                </Text>
-                <Text>
-                  <strong>Registration Date:</strong>{" "}
-                  {new Date(registration.registrationDate).toLocaleDateString()}
-                </Text>
-              </Box>
-            ))}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
 
     </Box>
   );

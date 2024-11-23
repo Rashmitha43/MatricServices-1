@@ -21,7 +21,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"; // Import hoo
 import theme from "../../theme";
 import img from "../../assets/Sliderimage1.png";
 import { RxCross2 } from "react-icons/rx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getWorkshop } from "../../Redux/app/action";
 import axios from "axios";
 
@@ -31,7 +31,7 @@ const Workshopcard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch=useDispatch();
-  const [workshops,setWorkshop]=useState([]);
+  const {workshopadd}=useSelector(state=>state.app)
 
   const handleViewAll = () => {
     navigate("/workshopcard", { state: { showAll: true } });
@@ -46,7 +46,7 @@ const Workshopcard = () => {
   useEffect(()=>{
     dispatch(getWorkshop())
     .then(res=>{
-     setWorkshop(res.payload)
+     console.log(res.payload)
 
     })
     .catch(err=>{
@@ -73,7 +73,7 @@ const Workshopcard = () => {
           Upcoming Workshops
         </Text>
 
-        {!viewAll && workshops.length > 3 && (
+        {!viewAll && workshopadd.length > 3 && (
           <Button
             bg={theme.colors.ten}
             color="white"
@@ -90,7 +90,7 @@ const Workshopcard = () => {
       {/* Display workshops */}
       <SimpleGrid columns={[1, 2, 2, 3]} spacingX={3} spacingY={10} mt={6}>
         {viewAll
-          ? workshops.map((event, index) => (
+          ? workshopadd.map((event, index) => (
       
               <Card
                 key={event._id}
@@ -137,7 +137,7 @@ const Workshopcard = () => {
               </Card>
              
             ))
-          : workshops.slice(0, 3).map((event, index) => (
+          : workshopadd.slice(0, 3).map((event, index) => (
               
               <Card
                 key={event._id}

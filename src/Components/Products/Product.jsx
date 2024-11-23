@@ -16,52 +16,26 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import theme from "../../theme";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../Redux/app/action";
+import { useNavigate } from "react-router-dom";
 
-const products = [
-  {
-    name: "name",
-    quantity: 1,
-    price: 400,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, natus.",
-    image:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-  },
 
-  {
-    name: "name",
-    quantity: 1,
-    price: 400,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, natus.",
-    image:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-  },
 
-  {
-    name: "name",
-    quantity: 1,
-    price: 400,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, natus.",
-    image:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-  },
-
-  {
-    name: "name",
-    quantity: 1,
-    price: 400,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, natus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, natus.",
-    image:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-  },
-];
 
 const Product = () => {
+
+  const navigate = useNavigate();
+ const dispatch=useDispatch();
+ const { productadd}=useSelector(state=>state.app)
+  useEffect(()=>{
+    dispatch(getProducts())
+    .then((res)=>{
+      console.log(res.payload)
+    })
+  },[dispatch])
   return (
     <>
       <Box
@@ -101,17 +75,18 @@ const Product = () => {
             spacing={{ base: "2", md: "3", lg: "5" }}
             mt={10}
           >
-            {products.map((details) => (
+            {productadd?.map((details) => (
               <>
                 <Card
                   maxW="sm"
                   bg={theme.colors.thirty}
                   borderRadius="lg"
                   fontSize={{ base: "0.7rem", md: "0.8rem", lg: "1rem" }}
+                  key={details._id}
                 >
                   <CardBody w="100%">
                     <Image
-                      src={details.image}
+                      src={details.img[0]}
                       alt="Green double couch with wooden legs"
                       w="100%"
                       borderRadius="lg"
@@ -124,14 +99,14 @@ const Product = () => {
                       px={{ base: "5px", md: "20px" }}
                     >
                       <Heading fontSize={{ base: "1.2rem", md: "2rem" }}>
-                        {details.name.length > 18
-                          ? `${details.name.substring(0, 14)}...`
-                          : details.name}
+                        {details.title.length > 18
+                          ? `${details.title.substring(0, 14)}...`
+                          : details.title}
                       </Heading>
                       <Text>
-                        {details.description.length > 50
-                          ? `${details.description.substring(0, 50)}...`
-                          : details.description}
+                        {details.desc.length > 50
+                          ? `${details.desc.substring(0, 50)}...`
+                          : details.desc}
                       </Text>
                       <Text fontSize={{ base: "md", md: "xl" }} color="green">
                         Rs:{details.price}/-
@@ -140,33 +115,24 @@ const Product = () => {
                   </CardBody>
                   <Divider />
 
-                  <HStack spacing="2" p={{ base: "5px", md: "20px" }} w="100%">
+                    <HStack w='100%' spacing={2} p={5}>
                     <Box
                       p={{ base: "5px 10px", md: "7px 14px", lg: "8px 16px" }}
-                      border="1px solid black"
                       borderRadius={"5px"}
-                      color="black"
+                      color="white"
+                      fontWeight={'500'}
                       textAlign={"center"}
-                      letterSpacing="1px"
-                      w="50%"
-                      fontSize={{ base: "0.7rem", md: "0.8rem", lg: "0.8rem" }}
+                      letterSpacing="2px"
+                      w="100%"
+                      bg={theme.colors.ten}
+                      fontSize='1rem'
                       _hover={{ cursor: "pointer" }}
+                      onClick={()=>navigate(`/productsinglepage/${details._id}`)}
                     >
                       View
                     </Box>
-                    <Box
-                      bg={theme.colors.ten}
-                      color="white"
-                      p={{ base: "5px 10px", md: "7px 14px", lg: "8px 16px" }}
-                      borderRadius={"5px"}
-                      w="50%"
-                      textAlign={"center"}
-                      _hover={{ cursor: "pointer" }}
-                      fontSize={{ base: "0.7rem", md: "0.8rem", lg: "0.8rem" }}
-                    >
-                      Buy now
-                    </Box>
-                  </HStack>
+                    </HStack>
+             
                 </Card>
               </>
             ))}

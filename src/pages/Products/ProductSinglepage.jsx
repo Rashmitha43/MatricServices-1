@@ -1,8 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react";
 import dummyimg from "../../assets/Sliderimage1.png";
 import theme from "../../theme";
+import { useParams } from "react-router-dom";
+import { getProductsbyId } from "../../Redux/app/action";
+import { useDispatch, useSelector } from "react-redux";
 const ProductSinglepage = () => {
+  const dispatch = useDispatch();
+  const id = useParams();
+  const { productsingledata } = useSelector((state) => state.app);
+  const [index,setIndex]=useState(0)
+  useEffect(() => {
+    console.log(id)
+    dispatch(getProductsbyId(id.id))
+      .then((res) => {
+        console.log(res.payload);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+      });
+  }, [dispatch, id.id]);
+  console.log(productsingledata)
 
   return (
     <>
@@ -23,32 +41,45 @@ const ProductSinglepage = () => {
             w={{ base: "100%", md: "50%", lg: "40%" }}
             h={{ base: "300px", md: "400px", lg: "500px" }}
             position="relative"
-            display={{base:'flex',md:'column'}}
-            justifyContent={{base:'space-between',md:'none'}}
-          
+            display={{ base: "flex", md: "column" }}
+            justifyContent={{ base: "space-between", md: "none" }}
           >
-              <VStack w='18%' display={{base:'flex',md:'none'}} align='space-evenly' h='100%'>
-              <Box h={{ base: '100%'}}>
-                <Image w="100%" h="100%" src={dummyimg} objectFit={'cover'}/>
-              </Box>
-              <Box h={{ base: '100%' }}>
-                <Image w="100%" h="100%" src={dummyimg} objectFit={'cover'}/>
-              </Box>
-              <Box h={{ base: '100%' }}>
-                <Image w="100%" h="100%" src={dummyimg} objectFit={'cover'}/>
-              </Box>
+            <VStack
+              w="18%"
+              display={{ base: "flex", md: "none" }}
+              align="space-evenly"
+              h="100%"
+            >
+              
+              {productsingledata?.img?.map((img,index) => (
+                <>
+                  <Box h={{ base: "100%" }} onClick={()=>setIndex(index)}>
+                    <Image
+                      w="100%"
+                      h="100%"
+                      src={img}
+                      objectFit={"cover"}
+                      cursor={'pointer'}
+                    />
+                  </Box>
+                </>
+              ))}
             </VStack>
-            <Image w={{base:'80%',md:'100%'}} h="100%" src={dummyimg} objectFit={"cover"} />
-          
+            {productsingledata?.img && productsingledata?.img.length > 0 ? (
+              <Image
+                w="100%"
+                h="100%"
+                src={productsingledata.img[index]}
+                objectFit={'cover'}
+              />):(<Text>No images available</Text>)}
           </Box>
           <Box w={{ base: "100%", md: "40%", lg: "50%" }}>
             <VStack align={"stretch"} spacing={5} w="100%">
-              <Text fontSize={{ base: "1.2rem", md: "2rem" }}>Name</Text>
-              <Text fontSize={{ base: "0.9rem", md: "1rem" }}>description</Text>
+              <Text fontSize={{ base: "1.2rem", md: "2rem" }}>{productsingledata.title}</Text>
+              <Text fontSize={{ base: "0.9rem", md: "1rem" }}>{productsingledata.desc}</Text>
               <Text fontSize={{ base: "1.2rem", md: "2rem" }} color="green">
-                price
+                {productsingledata.price}
               </Text>
-              <Text>Quantity</Text>
               <Box
                 w="100%"
                 letterSpacing={"2px"}
@@ -60,15 +91,15 @@ const ProductSinglepage = () => {
                 Place Order
               </Box>
               <HStack w="100%" Spacing={3} mt="auto">
-                <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }}>
-                  <Image w="100%" h="100%" src={dummyimg} />
+              {productsingledata?.img?.map((img,index) => (
+                <>
+                    <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }} onClick={()=>setIndex(index)}>
+                  <Image w="100%" h="100%" src={img} cursor={'pointer'}/>
                 </Box>
-                <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }}>
-                  <Image w="100%" h="100%" src={dummyimg} />
-                </Box>
-                <Box h={{ base: "0px", md: "80px", lg: "100px", xl: "120px" }}>
-                  <Image w="100%" h="100%" src={dummyimg} />
-                </Box>
+                </>
+              ))}
+              
+             
               </HStack>
             </VStack>
           </Box>
