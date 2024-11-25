@@ -29,39 +29,34 @@ import { useParams } from "react-router-dom";
 import { getWorkshopbyId } from "../../Redux/app/action";
 import { postworkshopRegister } from "../../Redux/app/action";
 
-
 const Singlepage = () => {
- 
   const dispatch = useDispatch();
-  const {workshopsingledata}=useSelector(state=>state.app)
+  const { workshopsingledata } = useSelector((state) => state.app);
   const eventid = useParams();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const init = {
     name: "",
-    phone:"",
+    phone: "",
     email: "",
     collageOrInstitute: "",
     areaOfStudy: "",
-    askYourQuestions:"",
-    eventId:eventid.id
+    askYourQuestions: "",
+    eventId: eventid.id,
   };
   useEffect(() => {
     dispatch(getWorkshopbyId(eventid.id))
       .then((res) => {
-        console.log(res.payload)
+        console.log(res.payload);
       })
       .catch((err) => {
         console.log("error", err.message);
       });
-  }, [dispatch,eventid.id]);
-  
+  }, [dispatch, eventid.id]);
+
   const [photoIndex, setPhotoIndex] = useState(-1);
   const [form, setForm] = useState(false);
   const [formdata, setFormdata] = useState(init);
-
-
-
-
 
   const handleFormdata = (event) => {
     const { name, value } = event.target;
@@ -70,7 +65,6 @@ const Singlepage = () => {
       [name]: value,
     }));
   };
-
 
   const toggleform = () => {
     setForm(!form);
@@ -81,27 +75,102 @@ const Singlepage = () => {
     }
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormdata((prev)=>({
+    setFormdata((prev) => ({
       ...prev,
-      eventId:eventid.id
-    }))
-    console.log(formdata)
-    if(!formdata.name || !formdata.areaOfStudy || !formdata.askYourQuestions || !formdata.collageOrInstitute || !formdata.email || !formdata.phone || !formdata.eventId){
-      alert("please fill all the required fields")
-    }else{
-   
-      dispatch(postworkshopRegister(formdata))
-      .then((res)=>{
-        alert("form submitted successfully")
-        setFormdata(init);
-      })
-      .catch((err)=>{
-        console.log("error:",err)
-      })
+      eventId: eventid.id,
+    }));
+    console.log(formdata);
+    if (
+      !formdata.name ||
+      !formdata.areaOfStudy ||
+      !formdata.askYourQuestions ||
+      !formdata.collageOrInstitute ||
+      !formdata.email ||
+      !formdata.phone ||
+      !formdata.eventId
+    ) {
+      alert("please fill all the required fields");
+      return;
     }
-    setFormdata(init);
+    else if (!validatePhone(formdata.phone)) {
+      alert("Phone number must be 10 digits.");
+      return;
+    }
+
+    else if (!validateEmail(formdata.email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    else {
+      setIsSubmitting(true);
+      dispatch(postworkshopRegister(formdata))
+        .then((res) => {
+          // setFormdata(init);
+        })
+        .catch((err) => {
+          console.log("error:", err);
+        });
+
+      const formBody = new URLSearchParams();
+      const googleFormdata = [];
+      googleFormdata.Name = formdata.name;
+      googleFormdata.Phone = formdata.Phone;
+      googleFormdata.Email = formdata.email;
+      googleFormdata.CollegeOrInstitute = formdata.collageOrInstitute;
+      googleFormdata.AreaOfStudy= formdata.areaOfStudy;
+      googleFormdata.AskYourQuestions= formdata.askYourQuestions;
+      googleFormdata.EventId = formdata.eventId;
+      for (const key in googleFormdata) {
+        formBody.append(key, googleFormdata[key]);
+      }
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzx_8EVKVZDHsa_mRLP1buLtcBws2FvEGG6YZfir0FeywGCNhiYaFxieo_RPPcoJKEFrg/exec",
+        {
+          method: "POST",
+          body: formBody,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Accept: "application/json",
+          },
+        }
+      )
+        .then((response) => response.text())
+        .then((data) => {
+          setIsSubmitting(false);
+          if (data.includes("successfully sent")) {
+            alert("Form successfully submitted!");
+            setFormdata({
+              name: "",
+              phone: "",
+              email: "",
+              collageOrInstitute: "",
+              areaOfStudy: "",
+              askYourQuestions: "",
+              eventId: eventid.id,
+            });
+            setFormdata(init);
+          } else {
+            alert("Failed to submit the form. Please try again.");
+          }
+        })
+        .catch((error) => {
+          setIsSubmitting(false);
+          console.error("Error:", error);
+          alert("An error occurred. Please try again.");
+        });
+    }
   };
   return (
     <>
@@ -116,18 +185,25 @@ const Singlepage = () => {
         gap="2%"
         my={{ base: "3rem", md: "4rem" }}
       >
-        <Box w={{ base: "100%", md: "60%" }} boxShadow={{base:'sm',md:'lg'}}>
+        <Box
+          w={{ base: "100%", md: "60%" }}
+          boxShadow={{ base: "sm", md: "lg" }}
+        >
           <VStack spacing={"8"} align={"center"} p="20px">
             <Box w={{ base: "100%", md: "80%" }} h="300px">
-            {workshopsingledata?.img && workshopsingledata?.img.length > 0 ? (
-              <Image
-                w="100%"
-                h="100%"
-                src={workshopsingledata.img[0]}
-                objectFit={'contain'}
-              />):(<Text>No images available</Text>)}
+              {workshopsingledata?.img && workshopsingledata?.img.length > 0 ? (
+                <Image
+                  w="100%"
+                  h="100%"
+                  src={workshopsingledata.img[0]}
+                  objectFit={"contain"}
+                />
+              ) : (
+                <Text>No images available</Text>
+              )}
             </Box>
             <Box textAlign={"justify"}>
+
            
               
                 <Text  style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
@@ -137,11 +213,13 @@ const Singlepage = () => {
                </Text>
                
               
+
+              <Text>{workshopsingledata.desc}</Text>
             </Box>
-            <HStack w='100%' justifyContent={'center'}>
+            <HStack w="100%" justifyContent={"center"}>
               <Button
                 bg={theme.colors.ten}
-                w={{base:'40%',md:'30%',lg:'25%'}}
+                w={{ base: "40%", md: "30%", lg: "25%" }}
                 p={{ base: "5px 15px", md: "10px 30px" }}
                 color="white"
                 borderRadius={{ base: "7px", md: "15px" }}
@@ -169,11 +247,19 @@ const Singlepage = () => {
               </Box>{" "}
               <Text>workshop details</Text>
             </HStack>
+
             <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Topic:</Box>{workshopsingledata?.topic}</Box>
             <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Venue:</Box>{workshopsingledata?.venue}</Box>
             <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Date:</Box>{workshopsingledata?.date}</Box>
             <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Time:</Box>{workshopsingledata?.time}</Box>
             <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Eligibility Criteria:</Box>{workshopsingledata?.criteria}</Box>
+            <Box fontWeight={"500"}>Topic:{workshopsingledata?.topic}</Box>
+            <Box fontWeight={"500"}>Venue:{workshopsingledata?.venue}</Box>
+            <Box fontWeight={"500"}>Date:{workshopsingledata?.date}</Box>
+            <Box fontWeight={"500"}>Time:{workshopsingledata?.time}</Box>
+            <Box fontWeight={"500"}>
+              Eligibility Criteria:{workshopsingledata?.criteria}
+            </Box>
             {/* contact info */}
             <HStack
               fontSize={{ base: "1rem", md: "1.2rem" }}
@@ -189,7 +275,6 @@ const Singlepage = () => {
                 <FaPhoneAlt />
               </Box>{" "}
               <a href={`tel:+91${workshopsingledata.contact}`}>
-
                 <Text>{workshopsingledata?.contact}</Text>
               </a>
             </HStack>
@@ -201,7 +286,6 @@ const Singlepage = () => {
                 <Text>{workshopsingledata?.email}</Text>
               </a>
             </HStack>
-           
           </VStack>
         </Box>
       </Box>
@@ -404,9 +488,15 @@ const Singlepage = () => {
                       color="white"
                       borderRadius="15px"
                       cursor="pointer"
-                      size={{ base: "md", md: "lg" }}
-                      fontSize={{ base: "0.9rem", md: "1rem" }}
+                      value={isSubmitting ? "Submitting..." : "Submit"}
+                      disabled={isSubmitting}
                     />
+
+                    {isSubmitting && (
+                      <Text mt="1rem" color={theme.colors.ten}>
+                        Submitting your form, please wait...
+                      </Text>
+                    )}
                   </VStack>
                 </form>
                 <Box

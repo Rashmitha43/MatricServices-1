@@ -37,9 +37,6 @@ const Product = () => {
     })
   },[dispatch])
 
-  if (isLoading) {
-    return <Loading message="Loading Products..." />;
-  }
   return (
     <>
       <Box
@@ -79,7 +76,11 @@ const Product = () => {
             spacing={{ base: "2", md: "3", lg: "5" }}
             mt={10}
           >
-            {productadd?.map((details) => (
+          {isLoading ? (
+    <>
+      <Loading message="Fetching Products..." loadHeight="250px" />
+    </>
+  ) :  ( productadd?.map((details) => (
               <>
                 <Card
                   maxW="sm"
@@ -145,7 +146,7 @@ const Product = () => {
              
                 </Card>
               </>
-            ))}
+            )))}
           </SimpleGrid>
         </Box>
       </Box>
