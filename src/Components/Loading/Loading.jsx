@@ -1,17 +1,11 @@
 import React from "react";
 import { Center, VStack, CircularProgress, Text } from "@chakra-ui/react";
 
-const Loading = ({ message = "Loading...", bgOpacity = 0.8 }) => {
+const Loading = ({ message = "Loading...", bgOpacity = 0.8, loadHeight = "100vh" }) => {
   return (
     <Center
-      height="100vh"
+      height={loadHeight}
       bg={`rgba(255, 255, 255, ${bgOpacity})`}
-      position="fixed"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      zIndex={1000}
     >
       <VStack spacing={6}>
         <CircularProgress

@@ -55,9 +55,6 @@ const Workshopcard = () => {
     })
   },[dispatch])
 
-  if (isLoading) {
-    return <Loading message="Upcoming Workshops..." />;
-  }
 
   return (<>
     <Box
@@ -92,8 +89,12 @@ const Workshopcard = () => {
 
       {/* Display workshops */}
       <SimpleGrid columns={[1, 2, 2, 3]} spacingX={3} spacingY={10} mt={6}>
-        {viewAll
-          ? workshopadd.map((event, index) => (
+      {isLoading ? (
+    <>
+      <Loading message="Fetching Workshops..." loadHeight="250px" />
+    </>
+  ) : viewAll ? (
+          workshopadd.map((event, index) => (
       
               <Card
                 key={event._id}
@@ -140,7 +141,8 @@ const Workshopcard = () => {
               </Card>
              
             ))
-          : workshopadd.slice(0, 3).map((event, index) => (
+           ) : (
+            workshopadd.slice(0, 3).map((event, index) => (
               
               <Card
                 key={event._id}
@@ -182,7 +184,8 @@ const Workshopcard = () => {
                 </CardFooter>
               </Card>
             
-            ))}
+            ))
+          )}
       </SimpleGrid>
 
     </Box>
