@@ -142,7 +142,7 @@ const ProductSinglepage = () => {
                 {productsingledata.desc}
               </Text>
               <Text fontSize={{ base: "1.2rem", md: "2rem" }} color="green">
-                {productsingledata.price}/-
+                Rs:{productsingledata.price}/-
               </Text>
               <Box
                 w="100%"

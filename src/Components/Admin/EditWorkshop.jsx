@@ -109,9 +109,11 @@ const EditWorkshop = () => {
     ) {
       alert("Please Fill all the Input Fields");
     } else {
+      console.log(formData)
       dispatch(patchWorkshop(formData,workshopsingledata._id))
         .then((res) => {
           alert("successfully submitted");
+          console.log(res)
           setFormData(init)
           
         })
@@ -321,7 +323,7 @@ const EditWorkshop = () => {
                     <HStack gap={"1rem"}>
                       {formData?.img?.map((image, index) => (
                         <Box key={index} display={"flex"} alignItems={"start"}>
-                          
+                        <Box>{image.name}</Box>
                         <Box w='100px' h='100px' mt='10px'><Image src={image} w='100%' h='100%'/></Box>
                         <IconButton
                           aria-label="Remove Image"

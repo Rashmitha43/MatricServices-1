@@ -128,9 +128,15 @@ const Singlepage = () => {
               />):(<Text>No images available</Text>)}
             </Box>
             <Box textAlign={"justify"}>
-              <Text>
+           
+              
+                <Text  style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+              
                {workshopsingledata.desc}
-              </Text>
+             
+               </Text>
+               
+              
             </Box>
             <HStack w='100%' justifyContent={'center'}>
               <Button
@@ -163,11 +169,11 @@ const Singlepage = () => {
               </Box>{" "}
               <Text>workshop details</Text>
             </HStack>
-            <Box fontWeight={"500"}>Topic:{workshopsingledata?.topic}</Box>
-            <Box fontWeight={"500"}>Venue:{workshopsingledata?.venue}</Box>
-            <Box fontWeight={"500"}>Date:{workshopsingledata?.date}</Box>
-            <Box fontWeight={"500"}>Time:{workshopsingledata?.time}</Box>
-            <Box fontWeight={"500"}>Eligibility Criteria:{workshopsingledata?.criteria}</Box>
+            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Topic:</Box>{workshopsingledata?.topic}</Box>
+            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Venue:</Box>{workshopsingledata?.venue}</Box>
+            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Date:</Box>{workshopsingledata?.date}</Box>
+            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Time:</Box>{workshopsingledata?.time}</Box>
+            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Eligibility Criteria:</Box>{workshopsingledata?.criteria}</Box>
             {/* contact info */}
             <HStack
               fontSize={{ base: "1rem", md: "1.2rem" }}

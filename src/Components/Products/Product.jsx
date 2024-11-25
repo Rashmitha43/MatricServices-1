@@ -90,14 +90,18 @@ const Product = () => {
                   boxShadow={'lg'}
                 >
                   <CardBody w="100%">
-                    <Image
-                      src={details.img[0]}
-                      alt="Green double couch with wooden legs"
-                      w="100%"
-                      borderRadius="lg"
-                      borderBottomRadius={"0px"}
-                      objectFit={'contain'}
-                    />
+                  <Box  w='100%'
+                    h={'250px'}>
+                  <Image
+                    src={details.img[0]}
+                    alt={details.title}
+                    borderTopRadius="lg"
+                    w='100%'
+                    h='100%'
+                    objectFit={'cover'}
+                  />
+                  </Box>
+                    
                     <VStack
                       mt={{ base: "2", md: "4", lg: "6" }}
                       spacing={{ base: "1", md: "2", lg: "3" }}

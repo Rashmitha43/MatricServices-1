@@ -235,10 +235,16 @@ export const getWorkshopbyId=(id)=>(dispatch)=>{
 
 //patch workshop
 export const patchWorkshop=(payload,id)=>(dispatch)=>{
+
   dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
   return axios
-  .patch(api+`/adminWorkshop/${id}`,payload)
+  .patch(api+`/adminWorkshop/${id}`,payload, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  })
   .then((res)=>{
+
     return dispatch({
       type:types.PATCH_WORKSHOPID_SUCCESS,
       payload:res.data
@@ -274,7 +280,6 @@ export const delWorkshopId=(id)=>(dispatch)=>{
 //post products
 export const postProducts = (payload) => (dispatch) => {
   dispatch({ type: types.POST_PRODUCT_REQUEST });
-  console.log(payload)
   return axios
     .post(api + "/adminProduct/addProduct", payload,{
       headers: {
@@ -335,9 +340,14 @@ export const getProductsbyId=(id)=>(dispatch)=>{
 }
 //patch product
 export const patchProduct=(payload,id)=>(dispatch)=>{
+
   dispatch({type:types.PATCH_PRODUCTID_REQUEST});
   return axios
-  .patch(api+`/adminProduct/${id}`,payload)
+  .patch(api+`/adminProduct/${id}`,payload,{
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  })
   .then((res)=>{
     return dispatch({
       type:types.PATCH_PRODUCTID_SUCCESS,
