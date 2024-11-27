@@ -272,12 +272,26 @@ export const reducer = (state = initalState, action) => {
           isLoading:true,
           isError:false,
         }
+      // case types.PATCH_WORKSHOPID_SUCCESS:
+      //   return{
+      //     ...state,
+      //     isLoading:false,
+      //     isError:false
+      //   }
       case types.PATCH_WORKSHOPID_SUCCESS:
-        return{
+        return {
           ...state,
-          isLoading:false,
-          isError:false
-        }
+          workshopadd: state.workshopadd.map((workshop) =>
+            workshop._id === payload._id ? { ...workshop, ...payload } : workshop
+          ),
+          workshopsingledata: { ...state.workshopsingledata, ...payload },
+          isLoading: false,
+          isError: false,
+        };
+      
+      
+
+        
       case types.PATCH_WORKSHOPID_FAILURE:
         return{
           ...state,
