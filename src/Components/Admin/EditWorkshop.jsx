@@ -24,11 +24,12 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 import { getWorkshopbyId } from "../../Redux/app/action";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const EditWorkshop = () => {
   const dispatch = useDispatch();
   const id=useParams()
   const {workshopsingledata}=useSelector(state=>state.app)
+  const Navigate = useNavigate()
   useEffect(()=>{
     
     dispatch(getWorkshopbyId(id.workshopId))
@@ -110,12 +111,12 @@ const EditWorkshop = () => {
       alert("Please Fill all the Input Fields");
     } else {
       console.log(formData)
-      dispatch(patchWorkshop(formData,workshopsingledata._id))
+      dispatch(patchWorkshop(formData, workshopsingledata._id))
         .then((res) => {
           alert("successfully submitted");
           console.log(res)
-          setFormData(init)
-          
+          setFormData(init)  
+          Navigate('/admin/workshoptable')     
         })
         .catch((err) => {
           console.log("error", err.message);
