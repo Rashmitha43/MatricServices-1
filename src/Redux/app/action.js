@@ -1,9 +1,9 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-const api = `https://matricservices.onrender.com/api`;
+// const api = `https://matricservices.onrender.com/api`;
 
-// const api = `http://localhost:2345/api`;
+const api = `http://localhost:2345/api`;
 
 // PostGetInTouchInfo
 export const postGetInTouchInfo = (payload) => (dispatch) => {
@@ -340,6 +340,8 @@ export const getProductsbyId=(id)=>(dispatch)=>{
 }
 //patch product
 export const patchProduct=(payload,id)=>(dispatch)=>{
+
+  console.log("inside patch",payload)
 
   dispatch({type:types.PATCH_PRODUCTID_REQUEST});
   return axios

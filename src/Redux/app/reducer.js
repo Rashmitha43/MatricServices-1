@@ -251,6 +251,7 @@ export const reducer = (state = initalState, action) => {
           workshopsingledata:{}
         }
       case types.GET_WORKSHOPID_SUCCESS:
+       
         return{
           ...state,
           isLoading:false,
@@ -355,7 +356,7 @@ export const reducer = (state = initalState, action) => {
           productsingledata:{}
         };
       case types.GET_PRODUCTID_SUCCESS:
-       
+    
         return{
           ...state,
           isLoading:false,

@@ -88,7 +88,7 @@ const Workshopcard = () => {
       </Box>
 
       {/* Display workshops */}
-      <SimpleGrid columns={[1, 2, 2, 3]} spacingX={3} spacingY={10} mt={6}>
+      <SimpleGrid columns={[1, 2, 2, 3]} spacingX={{base:'none',md:3}} spacingY={10} mt={6} alignItems={'center'}>
       {isLoading ? (
     <>
       <Loading message="Fetching Workshops..." loadHeight="250px" />
@@ -101,6 +101,7 @@ const Workshopcard = () => {
                 maxW="sm"
                 bg={theme.colors.thirty}
                 borderRadius={"15px"}
+                position={'relative'}
               >
                      
                 <CardBody>
@@ -115,7 +116,7 @@ const Workshopcard = () => {
                     objectFit={'cover'}
                   />
                   </Box>
-                  <Stack my="6" spacing="3" px="20px">
+                  <Stack my="6" spacing="3" px="20px"   h={{base:'200px',md:'200px'}}>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.topic}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.venue}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.date}</Text>
@@ -132,6 +133,9 @@ const Workshopcard = () => {
                       color="white"
                       borderRadius={{base:'7px',md:'15px'}}
                       onClick={()=>navigate(`/singlepage/${event._id}`)}
+                      position={'absolute'}
+                      bottom='20px'
+                     
                     >
                       View Details
                     </Button>
@@ -149,6 +153,7 @@ const Workshopcard = () => {
                 maxW="sm"
                 bg={theme.colors.thirty}
                 borderRadius={"15px"}
+                position={'relative'}
               >
                 <CardBody>
                   <Box w='100%' h='250px'>
@@ -160,7 +165,7 @@ const Workshopcard = () => {
                     h={'100%'}
                     objectFit={'cover'}
                   /></Box>
-                  <Stack my="6" spacing="3" px="20px">
+                  <Stack my="6" spacing="3" px="20px"  h='200px'>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.topic}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.venue}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.date}</Text>
@@ -176,6 +181,8 @@ const Workshopcard = () => {
                       color="white"
                       borderRadius={{base:'7px',md:'15px'}}
                       onClick={()=>navigate(`/singlepage/${event._id}`)}
+                      position={'absolute'}
+                      bottom={'20px'}
                     >
                       View Details
                     </Button>

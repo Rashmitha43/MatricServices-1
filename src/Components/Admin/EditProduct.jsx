@@ -23,26 +23,13 @@ import { getProducts, postProducts } from "../../Redux/app/action";
 import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@chakra-ui/icons";
 import { getProductsbyId } from "../../Redux/app/action";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 import { patchProduct } from "../../Redux/app/action";
 const EditProduct = () => {
   const dispatch=useDispatch();
-  const {productsingledata}=useSelector(state=>state.app)
+  const {productsingledata,isLoading}=useSelector(state=>state.app)
+  const navigate = useNavigate()
   const id=useParams()
-
-  useEffect(()=>{
-      dispatch(getProductsbyId(id.productId))
-      .then((res)=>{
-        console.log(res)
-      })
-      .catch((err)=>{
-        console.log("error:",err.message)
-      })
-    
-  
-    
-  },[dispatch,id.productId])
-
 
   const init={
     title: "",
@@ -53,30 +40,44 @@ const EditProduct = () => {
   }
   const [formData, setFormData] = useState(init);
 
+  const [updatedSuccess,setUpdatedSuccess] = useState(false);
+  const [placeInput, setPlaceInput] = useState("");
+  console.log(id.productId)
+
   useEffect(()=>{
-   if(productsingledata){
-    setFormData({
-      title:productsingledata.title || "",
-      desc:productsingledata.desc || "",
-      price:productsingledata.price || "",
-      productCode:productsingledata.productCode|| "",
-      img:productsingledata.img||[]
+    dispatch(getProductsbyId(id.productId))
+    .then(res=>{
+      console.log(res)
+      console.log(res?.payload)
+       setFormData(res?.payload?.data)
     })
-   }
-  },[productsingledata])
-  console.log(productsingledata)
+  },[dispatch,id.productId]);
+console.log(productsingledata)
+  // useEffect(()=>{
+  //  if(productsingledata){
+  //   setFormData({
+  //     title:productsingledata.title || "",
+  //     desc:productsingledata.desc || "",
+  //     price:productsingledata.price || "",
+  //     productCode:productsingledata.productCode|| "",
+  //     img:productsingledata.img||[]
+  //   })
+  //  }
+  // },[productsingledata])
+  
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === "file") {
       const fileArray = Array.from(files);
       console.log(fileArray);
-      setFormData((prev) => ({
+      setFormData((prev=>({
         ...prev,
         [name]: prev[name] ? [...prev[name], ...fileArray] : [...fileArray],
-      }));
+      })))
     } else {
-      setFormData({ ...formData, [name]: value });
+
+      setFormData({...formData,[name]:value})
     }
   };
 
@@ -97,26 +98,26 @@ const EditProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !formData.title ||
-      !formData.desc ||
-      !formData.price ||
-      !formData.productCode 
+    // if (
+    //   !formData.title ||
+    //   !formData.desc ||
+    //   !formData.price ||
+    //   !formData.productCode 
       
-    ) {
-      alert("Please Fill all the Input Fields");
-    } else {
-      
-      dispatch(patchProduct(formData,productsingledata._id))
-      .then((res) => {
-        alert("successfully submitted");
-        setFormData(init)
+    // ) {
+    //   alert("Please Fill all the Input Fields");
+    // } else {
+     
+      // dispatch(patchProduct(,productsingledata._id))
+      // .then((res) => {
+      //   alert("successfully submitted");
+      //   setFormData(init)
         
-      })
-      .catch((err) => {
-        console.log("error", err.message);
-      });
-    }
+      // })
+      // .catch((err) => {
+      //   console.log("error", err.message);
+      // });
+    
   };
   const inputStyles = {
     borderRadius: "md",
@@ -164,7 +165,7 @@ const EditProduct = () => {
             </FormLabel>
             <Input
               name="title"
-              value={formData.title}
+              value={formData.title?formData.title:productsingledata.title}
               onChange={handleInputChange}
               placeholder="Enter your product name"
               size="lg"
@@ -178,7 +179,7 @@ const EditProduct = () => {
             </FormLabel>
             <Textarea
               name="desc"
-              value={formData.desc}
+              value={formData.desc?formData.desc:productsingledata.desc}
               onChange={handleInputChange}
               placeholder="Describe the project"
               size="lg"
@@ -193,7 +194,7 @@ const EditProduct = () => {
               </FormLabel>
               <Input
                 name="price"
-                value={formData.price}
+                value={formData.price?formData.price:productsingledata.price}
                 onChange={handleInputChange}
                 placeholder="Price of the Product"
                 size="lg"
@@ -207,7 +208,7 @@ const EditProduct = () => {
               </FormLabel>
               <Input
                 name="productCode"
-                value={formData.productCode}
+                value={formData.productCode?formData.productCode:productsingledata.productCode}
                 onChange={handleInputChange}
                 placeholder="Your Products code"
                 size="lg"
@@ -246,10 +247,10 @@ const EditProduct = () => {
                   >
                     Add Images
                   </Button>
-
-                  {formData.img?.length > 0 && (
+                   
+                  {productsingledata.img?.length > 0 && (
                     <HStack gap={"1rem"}>
-                      {formData?.img?.map((image, index) => (
+                      {productsingledata?.img?.map((image, index) => (
                         <Box key={index} display={"flex"} alignItems={"start"}>
                           
                           <Box w='100px' h='100px' mt='10px'><Image src={image} w='100%' h='100%'/></Box>

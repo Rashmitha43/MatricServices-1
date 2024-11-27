@@ -89,6 +89,7 @@ const Product = () => {
                   fontSize={{ base: "0.7rem", md: "0.8rem", lg: "1rem" }}
                   key={details._id}
                   boxShadow={'lg'}
+                  position={'relative'}
                 >
                   <CardBody w="100%">
                   <Box  w='100%'
@@ -108,6 +109,7 @@ const Product = () => {
                       spacing={{ base: "1", md: "2", lg: "3" }}
                       align={"stretch"}
                       px={{ base: "5px", md: "20px" }}
+                      h={{base:'150px',md:'210px'}}
                     >
                       <Heading fontSize={{ base: "1.2rem", md: "1.5rem" }}>
                         {details.title.length > 18
@@ -126,7 +128,7 @@ const Product = () => {
                   </CardBody>
                   <Divider />
 
-                    <HStack w='100%' spacing={2} p={5}>
+                    <HStack w='100%' spacing={2} p={5} position={'absolute'} bottom={'0'} left='0'>
                     <Box
                       p={{ base: "5px 10px", md: "7px 14px", lg: "8px 16px" }}
                       borderRadius={"5px"}

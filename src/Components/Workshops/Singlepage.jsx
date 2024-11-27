@@ -214,7 +214,7 @@ const Singlepage = () => {
                
               
 
-              <Text>{workshopsingledata.desc}</Text>
+              
             </Box>
             <HStack w="100%" justifyContent={"center"}>
               <Button
