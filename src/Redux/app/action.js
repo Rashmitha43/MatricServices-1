@@ -1,9 +1,9 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-const api = `https://matricservices.onrender.com/api`;
+// const api = `https://matricservices.onrender.com/api`;
 
-// const api = `http://localhost:2345/api`;
+const api = `http://localhost:2345/api`;
 
 // PostGetInTouchInfo
 export const postGetInTouchInfo = (payload) => (dispatch) => {
@@ -234,29 +234,57 @@ export const getWorkshopbyId=(id)=>(dispatch)=>{
 }
 
 //patch workshop
-export const patchWorkshop=(payload,id)=>(dispatch)=>{
+// export const patchWorkshop=(payload,id)=>(dispatch)=>{
 
-  dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
-  return axios
-  .patch(api+`/adminWorkshop/${id}`,payload, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  })
-  .then((res)=>{
+//   dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
+//   return axios
+//   .patch(api+`/adminWorkshop/${id}`,payload, {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//     },
+//   })
+//   .then((res)=>{
+//     return dispatch({
+//       type: types.PATCH_WORKSHOPID_SUCCESS,
+//       payload: res.data, 
+//     });
+//   })
+//   .catch((err)=>{
+//     return dispatch({
+//       type:types.PATCH_WORKSHOPID_FAILURE,
+//       payload:err.message
+//     })
+//   })
+// }
 
-    return dispatch({
-      type:types.PATCH_WORKSHOPID_SUCCESS,
-      payload:res.data
+export const patchWorkshop = (formData, workshopId) => async (dispatch) => {
+  dispatch({ type: types.PATCH_WORKSHOPID_REQUEST });
+  try {
+    const response = await fetch(api+`/adminWorkshop/${workshopId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     });
-  })
-  .catch((err)=>{
-    return dispatch({
-      type:types.PATCH_WORKSHOPID_FAILURE,
-      payload:err.message
-    })
-  })
-}
+
+    if (!response.ok) throw new Error("Failed to update workshop");
+
+    const data = await response.json();
+
+    dispatch({
+      type: types.PATCH_WORKSHOPID_SUCCESS,
+      payload: data,
+    });
+
+    return Promise.resolve(data);
+  } catch (error) {
+    dispatch({ type: types.PATCH_WORKSHOPID_FAILURE, payload: error.message });
+    return Promise.reject(error);
+  }
+};
+
+
 //delete workhopid
 export const delWorkshopId=(id)=>(dispatch)=>{
   dispatch({type:types.DELETE_WORKSHOPID_REQUEST});
