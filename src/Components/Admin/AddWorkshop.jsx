@@ -28,8 +28,8 @@ const AddWorkshop = () => {
     topic: "",
     desc: "",
     venue: "",
-    date: "",
-    time: "",
+    fromdate: "",
+    todate: "",
     criteria: "",
     contact: "",
     email: "",
@@ -68,8 +68,8 @@ const AddWorkshop = () => {
       !formData.topic ||
       !formData.desc ||
       !formData.venue ||
-      !formData.date ||
-      !formData.time ||
+      !formData.fromdate ||
+      !formData.todate ||
       !formData.criteria ||
       !formData.contact ||
       !formData.email
@@ -189,13 +189,13 @@ const AddWorkshop = () => {
           <HStack spacing={6} width="100%">
             <FormControl width="50%">
               <FormLabel fontSize="lg" fontWeight="medium">
-                Date
+                From-date
               </FormLabel>
               <InputGroup size="lg">
                 <Input
                   type="date"
-                  name="date"
-                  value={formData.date}
+                  name="fromdate"
+                  value={formData.fromdate}
                   onChange={handleInputChange}
                   {...inputStyles}
                 />
@@ -204,13 +204,13 @@ const AddWorkshop = () => {
 
             <FormControl width="50%">
               <FormLabel fontSize="lg" fontWeight="medium">
-                Time
+                To-date
               </FormLabel>
               <InputGroup size="lg">
                 <Input
-                  type="time"
-                  name="time"
-                  value={formData.time}
+                  type="date"
+                  name="todate"
+                  value={formData.todate}
                   onChange={handleInputChange}
                   {...inputStyles}
                 />

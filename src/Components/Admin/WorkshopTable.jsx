@@ -103,11 +103,11 @@ const WorkshopTable = () => {
             <Th py={4} px={6}>
               Location
             </Th>
-            <Th py={4} px={6}>
-              Date
+            <Th py={4} px={6} whiteSpace="nowrap">
+              From-Date
             </Th>
-            <Th py={4} px={6}>
-              Time
+            <Th py={4} px={6}whiteSpace="nowrap">
+              To-date
             </Th>
             <Th py={4} px={6} whiteSpace="nowrap">
               Phone Number
@@ -142,16 +142,16 @@ const WorkshopTable = () => {
                 <Td py={4} px={6}>
                   {workshop.venue}
                 </Td>
-                <Td py={4} px={6}>
-                  {workshop.date}
+                <Td py={4} px={6} whiteSpace="nowrap">
+                  {workshop.fromdate}
                 </Td>
-                <Td py={4} px={6}>
-                  {workshop.time}
+                <Td py={4} px={6} whiteSpace="nowrap">
+                  {workshop.todate}
                 </Td>
-                <Td py={4} px={6}>
+                <Td py={4} px={6} whiteSpace="nowrap">
                   {workshop.contact}
                 </Td>
-                <Td py={4} px={6}>
+                <Td py={4} px={6}whiteSpace="nowrap">
                   {workshop.email}
                 </Td>
                 <Td py={4} px={6} textAlign={"center"}>
@@ -270,13 +270,13 @@ const WorkshopTable = () => {
                   <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
                     Date:
                   </Box>
-                  {selectedWorkshop.date}
+                  {selectedWorkshop.fromdate}
                 </Text>
                 <Text>
                   <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
                     Time:
                   </Box>
-                  {selectedWorkshop.time}
+                  {selectedWorkshop.todate}
                 </Text>
                 <Text>
                   <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>

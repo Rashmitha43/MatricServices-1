@@ -119,7 +119,7 @@ const Workshopcard = () => {
                   <Stack my="6" spacing="3" px="20px"   h={{base:'200px',md:'200px'}}>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.topic}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.venue}</Text>
-                    <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.date}</Text>
+                    <Text fontSize={{base:'md',md:'md',lg:'lg'}}>dates:{event.fromdate}-{event.todate}</Text>
                   </Stack>
                 </CardBody>
                 <Divider />
@@ -168,7 +168,7 @@ const Workshopcard = () => {
                   <Stack my="6" spacing="3" px="20px"  h='200px'>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.topic}</Text>
                     <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.venue}</Text>
-                    <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.date}</Text>
+                    <Text fontSize={{base:'md',md:'md',lg:'lg'}}>{event.fromdate} - {event.todate}</Text>
                   </Stack>
                 </CardBody>
                 <Divider />
