@@ -54,17 +54,7 @@ const ProductSinglepage = () => {
       alert("please fill out all the fields");
     } else {
       if(open==='Whatsapp'){
-        message = 
-        `Hello! 👋
-         Thank you for your purchase. Here are the details of your order:\n
-         Name: ${formdata.name}
-         Email: ${formdata.email}
-         Phone: ${formdata.phone}
-         Product: ${productsingledata.title}
-         Price: ${productsingledata.price}/-
-         We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
-         Best regards,
-         MatricServices`;
+        message = `Hello! 👋\nThank you for your purchase. Here are the details of your order:\nName: ${formdata.name}\nEmail: ${formdata.email}\nPhone: ${formdata.phone}\nProduct: ${productsingledata.title}\nPrice: ${productsingledata.price}/-\nWe’ll process your order and keep you updated. If you have any questions, feel free to reach out!\nBest regards,\nMatricServices`;
         const whatsappMessage = `https://api.whatsapp.com/send?phone=919390555433&text=${encodeURIComponent(
           message
         )}`;
@@ -73,17 +63,7 @@ const ProductSinglepage = () => {
         setFormData(init);
       }else{
       
-        message =`
-         Hello! 👋
-         Thank you for your purchase. Here are the details of your order:\n
-         Name: ${formdata.name}
-         Email: ${formdata.email}
-         Phone: ${formdata.phone}
-         Product: ${productsingledata.title}
-         Price: ${productsingledata.price}/-
-         We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
-         Best regards,
-         MatricServices`;
+        message =`Hello! 👋\nThank you for your purchase. Here are the details of your order:\nName: ${formdata.name}\nEmail: ${formdata.email}\nPhone: ${formdata.phone}\nProduct: ${productsingledata.title}\nPrice: ${productsingledata.price}/-\nWe’ll process your order and keep you updated. If you have any questions, feel free to reach out!\nBest regards,\nMatricServices`;
         
           // Construct the mailto link for email
           const emailSubject = encodeURIComponent('Your Order Details from MatricServices');
