@@ -257,32 +257,49 @@ export const getWorkshopbyId=(id)=>(dispatch)=>{
 //   })
 // }
 
-export const patchWorkshop = (formData, workshopId) => async (dispatch) => {
-  dispatch({ type: types.PATCH_WORKSHOPID_REQUEST });
-  try {
-    const response = await fetch(api+`/adminWorkshop/${workshopId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+// export const patchWorkshop = (formData, workshopId) => async (dispatch) => {
+//   dispatch({ type: types.PATCH_WORKSHOPID_REQUEST });
+//   try {
+    
+//      console.log(formData)
+//     console.log(workshopId)
 
-    if (!response.ok) throw new Error("Failed to update workshop");
+//      const response = axios.patch(`${api}/adminWorkshop/${workshopId}`,formData,{
+//       headers:{
+//          "Content-Type":"multipart/form-data"
+//       }
+//      });
 
-    const data = await response.json();
+//      response.then((res)=>{
+//       return dispatch({type:types.PATCH_WORKSHOPID_SUCCESS,payload:res.data})
+//      })
 
-    dispatch({
-      type: types.PATCH_WORKSHOPID_SUCCESS,
-      payload: data,
-    });
+//   } catch (error) {
+//    return dispatch({ type: types.PATCH_WORKSHOPID_FAILURE, payload: error.message });
+//   }
+// };
 
-    return Promise.resolve(data);
-  } catch (error) {
-    dispatch({ type: types.PATCH_WORKSHOPID_FAILURE, payload: error.message });
-    return Promise.reject(error);
-  }
-};
+
+export const updateWorkShop = (id,formData)=>(dispatch)=>{
+    console.log("editDATA:",formData)
+   
+     dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
+        return axios
+       .patch(api+`/adminWorkShop/${id}`,formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res)=>{
+         console.log(res)
+       })
+       .catch((err)=>{
+         return dispatch({
+           type:types.PATCH_WORKSHOPID_FAILURE,
+           payload:err.message
+         })
+       })
+}
 
 
 //delete workhopid
@@ -367,29 +384,25 @@ export const getProductsbyId=(id)=>(dispatch)=>{
   })
 }
 //patch product
-export const patchProduct=(payload,id)=>(dispatch)=>{
-
-  console.log("inside patch",payload)
-
-  dispatch({type:types.PATCH_PRODUCTID_REQUEST});
-  return axios
-  .patch(api+`/adminProduct/${id}`,payload,{
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  })
-  .then((res)=>{
-    return dispatch({
-      type:types.PATCH_PRODUCTID_SUCCESS,
-      payload:res.data
-    });
-  })
-  .catch((err)=>{
-    return dispatch({
-      type:types.PATCH_PRODUCTID_FAILURE,
-      payload:err.message
-    })
-  })
+export const updateProduct = (id,formData)=>(dispatch)=>{
+  console.log("editDATA:",formData)
+ 
+   dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
+      return axios
+     .patch(api+`/adminProduct/${id}`,formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res)=>{
+       console.log(res)
+     })
+     .catch((err)=>{
+       return dispatch({
+         type:types.PATCH_WORKSHOPID_FAILURE,
+         payload:err.message
+       })
+     })
 }
 //delete productid
 export const delProductId=(id)=>(dispatch)=>{

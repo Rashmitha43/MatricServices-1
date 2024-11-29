@@ -19,70 +19,50 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
-import { getProducts, postProducts } from "../../Redux/app/action";
 import { useDispatch, useSelector } from "react-redux";
 import { CloseIcon } from "@chakra-ui/icons";
 import { getProductsbyId } from "../../Redux/app/action";
-import { useNavigate, useParams } from 'react-router-dom';
-import { patchProduct } from "../../Redux/app/action";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateProduct } from "../../Redux/app/action";
 const EditProduct = () => {
-  const dispatch=useDispatch();
-  const {productsingledata,isLoading}=useSelector(state=>state.app)
-  const navigate = useNavigate()
-  const id=useParams()
+  const dispatch = useDispatch();
+  const id = useParams();
+  const { productsingledata } = useSelector((state) => state.app);
+  const Navigate = useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  const init={
+  const init = {
     title: "",
     desc: "",
     price: "",
     productCode: "",
     img: [],
-  }
+  };
   const [formData, setFormData] = useState(init);
 
-  const [updatedSuccess,setUpdatedSuccess] = useState(false);
-  const [placeInput, setPlaceInput] = useState("");
-  console.log(id.productId)
-
-  useEffect(()=>{
-    dispatch(getProductsbyId(id.productId))
-    .then(res=>{
+  useEffect(() => {
+    console.log(id.productId)
+    dispatch(getProductsbyId(id.productId)).then((res) => {
       console.log(res)
-      console.log(res?.payload)
-       setFormData(res?.payload?.data)
-    })
-  },[dispatch,id.productId]);
-console.log(productsingledata)
-  // useEffect(()=>{
-  //  if(productsingledata){
-  //   setFormData({
-  //     title:productsingledata.title || "",
-  //     desc:productsingledata.desc || "",
-  //     price:productsingledata.price || "",
-  //     productCode:productsingledata.productCode|| "",
-  //     img:productsingledata.img||[]
-  //   })
-  //  }
-  // },[productsingledata])
-  
+      setFormData(res?.payload);
+    });
+  }, [dispatch]);
+
+
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === "file") {
       const fileArray = Array.from(files);
       console.log(fileArray);
-      setFormData((prev=>({
+      setFormData((prev) => ({
         ...prev,
         [name]: prev[name] ? [...prev[name], ...fileArray] : [...fileArray],
-      })))
+      }));
     } else {
-
-      setFormData({...formData,[name]:value})
+      setFormData({ ...formData, [name]: value });
     }
   };
-
-
-
 
   const handleimageInput = () => {
     const input = document.createElement("input");
@@ -93,31 +73,28 @@ console.log(productsingledata)
     input.click();
   };
 
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (
-    //   !formData.title ||
-    //   !formData.desc ||
-    //   !formData.price ||
-    //   !formData.productCode 
-      
-    // ) {
-    //   alert("Please Fill all the Input Fields");
-    // } else {
-     
-      // dispatch(patchProduct(,productsingledata._id))
-      // .then((res) => {
-      //   alert("successfully submitted");
-      //   setFormData(init)
-        
-      // })
-      // .catch((err) => {
-      //   console.log("error", err.message);
-      // });
-    
+    if (
+      !formData.title ||
+      !formData.desc ||
+      !formData.price ||
+      !formData.productCode
+    ) {
+      alert("Please Fill all the Input Fields");
+    } else {
+      dispatch(updateProduct(id.productId, formData))
+        .then((res) => {
+          alert("successfully submitted");
+          setIsSubmit(false);
+          console.log(res);
+          setFormData(init);
+          Navigate("/admin/workshoptable");
+        })
+        .catch((err) => {
+          console.log("error", err.message);
+        });
+    }
   };
   const inputStyles = {
     borderRadius: "md",
@@ -152,7 +129,6 @@ console.log(productsingledata)
         mb={6}
         textAlign="center"
         color="black"
-       
       >
         UPDATE A PRODUCT
       </Text>
@@ -165,7 +141,7 @@ console.log(productsingledata)
             </FormLabel>
             <Input
               name="title"
-              value={formData.title?formData.title:productsingledata.title}
+              value={formData?.title}
               onChange={handleInputChange}
               placeholder="Enter your product name"
               size="lg"
@@ -179,7 +155,7 @@ console.log(productsingledata)
             </FormLabel>
             <Textarea
               name="desc"
-              value={formData.desc?formData.desc:productsingledata.desc}
+              value={formData?.desc}
               onChange={handleInputChange}
               placeholder="Describe the project"
               size="lg"
@@ -190,11 +166,11 @@ console.log(productsingledata)
           <HStack spacing={6} width="100%">
             <FormControl isRequired width="50%">
               <FormLabel fontSize="lg" fontWeight="medium">
-               Price
+                Price
               </FormLabel>
               <Input
                 name="price"
-                value={formData.price?formData.price:productsingledata.price}
+                value={formData?.price}
                 onChange={handleInputChange}
                 placeholder="Price of the Product"
                 size="lg"
@@ -208,7 +184,7 @@ console.log(productsingledata)
               </FormLabel>
               <Input
                 name="productCode"
-                value={formData.productCode?formData.productCode:productsingledata.productCode}
+                value={formData?.productCode}
                 onChange={handleInputChange}
                 placeholder="Your Products code"
                 size="lg"
@@ -222,15 +198,20 @@ console.log(productsingledata)
               <Box
                 display={"flex"}
                 justifyContent={"left"}
-                flexDirection={'column'}
-                gap='10px'
+                flexDirection={"column"}
+                gap="10px"
               >
                 <Box>
                   <FormLabel fontSize="lg" fontWeight="medium">
                     Upload image
                   </FormLabel>
                 </Box>
-                <Box display={"flex"} alignItems={"start"} flexDirection={'column'} gap='10px'>
+                <Box
+                  display={"flex"}
+                  alignItems={"start"}
+                  flexDirection={"column"}
+                  gap="10px"
+                >
                   <input
                     type="file"
                     multiple
@@ -240,23 +221,24 @@ console.log(productsingledata)
                   />
                   <Button
                     onClick={handleimageInput}
-                    bg='#1A202C'
-                    color='white'
-                    p='5px 10px'
-                    borderRadius={'5px'}
+                    bg="#1A202C"
+                    color="white"
+                    p="5px 10px"
+                    borderRadius={"5px"}
                   >
                     Add Images
                   </Button>
-                   
-                  {productsingledata.img?.length > 0 && (
+
+                  {formData?.img?.length > 0 && (
                     <HStack gap={"1rem"}>
-                      {productsingledata?.img?.map((image, index) => (
+                      {formData?.img?.map((image, index) => (
                         <Box key={index} display={"flex"} alignItems={"start"}>
-                          
-                          <Box w='100px' h='100px' mt='10px'><Image src={image} w='100%' h='100%'/></Box>
+                          <Box w="100px" h="100px" mt="10px">
+                            <Image src={image} w="100%" h="100%" />
+                          </Box>
                           <IconButton
                             aria-label="Remove Image"
-                            fontSize={'0.8rem'}
+                            fontSize={"0.8rem"}
                             icon={<CloseIcon />}
                             onClick={() => {
                               setFormData((prev) => ({
@@ -274,30 +256,55 @@ console.log(productsingledata)
             </Stack>
           </FormControl>
 
-          <Box display="flex" justifyContent="center" mt={6}>
-            <Button
-              type="submit"
-              size="lg"
-              width="max-content"
-              borderRadius="10px"
-              bgColor="blue.200"
-              padding="10px"
-              display="inline-block"
-              textAlign="center"
-              fontSize="lg"
-              fontWeight="bold"
-              _hover={{
-                transform: "scale(1.05)",
-                transition: "all 0.5s ease",
-              }}
-            >
-              Update Product
-            </Button>
-          </Box>
+          {!isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  Update workshop
+                </Button>
+              </Box>
+            </>
+          )}
+          {isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  submitting...
+                </Button>
+              </Box>
+            </>
+          )}
         </VStack>
       </form>
-
-  
     </Box>
   );
 };

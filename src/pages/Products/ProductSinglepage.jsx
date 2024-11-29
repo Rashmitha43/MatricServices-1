@@ -5,9 +5,16 @@ import {
   HStack,
   Image,
   Input,
+  Select,
   Stack,
   Text,
   VStack,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
 } from "@chakra-ui/react";
 import dummyimg from "../../assets/Sliderimage1.png";
 import theme from "../../theme";
@@ -21,6 +28,7 @@ const ProductSinglepage = () => {
   const { productsingledata } = useSelector((state) => state.app);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [gateway, setGateway] = useState(false);
   let message = "";
   const init = {
     name: "",
@@ -45,27 +53,69 @@ const ProductSinglepage = () => {
     if (!formdata.name || !formdata.email || !formdata.phone) {
       alert("please fill out all the fields");
     } else {
-      message = `Hello! 👋\n
+      if(open==='Whatsapp'){
+        message = `Hello! 👋\n
 
-      Thank you for your purchase. Here are the details of your order:\n
+        Thank you for your purchase. Here are the details of your order:\n
+        
+        Name: ${formdata.name}\n
+        Email: ${formdata.email}\n
+        Phone: ${formdata.phone}\n
+        Product: ${productsingledata.title}\n
+        Price: ${productsingledata.price}\n
+        
+        We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
+        
+        Best regards,\n
+        MatricServices`;
+        const whatsappMessage = `https://api.whatsapp.com/send?phone=919390555433&text=${encodeURIComponent(
+          message
+        )}`;
+        window.open(whatsappMessage, "_blank")
+        setOpen(false);
+        setFormData(init);
+      }else{
       
-      Name: ${formdata.name}\n
-      Email: ${formdata.email}\n
-      Phone: ${formdata.phone}\n
-      Product: ${productsingledata.title}\n
-      Price: ${productsingledata.price}\n
+          const message = `
+            Hello! 👋
+        
+            Thank you for your purchase. Here are the details of your order:
+        
+            Name: ${formdata.name}
+            Email: ${formdata.email}
+            Phone: ${formdata.phone}
+            Product: ${productsingledata.title}
+            Price: ${productsingledata.price}
+        
+            We’ll process your order and keep you updated. If you have any questions, feel free to reach out!
+        
+            Best regards,
+            MatricServices
+          `;
+        
+          // Construct the mailto link for email
+          const emailSubject = encodeURIComponent('Your Order Details from MatricServices');
+          const emailBody = encodeURIComponent(message);
+          const mailtoLink = `mailto:enquiry@matricservices.in?subject=${emailSubject}&body=${emailBody}`;
+          // const mailtoLink = `mailto:pranesha182004@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+        
+          // Open the default email client with the pre-filled email
+          window.open(mailtoLink, '_blank');
+        
+          // Reset the form data
+          setOpen(false);
+          setFormData(init);
+        
+        
+      }
       
-      We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
-      
-      Best regards,\n
-      MatricServices`;
-      const whatsappMessage = `https://api.whatsapp.com/send?phone=919390555433&text=${encodeURIComponent(
-        message
-      )}`;
-      window.open(whatsappMessage, "_blank");
-      setFormData(init);
     }
   };
+
+  const handleOrderChange=(e)=>{
+    setOpen(e.target.value);
+    setGateway(false);
+  }
   const handleFormdata = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -152,10 +202,11 @@ const ProductSinglepage = () => {
                 p="10px 20px"
                 textAlign={"center"}
                 cursor="pointer"
-                onClick={() => setOpen(true)}
+                onClick={() => setGateway(true)}
               >
                 Place Order
               </Box>
+
               <HStack w="100%" Spacing={3} mt="auto">
                 {productsingledata?.img?.map((img, ind) => (
                   <>
@@ -180,6 +231,47 @@ const ProductSinglepage = () => {
           </Box>
         </Stack>
       </Box>
+
+      {gateway && (
+        <>
+          <Box
+            position="fixed"
+            w={"100%"}
+            height={"100%"}
+            top="0"
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            bg="rgb(0,0,0,0.9)"
+            zIndex={99999}
+          >  <select
+           style={{ width: "90%", 
+            maxWidth: "500px", 
+            padding: "15px",
+            fontSize: "lg", 
+            cursor: "pointer", 
+            position: "relative", 
+            backgroundColor: "white", 
+            color: "black",
+            borderRadius: "10px", 
+            ":hover": {
+              backgroundColor: "gray.700", 
+            },
+            ":focus": {
+              borderColor: theme.colors.ten,
+              color:'white',
+              outline: "none",
+            },}}
+            onChange={handleOrderChange}
+          
+        >
+          <option value="" disabled selected>Order via</option>
+          <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Whatsapp</option>
+          <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Gmail</option>
+        </select>
+          </Box>
+        </>
+      )}
       {open && (
         <>
           <Box

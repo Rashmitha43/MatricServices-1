@@ -19,7 +19,11 @@ import {
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import theme from "../../theme";
 import { useDispatch } from "react-redux";
-import { patchWorkshop, postWorkshop } from "../../Redux/app/action";
+import {
+  patchWorkshop,
+  postWorkshop,
+  updateWorkShop,
+} from "../../Redux/app/action";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router-dom";
 import { getWorkshopbyId } from "../../Redux/app/action";
@@ -27,22 +31,23 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const EditWorkshop = () => {
   const dispatch = useDispatch();
-  const id=useParams()
-  const {workshopsingledata}=useSelector(state=>state.app)
-  const Navigate = useNavigate()
-  useEffect(()=>{
-    
-    dispatch(getWorkshopbyId(id.workshopId))
-    .then((res)=>{
-      console.log(res.payload)
-    })
-    .catch((err)=>{
-      console.log("error:",err)
-    })
-    
-  },[dispatch])
+  const id = useParams();
+  const { workshopsingledata } = useSelector((state) => state.app);
+  const Navigate = useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false);
+  // useEffect(()=>{
 
-  const init={
+  //   dispatch(getWorkshopbyId(id.workshopId))
+  //   .then((res)=>{
+  //     console.log(res.payload)
+  //   })
+  //   .catch((err)=>{
+  //     console.log("error:",err)
+  //   })
+
+  // },[dispatch])
+
+  const init = {
     topic: "",
     desc: "",
     venue: "",
@@ -52,27 +57,15 @@ const EditWorkshop = () => {
     contact: "",
     email: "",
     img: [],
-  }
+  };
   const [formData, setFormData] = useState(init);
 
-
   useEffect(() => {
-    if (workshopsingledata) {
-      setFormData({
-        topic: workshopsingledata.topic || "",
-        desc: workshopsingledata.desc || "",
-        venue: workshopsingledata.venue || "",
-        date: workshopsingledata.date || "",
-        time: workshopsingledata.time || "",
-        criteria: workshopsingledata.criteria || "",
-        contact: workshopsingledata.contact || "",
-        email: workshopsingledata.email || "",
-        img:workshopsingledata.img||[]
-      });
-    }
-  }, [workshopsingledata]);
-
-
+    dispatch(getWorkshopbyId(id.workshopId)).then((res) => {
+      console.log(res);
+      setFormData(res?.payload);
+    });
+  }, [dispatch, id]);
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -99,6 +92,7 @@ const EditWorkshop = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSubmit(true);
     if (
       !formData.topic ||
       !formData.desc ||
@@ -111,13 +105,14 @@ const EditWorkshop = () => {
     ) {
       alert("Please Fill all the Input Fields");
     } else {
-      console.log(formData)
-      dispatch(patchWorkshop(formData, workshopsingledata._id))
+      console.log(formData);
+      dispatch(updateWorkShop(id.workshopId, formData))
         .then((res) => {
           alert("successfully submitted");
-          console.log(res)
-          setFormData(init)  
-          Navigate('/admin/workshoptable')     
+          setIsSubmit(false);
+          console.log(res);
+          setFormData(init);
+          Navigate("/admin/workshoptable");
         })
         .catch((err) => {
           console.log("error", err.message);
@@ -173,7 +168,7 @@ const EditWorkshop = () => {
             </FormLabel>
             <Input
               name="topic"
-              value={formData.topic}
+              value={formData?.topic}
               onChange={handleInputChange}
               placeholder="Enter your workshop name"
               size="lg"
@@ -187,7 +182,7 @@ const EditWorkshop = () => {
             </FormLabel>
             <Textarea
               name="desc"
-              value={formData.desc}
+              value={formData?.desc}
               onChange={handleInputChange}
               placeholder="Describe the workshop"
               size="lg"
@@ -201,7 +196,7 @@ const EditWorkshop = () => {
             </FormLabel>
             <Input
               name="venue"
-              value={formData.venue}
+              value={formData?.venue}
               onChange={handleInputChange}
               placeholder="City, Country"
               size="lg"
@@ -216,7 +211,7 @@ const EditWorkshop = () => {
               </FormLabel>
               <Input
                 name="criteria"
-                value={formData.criteria}
+                value={formData?.criteria}
                 onChange={handleInputChange}
                 placeholder="Selection criteria"
                 size="lg"
@@ -235,7 +230,7 @@ const EditWorkshop = () => {
                 <Input
                   type="date"
                   name="date"
-                  value={formData.date}
+                  value={formData?.date}
                   onChange={handleInputChange}
                   {...inputStyles}
                 />
@@ -250,7 +245,7 @@ const EditWorkshop = () => {
                 <Input
                   type="time"
                   name="time"
-                  value={formData.time}
+                  value={formData?.time}
                   onChange={handleInputChange}
                   {...inputStyles}
                 />
@@ -266,7 +261,7 @@ const EditWorkshop = () => {
               <Input
                 type="phoneNumber"
                 name="contact"
-                value={formData.contact}
+                value={formData?.contact}
                 onChange={handleInputChange}
                 placeholder="Your contact number"
                 size="lg"
@@ -281,7 +276,7 @@ const EditWorkshop = () => {
               <Input
                 type="email"
                 name="email"
-                value={formData.email}
+                value={formData?.email}
                 onChange={handleInputChange}
                 placeholder="Your email address"
                 size="lg"
@@ -295,15 +290,20 @@ const EditWorkshop = () => {
               <Box
                 display={"flex"}
                 justifyContent={"left"}
-                flexDirection={'column'}
-                gap='10px'
+                flexDirection={"column"}
+                gap="10px"
               >
                 <Box>
                   <FormLabel fontSize="lg" fontWeight="medium">
                     Upload image
                   </FormLabel>
                 </Box>
-                <Box display={"flex"} alignItems={"start"} flexDirection={'column'} gap='10px'>
+                <Box
+                  display={"flex"}
+                  alignItems={"start"}
+                  flexDirection={"column"}
+                  gap="10px"
+                >
                   <input
                     type="file"
                     multiple
@@ -313,32 +313,37 @@ const EditWorkshop = () => {
                   />
                   <Button
                     onClick={handleimageInput}
-                    bg='#1A202C'
-                    color='white'
-                    p='5px 10px'
-                    borderRadius={'5px'}
+                    bg="#1A202C"
+                    color="white"
+                    p="5px 10px"
+                    borderRadius={"5px"}
                   >
                     Add Images
                   </Button>
 
-                  {formData.img?.length > 0 && (
+                  {formData?.img?.length > 0 && (
                     <HStack gap={"1rem"}>
                       {formData?.img?.map((image, index) => (
                         <Box key={index} display={"flex"} alignItems={"start"}>
-                        <Box>{image.name}</Box>
-                        <Box w='100px' h='100px' mt='10px'><Image src={image} w='100%' h='100%'/></Box>
-                        <IconButton
-                          aria-label="Remove Image"
-                          fontSize={'0.8rem'}
-                          icon={<CloseIcon />}
-                          onClick={() => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              img: prev.img.filter((_, i) => i !== index),
-                            }));
-                          }}
-                        />
-                      </Box>
+                          {image && (
+                            <Box w="100px" h="100px" mt="10px">
+                              <Image src={image} w="100%" h="100%" />
+                            </Box>
+                          )}
+
+                          {`${!image}` && <Box>{image.name}</Box>}
+                          <IconButton
+                            aria-label="Remove Image"
+                            fontSize={"0.8rem"}
+                            icon={<CloseIcon />}
+                            onClick={() => {
+                              setFormData((prev) => ({
+                                ...prev,
+                                img: prev.img.filter((_, i) => i !== index),
+                              }));
+                            }}
+                          />
+                        </Box>
                       ))}
                     </HStack>
                   )}
@@ -347,30 +352,55 @@ const EditWorkshop = () => {
             </Stack>
           </FormControl>
 
-          <Box display="flex" justifyContent="center" mt={6}>
-            <Button
-              type="submit"
-              size="lg"
-              width="max-content"
-              borderRadius="10px"
-              bgColor="blue.200"
-              padding="10px"
-              display="inline-block"
-              textAlign="center"
-              fontSize="lg"
-              fontWeight="bold"
-              _hover={{
-                transform: "scale(1.05)",
-                transition: "all 0.5s ease",
-              }}
-            >
-              Update workshop
-            </Button>
-          </Box>
+          {!isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  Update workshop
+                </Button>
+              </Box>
+            </>
+          )}
+          {isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  submitting...
+                </Button>
+              </Box>
+            </>
+          )}
         </VStack>
       </form>
-
-      
     </Box>
   );
 };
