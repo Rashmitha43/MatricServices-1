@@ -268,13 +268,13 @@ const WorkshopTable = () => {
                 </Text>
                 <Text>
                   <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
-                    Date:
+                    from-date:
                   </Box>
                   {selectedWorkshop.fromdate}
                 </Text>
                 <Text>
                   <Box as="span" fontWeight={700} fontSize={"1.2rem"} mr={2}>
-                    Time:
+                    To-date:
                   </Box>
                   {selectedWorkshop.todate}
                 </Text>

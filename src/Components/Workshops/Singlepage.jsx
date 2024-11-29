@@ -103,17 +103,13 @@ const Singlepage = () => {
     ) {
       alert("please fill all the required fields");
       return;
-    }
-    else if (!validatePhone(formdata.phone)) {
+    } else if (!validatePhone(formdata.phone)) {
       alert("Phone number must be 10 digits.");
       return;
-    }
-
-    else if (!validateEmail(formdata.email)) {
+    } else if (!validateEmail(formdata.email)) {
       alert("Please enter a valid email address.");
       return;
-    }
-    else {
+    } else {
       setIsSubmitting(true);
       dispatch(postworkshopRegister(formdata))
         .then((res) => {
@@ -129,8 +125,8 @@ const Singlepage = () => {
       googleFormdata.Phone = formdata.Phone;
       googleFormdata.Email = formdata.email;
       googleFormdata.CollegeOrInstitute = formdata.collageOrInstitute;
-      googleFormdata.AreaOfStudy= formdata.areaOfStudy;
-      googleFormdata.AskYourQuestions= formdata.askYourQuestions;
+      googleFormdata.AreaOfStudy = formdata.areaOfStudy;
+      googleFormdata.AskYourQuestions = formdata.askYourQuestions;
       googleFormdata.EventId = formdata.eventId;
       for (const key in googleFormdata) {
         formBody.append(key, googleFormdata[key]);
@@ -203,18 +199,9 @@ const Singlepage = () => {
               )}
             </Box>
             <Box textAlign={"justify"}>
-
-           
-              
-                <Text  style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
-              
-               {workshopsingledata.desc}
-             
-               </Text>
-               
-              
-
-              
+              <Text style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                {workshopsingledata.desc}
+              </Text>
             </Box>
             <HStack w="100%" justifyContent={"center"}>
               <Button
@@ -248,14 +235,41 @@ const Singlepage = () => {
               <Text>workshop details</Text>
             </HStack>
 
-            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Topic:</Box>{workshopsingledata?.topic}</Box>
-            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Venue:</Box>{workshopsingledata?.venue}</Box>
-            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Date:</Box>{workshopsingledata?.date}</Box>
-            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Time:</Box>{workshopsingledata?.time}</Box>
-            <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Eligibility Criteria:</Box>{workshopsingledata?.criteria}</Box>
+            <Box fontWeight={"500"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+                Topic:
+              </Box>
+              {workshopsingledata?.topic}
+            </Box>
+            <Box fontWeight={"500"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+                Venue:
+              </Box>
+              {workshopsingledata?.venue}
+            </Box>
+            <Box fontWeight={"500"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+                Date:
+              </Box>
+              {workshopsingledata?.date}
+            </Box>
+            <Box fontWeight={"500"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+                Time:
+              </Box>
+              {workshopsingledata?.time}
+            </Box>
+            <Box fontWeight={"500"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+                Eligibility Criteria:
+              </Box>
+              {workshopsingledata?.criteria}
+            </Box>
             <Box fontWeight={"500"}>Topic:{workshopsingledata?.topic}</Box>
             <Box fontWeight={"500"}>Venue:{workshopsingledata?.venue}</Box>
-            <Box fontWeight={"500"}>From-date:{workshopsingledata?.fromdate}</Box>
+            <Box fontWeight={"500"}>
+              From-date:{workshopsingledata?.fromdate}
+            </Box>
             <Box fontWeight={"500"}>To-date:{workshopsingledata?.todate}</Box>
             <Box fontWeight={"500"}>
               Eligibility Criteria:{workshopsingledata?.criteria}

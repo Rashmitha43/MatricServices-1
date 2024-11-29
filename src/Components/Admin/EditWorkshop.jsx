@@ -102,6 +102,7 @@ const EditWorkshop = () => {
       !formData.criteria ||
       !formData.contact ||
       !formData.email
+   
     ) {
       alert("Please Fill all the Input Fields");
     } else {
