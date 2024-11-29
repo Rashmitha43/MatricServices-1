@@ -255,8 +255,8 @@ const Singlepage = () => {
             <Box fontWeight={"500"}><Box as='span' fontWeight={'600'} fontSize={'1.1rem'}>Eligibility Criteria:</Box>{workshopsingledata?.criteria}</Box>
             <Box fontWeight={"500"}>Topic:{workshopsingledata?.topic}</Box>
             <Box fontWeight={"500"}>Venue:{workshopsingledata?.venue}</Box>
-            <Box fontWeight={"500"}>Date:{workshopsingledata?.date}</Box>
-            <Box fontWeight={"500"}>Time:{workshopsingledata?.time}</Box>
+            <Box fontWeight={"500"}>From-date:{workshopsingledata?.fromdate}</Box>
+            <Box fontWeight={"500"}>To-date:{workshopsingledata?.todate}</Box>
             <Box fontWeight={"500"}>
               Eligibility Criteria:{workshopsingledata?.criteria}
             </Box>
