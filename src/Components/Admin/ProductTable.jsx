@@ -64,7 +64,7 @@ const ProductTable = () => {
   };
 
   if (isLoading) {
-    return <Loading message="Loading Projects..." />;
+    return <Loading message="Loading Products..." />;
   }
  
   return (
