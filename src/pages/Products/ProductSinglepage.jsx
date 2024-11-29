@@ -54,20 +54,17 @@ const ProductSinglepage = () => {
       alert("please fill out all the fields");
     } else {
       if(open==='Whatsapp'){
-        message = `Hello! 👋\n
-
-        Thank you for your purchase. Here are the details of your order:\n
-        
-        Name: ${formdata.name}\n
-        Email: ${formdata.email}\n
-        Phone: ${formdata.phone}\n
-        Product: ${productsingledata.title}\n
-        Price: ${productsingledata.price}\n
-        
-        We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
-        
-        Best regards,\n
-        MatricServices`;
+        message = 
+        `Hello! 👋
+         Thank you for your purchase. Here are the details of your order:\n
+         Name: ${formdata.name}
+         Email: ${formdata.email}
+         Phone: ${formdata.phone}
+         Product: ${productsingledata.title}
+         Price: ${productsingledata.price}/-
+         We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
+         Best regards,
+         MatricServices`;
         const whatsappMessage = `https://api.whatsapp.com/send?phone=919390555433&text=${encodeURIComponent(
           message
         )}`;
@@ -76,22 +73,17 @@ const ProductSinglepage = () => {
         setFormData(init);
       }else{
       
-          const message = `
-            Hello! 👋
-        
-            Thank you for your purchase. Here are the details of your order:
-        
-            Name: ${formdata.name}
-            Email: ${formdata.email}
-            Phone: ${formdata.phone}
-            Product: ${productsingledata.title}
-            Price: ${productsingledata.price}
-        
-            We’ll process your order and keep you updated. If you have any questions, feel free to reach out!
-        
-            Best regards,
-            MatricServices
-          `;
+        message =`
+         Hello! 👋
+         Thank you for your purchase. Here are the details of your order:\n
+         Name: ${formdata.name}
+         Email: ${formdata.email}
+         Phone: ${formdata.phone}
+         Product: ${productsingledata.title}
+         Price: ${productsingledata.price}/-
+         We’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n
+         Best regards,
+         MatricServices`;
         
           // Construct the mailto link for email
           const emailSubject = encodeURIComponent('Your Order Details from MatricServices');
