@@ -91,6 +91,7 @@ console.log("psd", productsingledata)
     ) {
       alert("Please Fill all the Input Fields");
     } else {
+      setIsSubmit(true);
       dispatch(updateProduct(id.productId, formData))
         .then((res) => {
           alert("successfully submitted");
@@ -283,7 +284,7 @@ console.log("psd", productsingledata)
                     transition: "all 0.5s ease",
                   }}
                 >
-                  Update workshop
+                  Update Product
                 </Button>
               </Box>
             </>

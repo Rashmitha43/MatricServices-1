@@ -92,7 +92,6 @@ const EditWorkshop = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmit(true);
     if (
       !formData.topic ||
       !formData.desc ||
@@ -106,6 +105,7 @@ const EditWorkshop = () => {
     ) {
       alert("Please Fill all the Input Fields");
     } else {
+      setIsSubmit(true);
       console.log(formData);
       dispatch(updateWorkShop(id.workshopId, formData))
         .then((res) => {
