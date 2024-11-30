@@ -1,9 +1,9 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-const api = `https://matricservices.onrender.com/api`;
+// const api = `https://matricservices.onrender.com/api`;
 
-// const api = `http://localhost:2345/api`;
+const api = `http://localhost:2345/api`;
 
 // PostGetInTouchInfo
 export const postGetInTouchInfo = (payload) => (dispatch) => {
@@ -284,12 +284,14 @@ export const updateWorkShop = (id,formData)=>(dispatch)=>{
     console.log("editDATA:",formData)
    
      dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
-        return axios
-       .patch(api+`/adminWorkShop/${id}`,formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+     return axios.patch(`${api}/adminWorkshop/${id}`, formData)
+
+      //   return axios
+      //  .patch(`${api}/adminWorkshop/${id}`,formData, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   })
         .then((res)=>{
          console.log(res)
        })

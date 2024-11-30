@@ -284,7 +284,7 @@ export const reducer = (state = initalState, action) => {
           workshopadd: state.workshopadd.map((workshop) =>
             workshop._id === payload._id ? { ...workshop, ...payload } : workshop
           ),
-          workshopsingledata: { ...state.workshopsingledata, ...payload },
+          workshopsingledata: payload,
           isLoading: false,
           isError: false,
         };
