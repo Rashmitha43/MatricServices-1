@@ -236,43 +236,34 @@ const Singlepage = () => {
             </HStack>
 
             <Box fontWeight={"500"}>
-              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"} mr='5px'>
                 Topic:
               </Box>
               {workshopsingledata?.topic}
             </Box>
             <Box fontWeight={"500"}>
-              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
-                Venue:
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"} mr='5px'>
+                Location:
               </Box>
               {workshopsingledata?.venue}
             </Box>
             <Box fontWeight={"500"}>
-              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
-                Date:
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"} mr='5px'>
+                From:
               </Box>
-              {workshopsingledata?.date}
+              {workshopsingledata?.fromdate}
             </Box>
             <Box fontWeight={"500"}>
-              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
-                Time:
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"} mr='5px'>
+                To:
               </Box>
-              {workshopsingledata?.time}
+              {workshopsingledata?.todate}
             </Box>
             <Box fontWeight={"500"}>
-              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"}>
+              <Box as="span" fontWeight={"600"} fontSize={"1.1rem"} mr='5px'>
                 Eligibility Criteria:
               </Box>
               {workshopsingledata?.criteria}
-            </Box>
-            <Box fontWeight={"500"}>Topic:{workshopsingledata?.topic}</Box>
-            <Box fontWeight={"500"}>Venue:{workshopsingledata?.venue}</Box>
-            <Box fontWeight={"500"}>
-              From-date:{workshopsingledata?.fromdate}
-            </Box>
-            <Box fontWeight={"500"}>To-date:{workshopsingledata?.todate}</Box>
-            <Box fontWeight={"500"}>
-              Eligibility Criteria:{workshopsingledata?.criteria}
             </Box>
             {/* contact info */}
             <HStack
