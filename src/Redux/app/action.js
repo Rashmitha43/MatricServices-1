@@ -373,6 +373,7 @@ export const getProductsbyId=(id)=>(dispatch)=>{
   return axios
   .get(api+`/adminProduct/${id}`)
   .then((res)=>{
+    console.log("inside action", res)
     dispatch({
       type:types.GET_PRODUCTID_SUCCESS,
       payload:res.data.data

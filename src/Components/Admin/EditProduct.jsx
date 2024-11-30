@@ -27,7 +27,8 @@ import { updateProduct } from "../../Redux/app/action";
 const EditProduct = () => {
   const dispatch = useDispatch();
   const id = useParams();
-  const { productsingledata } = useSelector((state) => state.app);
+  const productsingledata  = useSelector((state) => state.app.productsingledata);
+console.log("psd", productsingledata)
   const Navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -42,13 +43,20 @@ const EditProduct = () => {
 
   useEffect(() => {
     console.log(id.productId)
-    dispatch(getProductsbyId(id.productId)).then((res) => {
-      console.log(res)
-      setFormData(res?.payload);
-    });
+    dispatch(getProductsbyId(id.productId))
   }, [dispatch]);
 
-
+  useEffect(() => {
+    if (productsingledata) {
+      setFormData({
+        title: productsingledata.title || "",
+        desc: productsingledata.desc || "",
+        price: productsingledata.price || "",
+        productCode: productsingledata.productCode || "",
+        img: productsingledata.img || [],
+      });
+    }
+  }, [productsingledata]);
 
   const handleInputChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -89,7 +97,7 @@ const EditProduct = () => {
           setIsSubmit(false);
           console.log(res);
           setFormData(init);
-          Navigate("/admin/workshoptable");
+          Navigate("/admin/producttable");
         })
         .catch((err) => {
           console.log("error", err.message);
