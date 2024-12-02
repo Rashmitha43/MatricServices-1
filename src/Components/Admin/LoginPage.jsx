@@ -17,12 +17,16 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Infinity } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { postAdminDetails } from "../../Redux/auth/action";
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
   const init={
-    name:"",
     email:"",
     password:""
   }
@@ -36,7 +40,29 @@ function LoginPage() {
   }
   const handleSubmit=(e)=>{
          e.preventDefault()
-         setFormData(init)
+        if(!formdata.email || !formdata.password){
+          alert("please fill all the fields to login")
+        }else{
+          dispatch(postAdminDetails(formdata))
+          .then((res)=>{
+           
+            if(res.payload.status!==200){
+              alert("Invalid email and password")
+              setFormData(init)
+            }else{
+              localStorage.setItem("token",res?.payload.token)
+              if(res.payload.message==='login success'){
+                navigate('/admin/adminhome')
+                setFormData(init)
+              }
+            }
+          })
+         
+         
+        }
+
+
+         
   }
 
   return (
@@ -63,17 +89,7 @@ function LoginPage() {
               Please log in to continue
             </Text>
 
-            <FormControl id="name">
-              <FormLabel>Email address</FormLabel>
-              <Input
-                type="text"
-                name="name"
-                value={formdata.name}
-                focusBorderColor="teal.400"
-                placeholder="Enter your email"
-                onChange={handleInputChange}
-              />
-            </FormControl>
+        
 
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>

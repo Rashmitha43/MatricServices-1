@@ -8,17 +8,21 @@ const AdminLayoutPage = () => {
   const isLoginPage = location.pathname === '/admin'; 
 
   return (
-    <Flex minHeight="100vh">
-      {!isLoginPage && (
-        <Box width="300px" bg="gray.800" color="white" p={2}>
-          <AdminNavbar />
-        </Box>
-      )}
+  
+   
 
-      <Box flex="1" p={4} overflow="auto">
-        <Outlet />
+      <Box>
+          <Flex minHeight="100vh">
+                {!isLoginPage && (
+                  <Box width="300px" bg="gray.800" color="white" p={2}>
+                    <AdminNavbar />
+                  </Box>
+                )}
+
+        <Box flex="1" p={4} overflow="auto"><Outlet /></Box>
+        </Flex>
       </Box>
-    </Flex>
+
   );
 };
 

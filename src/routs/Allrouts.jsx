@@ -41,13 +41,13 @@ const Allrouts = () => {
 
             <Route element={<Adminlayoutpage/>}>
             <Route path="/admin" element={<LoginPage/>}/>
-            <Route path="/admin/adminhome" element={<AdminHome/>}/>
-            <Route path="/admin/addworkshop" element={<AddWorkshop/>}/>
-            <Route path="/admin/workshoptable" element={<WorkshopTable/>}/>
-            <Route path="/admin/addproduct" element={<AddProduct/>}/>
-            <Route path="/admin/producttable" element={<ProductTable/>}/>
-            <Route path="/admin/projecttable/editproduct/:productId" element={<EditProduct />} />
-            <Route path="/admin/workshoptable/editworkshop/:workshopId" element={<EditWorkshop />} />
+            <Route path="/admin/adminhome" element={<Privateroute><AdminHome/></Privateroute>}/>
+            <Route path="/admin/addworkshop" element={<Privateroute><AddWorkshop/></Privateroute>}/>
+            <Route path="/admin/workshoptable" element={<Privateroute><WorkshopTable/></Privateroute>}/>
+            <Route path="/admin/addproduct" element={<Privateroute><AddProduct/></Privateroute>}/>
+            <Route path="/admin/producttable" element={<Privateroute><ProductTable/></Privateroute>}/>
+            <Route path="/admin/projecttable/editproduct/:productId" element={<Privateroute><EditProduct /></Privateroute>} />
+            <Route path="/admin/workshoptable/editworkshop/:workshopId" element={<Privateroute><EditWorkshop /></Privateroute>} />
            </Route>
         </Routes>
         </>
