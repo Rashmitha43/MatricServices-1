@@ -23,19 +23,15 @@ import { getProducts } from "../../Redux/app/action";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
-
-
 const Product = () => {
-
   const navigate = useNavigate();
- const dispatch=useDispatch();
- const {productadd, isLoading } = useSelector((state) => state.app);
-  useEffect(()=>{
-    dispatch(getProducts())
-    .then((res)=>{
-      console.log(res.payload)
-    })
-  },[dispatch])
+  const dispatch = useDispatch();
+  const { productadd, isLoading } = useSelector((state) => state.app);
+  useEffect(() => {
+    dispatch(getProducts()).then((res) => {
+      console.log(res.payload);
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -53,7 +49,13 @@ const Product = () => {
         <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
           Our Products
         </Text>
-        <Box w="80px" h="3px" bg={theme.colors.ten} borderRadius={"20px"} mt='-2px'></Box>
+        <Box
+          w="80px"
+          h="3px"
+          bg={theme.colors.ten}
+          borderRadius={"20px"}
+          mt="-2px"
+        ></Box>
 
         <Text
           fontSize={{ base: "0.7rem", md: "1rem", lg: "1.2rem" }}
@@ -69,87 +71,103 @@ const Product = () => {
           life—at competitive prices. Contact us to discuss how we can support
           your needs!
         </Text>
-        
-        <Box h="auto" mx="auto">
-          <SimpleGrid
-            columns={[1, 2, 3, 3]}
-            spacing={{ base: "2", md: "3", lg: "5" }}
-            mt={10}
-          >
-          {isLoading ? (
-    <>
-      <Loading message="Fetching Products..." loadHeight="250px" />
-    </>
-  ) :  ( productadd?.map((details) => (
-              <>
-                <Card
-                  maxW="sm"
-                  bg={theme.colors.thirty}
-                  borderRadius="lg"
-                  fontSize={{ base: "0.7rem", md: "0.8rem", lg: "1rem" }}
-                  key={details._id}
-                  boxShadow={'lg'}
-                  position={'relative'}
-                >
-                  <CardBody w="100%">
-                  <Box  w='100%'
-                    h={'250px'}>
-                  <Image
-                    src={details.img[0]}
-                    alt={details.title}
-                    borderTopRadius="lg"
-                    w='100%'
-                    h='100%'
-                    objectFit={'cover'}
-                  />
-                  </Box>
-                    
-                    <VStack
-                      mt={{ base: "2", md: "4", lg: "6" }}
-                      spacing={{ base: "1", md: "2", lg: "3" }}
-                      align={"stretch"}
-                      px={{ base: "5px", md: "20px" }}
-                      h={{base:'150px',md:'210px'}}
-                    >
-                      <Heading fontSize={{ base: "1.2rem", md: "1.5rem" }}>
-                        {details.title.length > 18
-                          ? `${details.title.substring(0, 14)}...`
-                          : details.title}
-                      </Heading>
-                      <Text>
-                        {details.desc.length > 50
-                          ? `${details.desc.substring(0, 50)}...`
-                          : details.desc}
-                      </Text>
-                      <Text fontSize={{ base: "md", md: "xl" }} color="green">
-                        Rs:{details.price}/-
-                      </Text>
-                    </VStack>
-                  </CardBody>
-                  <Divider />
 
-                    <HStack w='100%' spacing={2} p={5} position={'absolute'} bottom={'0'} left='0'>
-                    <Box
-                      p={{ base: "5px 10px", md: "7px 14px", lg: "8px 16px" }}
-                      borderRadius={"5px"}
-                      color="white"
-                      fontWeight={'500'}
-                      textAlign={"center"}
-                      letterSpacing="2px"
+        <Box h="auto" mx="auto" mt={5}>
+          {isLoading ? (
+            <>
+              <Box
+                w="100%"
+                display="flex"
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Loading message="Fetching Products..." loadHeight="250px" />
+              </Box>
+            </>
+          ) : (
+            <SimpleGrid
+              columns={[1, 2, 3, 3]}
+              spacing={{ base: "2", md: "3", lg: "5" }}
+              mt={10}
+            >
+              {productadd?.map((details) => (
+                <>
+                  <Card
+                    maxW="sm"
+                    bg={theme.colors.thirty}
+                    borderRadius="lg"
+                    fontSize={{ base: "0.7rem", md: "0.8rem", lg: "1rem" }}
+                    key={details._id}
+                    boxShadow={"lg"}
+                    position={"relative"}
+                  >
+                    <CardBody w="100%">
+                      <Box w="100%" h={"250px"}>
+                        <Image
+                          src={details.img[0]}
+                          alt={details.title}
+                          borderTopRadius="lg"
+                          w="100%"
+                          h="100%"
+                          objectFit={"cover"}
+                        />
+                      </Box>
+
+                      <VStack
+                        mt={{ base: "2", md: "4", lg: "6" }}
+                        spacing={{ base: "1", md: "2", lg: "3" }}
+                        align={"stretch"}
+                        px={{ base: "5px", md: "20px" }}
+                        h={{ base: "150px", md: "210px" }}
+                      >
+                        <Heading fontSize={{ base: "1.2rem", md: "1.5rem" }}>
+                          {details.title.length > 18
+                            ? `${details.title.substring(0, 14)}...`
+                            : details.title}
+                        </Heading>
+                        <Text>
+                          {details.desc.length > 50
+                            ? `${details.desc.substring(0, 50)}...`
+                            : details.desc}
+                        </Text>
+                        <Text fontSize={{ base: "md", md: "xl" }} color="green">
+                          Rs:{details.price}/-
+                        </Text>
+                      </VStack>
+                    </CardBody>
+                    <Divider />
+
+                    <HStack
                       w="100%"
-                      bg={theme.colors.ten}
-                      fontSize='1rem'
-                      _hover={{ cursor: "pointer" }}
-                      onClick={()=>navigate(`/productsinglepage/${details._id}`)}
+                      spacing={2}
+                      p={5}
+                      position={"absolute"}
+                      bottom={"0"}
+                      left="0"
                     >
-                      View
-                    </Box>
+                      <Box
+                        p={{ base: "5px 10px", md: "7px 14px", lg: "8px 16px" }}
+                        borderRadius={"5px"}
+                        color="white"
+                        fontWeight={"500"}
+                        textAlign={"center"}
+                        letterSpacing="2px"
+                        w="100%"
+                        bg={theme.colors.ten}
+                        fontSize="1rem"
+                        _hover={{ cursor: "pointer" }}
+                        onClick={() =>
+                          navigate(`/productsinglepage/${details._id}`)
+                        }
+                      >
+                        View
+                      </Box>
                     </HStack>
-             
-                </Card>
-              </>
-            )))}
-          </SimpleGrid>
+                  </Card>
+                </>
+              ))}
+            </SimpleGrid>
+          )}
         </Box>
       </Box>
     </>

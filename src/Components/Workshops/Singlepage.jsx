@@ -168,6 +168,9 @@ const Singlepage = () => {
         });
     }
   };
+  const eventEndDate = new Date(workshopsingledata.todate); 
+  const currentDate = new Date();
+  const isEventover=currentDate>eventEndDate
   return (
     <>
       <Box
@@ -211,6 +214,8 @@ const Singlepage = () => {
                 color="white"
                 borderRadius={{ base: "7px", md: "15px" }}
                 onClick={toggleform}
+                isDisabled={isEventover}
+                _disabled={{color:'#d7d7d7',bg:theme.colors.thirty,cursor:"no-drop"}}
               >
                 Register
               </Button>

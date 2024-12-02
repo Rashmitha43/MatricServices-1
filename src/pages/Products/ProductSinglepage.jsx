@@ -239,7 +239,7 @@ const ProductSinglepage = () => {
         >
           <option value="" disabled selected>Order via</option>
           <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Whatsapp</option>
-          <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Gmail</option>
+          <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Mail</option>
         </select>
           </Box>
         </>
