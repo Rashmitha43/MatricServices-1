@@ -21,26 +21,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { delProductId } from "../../Redux/app/action";
 import { ImCross } from "react-icons/im";
 
-
-
 const ProductTable = () => {
- 
   const navigate = useNavigate();
-  const {productadd, isLoading } = useSelector((state) => state.app);
+  const { productadd, isLoading } = useSelector((state) => state.app);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [deletestatus,setDeletestatus]=useState(false)
-  const dispatch=useDispatch();
+  const [deletestatus, setDeletestatus] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts())
       .then((res) => {
-       console.log(res.payload)
+        console.log(res.payload);
       })
       .catch((err) => {
         console.log("error", err.message);
       });
-  
-  }, [dispatch,deletestatus]);
-  
+  }, [dispatch, deletestatus]);
+
   const handleView = (product) => {
     setSelectedProduct(product);
   };
@@ -49,103 +45,116 @@ const ProductTable = () => {
     navigate(`/admin/projecttable/editproduct/${product._id}`);
   };
 
-
   const handleDelete = (product) => {
- 
     dispatch(delProductId(product._id))
-    .then((res)=>{
-      alert("successfully deleted")
-      setDeletestatus(true)
-
-    })
-    .catch((err)=>{
-      console.log("error:",err)
-    })
+      .then((res) => {
+        alert("successfully deleted");
+        setDeletestatus(true);
+      })
+      .catch((err) => {
+        console.log("error:", err);
+      });
   };
 
   if (isLoading) {
     return <Loading message="Loading Products..." />;
   }
- 
+
   return (
     <Box bg="white" shadow="lg" rounded="lg" overflow="auto" borderWidth="1px">
-      <Table variant="simple" colorScheme="gray" size="md" width="100%" textAlign="left">
+      <Table
+        variant="simple"
+        colorScheme="gray"
+        size="md"
+        width="100%"
+        textAlign="left"
+      >
         <Thead bg="gray.100">
           <Tr>
-            <Th py={4} px={6} textAlign="center">#</Th>
-            <Th py={4} px={6}>Product Name</Th>
-            <Th py={4} px={6}>Description</Th>
-            <Th py={4} px={6}>Price</Th>
-            <Th py={4} px={6}>Product Code</Th>
-            
-            <Th py={4} px={6} textAlign="center">Actions</Th>
+            <Th py={4} px={6} textAlign="center">
+              #
+            </Th>
+            <Th py={4} px={6}>
+              Product Name
+            </Th>
+            <Th py={4} px={6}>
+              Description
+            </Th>
+            <Th py={4} px={6}>
+              Price
+            </Th>
+            <Th py={4} px={6}>
+              Product Code
+            </Th>
+
+            <Th py={4} px={6} textAlign="center">
+              Actions
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
-          {
-            productadd?.map((product,index)=>(
-              <Tr key={product._id}>
-                 <Td py={4} px={6} textAlign={"center"}>
-                  {index + 1}
-                </Td>
-                <Td py={4} px={6}>
-                  {product.title}
-                </Td>
-                <Td py={4} px={6}>
-                  {product.desc.substring(0, 40)}...
-                </Td>
-                <Td py={4} px={6}>
-                  {product.price}
-                </Td>
-                <Td py={4} px={6}>
-                  {product.productCode}
-                </Td>
-                <Td
-                  py={6}
-                  px={6}
-                  display="flex"
-                  justifyContent="center"
-                  my="auto"
-                >
-                  <IconButton
-                    icon={<EditIcon />}
-                    colorScheme="blue"
-                    variant="solid"
-                    size="xl"
-                    aria-label="Edit workshop"
-                    mr={4}
-                    borderRadius="md"
-                    boxShadow="md"
-                    _hover={{ bg: "blue.50" }}
-                    onClick={() => handleEdit(product)}
-                  />
-                  <IconButton
-                    icon={<DeleteIcon />}
-                    colorScheme="red"
-                    variant="solid"
-                    size="xl"
-                    aria-label="Delete workshop"
-                    mr={4}
-                    borderRadius="md"
-                    boxShadow="md"
-                    _hover={{ bg: "red.50" }}
-                    onClick={() => handleDelete(product)}
-                  />
-                  <IconButton
-                    icon={<ViewIcon />}
-                    colorScheme="green"
-                    variant="solid"
-                    size="xl"
-                    aria-label="View workshop"
-                    borderRadius="md"
-                    boxShadow="md"
-                    _hover={{ bg: "green.50" }}
-                    onClick={() => handleView(product)}
-                  />
-                </Td>
-              </Tr>
-            ))
-          }
+          {productadd?.map((product, index) => (
+            <Tr key={product._id}>
+              <Td py={4} px={6} textAlign={"center"}>
+                {index + 1}
+              </Td>
+              <Td py={4} px={6}>
+                {product.title}
+              </Td>
+              <Td py={4} px={6}>
+                {product.desc.substring(0, 40)}...
+              </Td>
+              <Td py={4} px={6}>
+                {product.price}
+              </Td>
+              <Td py={4} px={6}>
+                {product.productCode}
+              </Td>
+              <Td
+                py={6}
+                px={6}
+                display="flex"
+                justifyContent="center"
+                my="auto"
+              >
+                <IconButton
+                  icon={<EditIcon />}
+                  colorScheme="blue"
+                  variant="solid"
+                  size="xl"
+                  aria-label="Edit workshop"
+                  mr={4}
+                  borderRadius="md"
+                  boxShadow="md"
+                  _hover={{ bg: "blue.50" }}
+                  onClick={() => handleEdit(product)}
+                />
+                <IconButton
+                  icon={<DeleteIcon />}
+                  colorScheme="red"
+                  variant="solid"
+                  size="xl"
+                  aria-label="Delete workshop"
+                  mr={4}
+                  borderRadius="md"
+                  boxShadow="md"
+                  _hover={{ bg: "red.50" }}
+                  onClick={() => handleDelete(product)}
+                />
+                <IconButton
+                  icon={<ViewIcon />}
+                  colorScheme="green"
+                  variant="solid"
+                  size="xl"
+                  aria-label="View workshop"
+                  borderRadius="md"
+                  boxShadow="md"
+                  _hover={{ bg: "green.50" }}
+                  onClick={() => handleView(product)}
+                />
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
 
@@ -210,18 +219,11 @@ const ProductTable = () => {
                   </Box>
                   {selectedProduct.productCode}
                 </Text>
-                
-                
-              
-                
-   
               </VStack>
             </Box>
           </Box>
         </>
       )}
-
-
     </Box>
   );
 };

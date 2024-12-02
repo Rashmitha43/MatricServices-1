@@ -35,19 +35,7 @@ const Footer = () => {
   const [isSubscribe, setIsSubscribed] = useState(false);
   const [buttonText, setButtonText] = useState("Subscribe");
 
-  function Sendmail() {
-    if (mail !== "") {
-      const email = "contact@matricservices.in";
-      const subject = "Subscription";
-      const body = mail;
 
-      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
-        subject
-      )}&body=${encodeURIComponent(body)}`;
-
-      window.location.href = mailtoLink;
-    }
-  }
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -336,7 +324,6 @@ const Footer = () => {
                 _hover={{ color: "black" }}
                 transition="all 0.2s ease-in-out"
                 onClick={(e) => {
-                  Sendmail();
                   handleSubscribe(e);
                 }}
               >

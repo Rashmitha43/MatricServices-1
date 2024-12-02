@@ -35,6 +35,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 
 const AddProduct = () => {
   const dispatch=useDispatch();
+  //formvalues
   const init={
     title: "",
     desc: "",
@@ -131,7 +132,7 @@ const AddProduct = () => {
       >
         ADD A PRODUCT
       </Text>
-
+    {/* add product input */}
       <form onSubmit={handleSubmit}>
         <VStack spacing={8} align="stretch">
           <FormControl isRequired>

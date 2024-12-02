@@ -69,7 +69,7 @@ const Workshopcard = () => {
         {/* Heading Section */}
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight={"700"}>
-           Register for Workshops
+           Our Workshops
           </Text>
 
           {!viewAll && workshopadd.length > 3 && (

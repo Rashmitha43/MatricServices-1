@@ -54,7 +54,7 @@ const ProductSinglepage = () => {
       alert("please fill out all the fields");
     } else {
       if(open==='Whatsapp'){
-        message = `Hello! 👋\nThank you for your purchase. Here are the details of your order:\nName: ${formdata.name}\nEmail: ${formdata.email}\nPhone: ${formdata.phone}\nProduct: ${productsingledata.title}\nPrice: ${productsingledata.price}/-\nWe’ll process your order and keep you updated. If you have any questions, feel free to reach out!\nBest regards,\nMatricServices`;
+        message = `Hello! 👋\nThank you for your purchase. Here are the details of your order:\nName: ${formdata.name}\nEmail: ${formdata.email}\nPhone: ${formdata.phone}\nProduct: ${productsingledata.title}\nPrice: ${productsingledata.price}/-\nWe’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n`;
         const whatsappMessage = `https://api.whatsapp.com/send?phone=919390555433&text=${encodeURIComponent(
           message
         )}`;
@@ -63,7 +63,7 @@ const ProductSinglepage = () => {
         setFormData(init);
       }else{
       
-        message =`Hello! 👋\nThank you for your purchase. Here are the details of your order:\nName: ${formdata.name}\nEmail: ${formdata.email}\nPhone: ${formdata.phone}\nProduct: ${productsingledata.title}\nPrice: ${productsingledata.price}/-\nWe’ll process your order and keep you updated. If you have any questions, feel free to reach out!\nBest regards,\nMatricServices`;
+        message =`Hello! 👋\nThank you for your purchase. Here are the details of your order:\nName: ${formdata.name}\nEmail: ${formdata.email}\nPhone: ${formdata.phone}\nProduct: ${productsingledata.title}\nPrice: ${productsingledata.price}/-\nWe’ll process your order and keep you updated. If you have any questions, feel free to reach out!\n`;
         
           // Construct the mailto link for email
           const emailSubject = encodeURIComponent('Your Order Details from MatricServices');
@@ -241,6 +241,21 @@ const ProductSinglepage = () => {
           <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Whatsapp</option>
           <option style={{ backgroundColor: theme.colors.thirty, color: 'black' }}>Mail</option>
         </select>
+        <Box
+                position="absolute"
+                right={{ base: "2%", md: "5%" }}
+                top={{ base: "2%", md: "5%" }}
+                bg="white"
+                p={{ base: "2px", md: "5px" }}
+                borderRadius={"50%"}
+                boxShadow={"md"}
+                fontSize={{ base: "1.2rem", md: "1.8rem" }}
+                color="black"
+                onClick={() => setGateway(false)}
+                cursor="pointer"
+              >
+                <RxCross2 />
+              </Box>
           </Box>
         </>
       )}
