@@ -285,13 +285,6 @@ export const updateWorkShop = (id,formData)=>(dispatch)=>{
    
      dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
      return axios.patch(`${api}/adminWorkshop/${id}`, formData)
-
-      //   return axios
-      //  .patch(`${api}/adminWorkshop/${id}`,formData, {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   })
         .then((res)=>{
          console.log(res)
        })
@@ -392,11 +385,7 @@ export const updateProduct = (id,formData)=>(dispatch)=>{
  
    dispatch({type:types.PATCH_WORKSHOPID_REQUEST});
       return axios
-     .patch(api+`/adminProduct/${id}`,formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+     .patch(api+`/adminProduct/${id}`,formData)
       .then((res)=>{
        console.log(res)
      })
