@@ -1,7 +1,8 @@
 import axios from "axios";
 import * as types from "./actionTypes";
 
-const api = `http://localhost:2345/api/admin/users`;
+// const api = `http://localhost:2345/api/admin/users`;
+const api = `https://matricservices.onrender.com/api/admin/users`;
 
 //get admin details
 export const getAdminDetails = () => (dispatch) => {
