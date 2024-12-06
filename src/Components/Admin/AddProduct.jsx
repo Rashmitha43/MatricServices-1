@@ -32,8 +32,11 @@ import theme from "../../theme";
 import { postProducts } from "../../Redux/app/action";
 import { useDispatch } from "react-redux";
 import { CloseIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
+  const Navigate = useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false);
   const dispatch=useDispatch();
   //formvalues
   const init={
@@ -85,10 +88,13 @@ const AddProduct = () => {
     ) {
       alert("Please Fill all the Input Fields");
     } else {
+      setIsSubmit(true);
       dispatch(postProducts(formData))
         .then((res) => {
           alert("successfully submitted");
-          setFormData(init)
+          setIsSubmit(false);
+          setFormData(init);
+          Navigate("/admin/producttable");
         })
         .catch((err) => {
           console.log("error", err.message);
@@ -249,26 +255,53 @@ const AddProduct = () => {
             </Stack>
           </FormControl>
 
-          <Box display="flex" justifyContent="center" mt={6}>
-            <Button
-              type="submit"
-              size="lg"
-              width="150px"
-              borderRadius="10px"
-              bgColor="blue.200"
-              padding="10px"
-              display="inline-block"
-              textAlign="center"
-              fontSize="lg"
-              fontWeight="bold"
-              _hover={{
-                transform: "scale(1.05)",
-                transition: "all 0.5s ease",
-              }}
-            >
-              Add Product
-            </Button>
-          </Box>
+          {!isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  Add Product
+                </Button>
+              </Box>
+            </>
+          )}
+            {isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  adding...
+                </Button>
+              </Box>
+            </>
+          )}
         </VStack>
       </form>
 

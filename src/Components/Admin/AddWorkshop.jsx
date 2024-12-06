@@ -21,9 +21,12 @@ import theme from "../../theme";
 import { useDispatch } from "react-redux";
 import { postWorkshop } from "../../Redux/app/action";
 import { CloseIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const AddWorkshop = () => {
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
+  const [isSubmit, setIsSubmit] = useState(false);
   const init = {
     topic: "",
     desc: "",
@@ -76,10 +79,14 @@ const AddWorkshop = () => {
     ) {
       alert("Please Fill all the Input Fields");
     } else {
+      setIsSubmit(true);
       dispatch(postWorkshop(formData))
         .then((res) => {
           alert("successfully submitted");
-          setFormData(init)
+          setIsSubmit(false);
+          console.log(res);
+          setFormData(init);
+          Navigate("/admin/workshoptable");
         })
         .catch((err) => {
           console.log("error", err.message);
@@ -305,27 +312,54 @@ const AddWorkshop = () => {
               </Box>
             </Stack>
           </FormControl>
-
-          <Box display="flex" justifyContent="center" mt={6}>
-            <Button
-              type="submit"
-              size="lg"
-              width="150px"
-              borderRadius="10px"
-              bgColor="blue.200"
-              padding="10px"
-              display="inline-block"
-              textAlign="center"
-              fontSize="lg"
-              fontWeight="bold"
-              _hover={{
-                transform: "scale(1.05)",
-                transition: "all 0.5s ease",
-              }}
-            >
-              Add workshop
-            </Button>
-          </Box>
+          {!isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  Add Workshop
+                </Button>
+              </Box>
+            </>
+          )}
+          {isSubmit && (
+            <>
+              <Box display="flex" justifyContent="center" mt={6}>
+                <Button
+                  size="lg"
+                  width="max-content"
+                  borderRadius="10px"
+                  bgColor="blue.200"
+                  padding="10px"
+                  display="inline-block"
+                  textAlign="center"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    transition: "all 0.5s ease",
+                  }}
+                >
+                  adding...
+                </Button>
+              </Box>
+            </>
+          )}
+          
         </VStack>
       </form>
 
