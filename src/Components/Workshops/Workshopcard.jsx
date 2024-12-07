@@ -91,7 +91,7 @@ const Workshopcard = () => {
         {isLoading ? (
           <>
             <Box
-              w="100%"
+              w={{base:"100%",md:"100%",lg:"90%",xl:"100%"}}
               display={"flex"}
               alignItems={"center"}
               justifyContent={"center"}
