@@ -15,6 +15,7 @@ import {
   Text,
   Textarea,
   VStack,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom"; // Import hooks from react-router-dom
@@ -34,6 +35,13 @@ const Workshopcard = () => {
   const { workshopadd, isLoading } = useSelector((state) => state.app);
   const currentDate = new Date();
 
+    const itemsToShow = useBreakpointValue({
+    base: 2,   
+    sm: 2,     
+    md: 4,    
+    lg: 4,    
+    xl: 3,    
+  });
   const handleViewAll = () => {
     navigate("/workshopcard", { state: { showAll: true } });
   };
@@ -186,7 +194,7 @@ const Workshopcard = () => {
             mt={6}
             alignItems={"center"}
           >
-            {workshopadd.slice(0, 4).map((event, index) => (
+            {workshopadd.slice(0, itemsToShow).map((event, index) => (
               <Card
                 key={event._id}
                 maxW="sm"
