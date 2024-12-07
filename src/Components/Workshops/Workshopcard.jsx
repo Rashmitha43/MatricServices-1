@@ -103,7 +103,7 @@ const Workshopcard = () => {
           <>
             <SimpleGrid
               columns={[1, 2, 2, 3]}
-              spacingX={{ base: "none", md: 3 }}
+              spacingX={{ base: "none"}}
               spacingY={10}
               mt={6}
               alignItems={"center"}
@@ -142,7 +142,7 @@ const Workshopcard = () => {
                           {event.venue}
                         </Text>
                         <Text fontSize={{ base: "md", md: "md", lg: "lg" }}>
-                          dates:{event.fromdate}-{event.todate}
+                          {event.fromdate} - {event.todate}
                         </Text>
                       </Stack>
                     </CardBody>
@@ -171,7 +171,7 @@ const Workshopcard = () => {
         ) : (
           <SimpleGrid
             columns={[1, 2, 2, 3]}
-            spacingX={{ base: "none", md: 3 }}
+            spacingX={{ base: "none"}}
             spacingY={10}
             mt={6}
             alignItems={"center"}
