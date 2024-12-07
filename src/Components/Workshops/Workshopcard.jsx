@@ -39,7 +39,7 @@ const Workshopcard = () => {
     base: 2,   
     sm: 2,     
     md: 4,    
-    lg: 4,    
+    lg: 3,    
     xl: 3,    
   });
   const handleViewAll = () => {
@@ -112,7 +112,7 @@ const Workshopcard = () => {
             <SimpleGrid
               columns={[1, 2, 2, 3]}
               gap={{
-                    base: 0,            
+                    base: 2,            
                     sm: 2,           
                     md: 2,              
                     lg: 3,       
@@ -185,7 +185,7 @@ const Workshopcard = () => {
           <SimpleGrid
              columns={[1, 2, 2, 3]}
              gap={{
-                    base: 0,            
+                    base: 2,            
                     sm: 2,           
                     md: 2,              
                     lg: 3,       
