@@ -102,7 +102,7 @@ const Workshopcard = () => {
         ) : viewAll ? (
           <>
             <SimpleGrid
-              columns={[1, 2, 3, 3]}
+              columns={[1, 2, 2, 3]}
               spacingX={{ base: "none",md:2,lg:2,xl:3}}
               spacingY={10}
               mt={6}
@@ -170,7 +170,7 @@ const Workshopcard = () => {
           </>
         ) : (
           <SimpleGrid
-            columns={[1, 2, 3, 3]}
+             columns={[1, 2, 2, 3]}
             spacingX={{ base: "none",md:2,lg:2,xl:3}}
             spacingY={10}
             mt={6}
