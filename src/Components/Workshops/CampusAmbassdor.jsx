@@ -125,6 +125,7 @@ const CampusAmbassdor = () => {
             KnowAboutMatricService: "",
             WhyBecAmb: "",
           });
+          setForm(false)
         } else {
           alert("Failed to submit the form. Please try again.");
         }

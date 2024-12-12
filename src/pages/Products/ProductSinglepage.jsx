@@ -22,10 +22,11 @@ import { useParams } from "react-router-dom";
 import { getProductsbyId } from "../../Redux/app/action";
 import { useDispatch, useSelector } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
+import Loading from "../../Components/Loading/Loading";
 const ProductSinglepage = () => {
   const dispatch = useDispatch();
   const id = useParams();
-  const { productsingledata } = useSelector((state) => state.app);
+  const { productsingledata, isLoading } = useSelector((state) => state.app);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
   const [gateway, setGateway] = useState(false);
@@ -96,6 +97,10 @@ const ProductSinglepage = () => {
     }));
   };
 
+  if(isLoading){
+    return <Loading message="Loading Please Wait ..."/>
+  }
+
   return (
     <>
       <Box
@@ -127,10 +132,10 @@ const ProductSinglepage = () => {
             >
               {productsingledata?.img?.map((img, ind) => (
                 <>
-                  <Box
+                  <Box 
                     h={{ base: "100%" }}
                     onClick={() => setIndex(ind)}
-                    border={index === ind ? "1px solid black" : "none"}
+                    border={index === ind && productsingledata.img.length>1 ? "1px solid black" : "none"}
                     p="2px"
                   >
                     <Image
