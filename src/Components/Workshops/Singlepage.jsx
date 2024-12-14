@@ -28,10 +28,11 @@ import { Heading } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { getWorkshopbyId } from "../../Redux/app/action";
 import { postworkshopRegister } from "../../Redux/app/action";
+import Loading from "../Loading/Loading";
 
 const Singlepage = () => {
   const dispatch = useDispatch();
-  const { workshopsingledata } = useSelector((state) => state.app);
+  const { workshopsingledata, isLoading  } = useSelector((state) => state.app);
   const eventid = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -157,6 +158,7 @@ const Singlepage = () => {
               eventId: eventid.id,
             });
             setFormdata(init);
+            setForm(false)
           } else {
             alert("Failed to submit the form. Please try again.");
           }
@@ -171,6 +173,11 @@ const Singlepage = () => {
   const eventEndDate = new Date(workshopsingledata.todate); 
   const currentDate = new Date();
   const isEventover=currentDate>eventEndDate
+
+  if (isLoading) {
+    return <Loading message="Loading Please Wait..." />;
+  }
+
   return (
     <>
       <Box

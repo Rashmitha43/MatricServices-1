@@ -20,6 +20,7 @@ import EditProduct from "../Components/Admin/EditProduct";
 import LoginPage from "../Components/Admin/LoginPage";
 import EditWorkshop from "../Components/Admin/EditWorkshop";
 import Privateroute from "./Privateroute";
+import PagenotFound from "../pages/PagenotFound";
 
 
 const Allrouts = () => {
@@ -36,7 +37,7 @@ const Allrouts = () => {
             <Route path='/footer' element={<Footer/>}/>
             <Route path='/products' element={<Product/>}/>
             <Route path='/productsinglepage/:id' element={<ProductSinglepage/>}/>
-            <Route path='*' element={<h1>Page not found</h1>}/>
+            <Route path='*' element={<PagenotFound/>}/>
             </Route>
 
             <Route element={<Adminlayoutpage/>}>
