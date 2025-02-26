@@ -21,12 +21,12 @@ import {
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import theme from "../../theme";
+import { SocialIcon } from "react-social-icons";
 
 const Footer = () => {
   const footerBg = theme.colors.ten;
   const inputWidth = useBreakpointValue({ base: "100%", md: "70%" });
   const textSize = useBreakpointValue({ base: "sm", md: "lg" });
-  const socialSize = useBreakpointValue({ base: "md", lg: "lg" });
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
   const paddingX = useBreakpointValue({ base: 4, md: 8, lg: 12 });
   const sectionSpacing = useBreakpointValue({ base: 2, md: 3 });
@@ -214,12 +214,13 @@ const Footer = () => {
               Follow Us
             </Text>
             <Stack direction="row" spacing={[2, 4]} justify="flex-start">
-              <IconButton
+              <SocialIcon 
+                url='https://www.facebook.com'
                 as="a"
                 href="https://www.facebook.com/matricservices1/"
                 aria-label={FaFacebook}
                 icon={<FaFacebook />}
-                size={socialSize}
+                style={{width:40,height:40}}
                 variant="outline"
                 _hover={{
                   color: "#292b2a",
@@ -230,12 +231,13 @@ const Footer = () => {
                 transition="all 0.3s ease-in-out"
               />
 
-              <IconButton
+              <SocialIcon
+                url='https://x.com'
                 as="a"
                 href="https://x.com/Matric_Services?t=OE9Qhghtf1qUZXEpOSnMSw&s=08"
                 aria-label={FaTwitter}
                 icon={<FaTwitter />}
-                size={socialSize}
+                style={{width:40,height:40}}
                 variant="outline"
                 _hover={{
                   color: "#292b2a",
@@ -246,12 +248,13 @@ const Footer = () => {
                 transition="all 0.3s ease-in-out"
               />
 
-              <IconButton
+              <SocialIcon
+                url='https://www.instagram.com'
                 as="a"
                 href="https://www.instagram.com/matric_services/profilecard/?igsh=eDRtMDZqZzFjZXpv"
                 aria-label={FaInstagram}
                 icon={<FaInstagram />}
-                size={socialSize}
+                style={{width:40,height:40}}
                 variant="outline"
                 _hover={{
                   color: "#292b2a",
@@ -262,12 +265,13 @@ const Footer = () => {
                 transition="all 0.3s ease-in-out"
               />
 
-              <IconButton
+              <SocialIcon
+                url='https://www.linkedin.com'
                 as="a"
                 href="https://www.instagram.com/matric_services/profilecard/?igsh=eDRtMDZqZzFjZXpv"
                 aria-label={FaLinkedin}
                 icon={<FaLinkedin />}
-                size={socialSize}
+                style={{width:40,height:40}}
                 variant="outline"
                 _hover={{
                   color: "#292b2a",
@@ -278,12 +282,13 @@ const Footer = () => {
                 transition="all 0.3s ease-in-out"
               />
 
-              <IconButton
+              <SocialIcon
+               url='https://www.youtube.com'
                 as="a"
                 href="https://www.youtube.com/@matric_services"
                 aria-label={FaYoutube}
                 icon={<FaYoutube />}
-                size={socialSize}
+                style={{width:40,height:40}}
                 variant="outline"
                 _hover={{
                   color: "#292b2a",

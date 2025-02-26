@@ -124,7 +124,7 @@ const Webnav = () => {
               w="max-content"
               borderRadius="30px"
               p="5px 15px"
-              bg={theme.colors.ten}
+              bg={'#25D366'}
               display={{ base: "flex", lg: "flex" }} // Show in both mobile and desktop
               alignItems="center"
               justifyContent="center"
@@ -197,7 +197,7 @@ const Webnav = () => {
                 w="max-content"
                 borderRadius="30px"
                 p="5px 15px"
-                bg={theme.colors.ten}
+                bg={'#25D366'}
                 display="flex"
                 alignItems="center"
                 justifyContent="center"

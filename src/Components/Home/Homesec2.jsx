@@ -136,9 +136,9 @@ const Homesec2 = () => {
           _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
         >
           <Box fontSize={'2.5rem'}><FaHandsHelping /></Box>
-          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Assistance for Colleges</Text>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Internship and Training</Text>
           <Text  fontSize={"0.8rem"} >
-          We offer comprehensive technical assistance to colleges, ensuring that their hardware and software infrastructure is optimized for both teaching and research purposes.
+          Join our Internship & Training programs to gain hands-on experience, industry-relevant skills, and real-world exposure. Work on live projects, receive expert mentorship, and take a step closer to your dream career.
           </Text>
         </Box>
 
