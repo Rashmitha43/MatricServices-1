@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import theme from "../../theme";
 import { useDispatch } from "react-redux";
 import { postContactInfo } from "../../Redux/app/action";
+import emailjs from 'emailjs-com';
 const Projectform = () => {
   const dispatch = useDispatch();
 
@@ -49,28 +50,49 @@ const Projectform = () => {
       alert("Phone number must be 10 digits.");
       return;
     }
-
     if (!validateEmail(formdata.Email)) {
       alert("Please enter a valid email address.");
       return;
     }
+    
     setIsSubmitting(true);
-    const formBody = new URLSearchParams();
-    for (const key in formdata) {
-      formBody.append(key, formdata[key]);
-    }
-
-    fetch(
-      "https://script.google.com/macros/s/AKfycbwER_t-GGyRNq40gA5UPl6PT9x7sVmWCLZWbi3QeBYvEVWlOKdmcwxJTQZY77JcjMLDBg/exec",
-      {
-        method: "POST",
-        body: formBody,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Accept: "application/json",
-        },
-      }
+    
+    // Prepare data for EmailJS
+    const templateParams = {
+      to_name: "pavanmatricservices@gmail.com",
+      from_name: formdata.Name,
+      name: formdata.Name,
+      phone: formdata.Phone,
+      email: formdata.Email,
+      college: formdata.CollegeOrInstitute,
+      questions: formdata.AskYourQuestions
+    };
+    
+    // Send email via EmailJS
+    emailjs.send(
+      'service_q2tqgng',    
+      'template_u1dojyk',  
+      templateParams,
+      'cgJDK_DP5M91WStUU'  
     )
+    .then(() => {
+      // After successful email, submit to Google Sheets
+      const formBody = new URLSearchParams();
+      for (const key in formdata) {
+        formBody.append(key, formdata[key]);
+      }
+      
+      fetch(
+        "https://script.google.com/macros/s/AKfycbwER_t-GGyRNq40gA5UPl6PT9x7sVmWCLZWbi3QeBYvEVWlOKdmcwxJTQZY77JcjMLDBg/exec",
+        {
+          method: "POST",
+          body: formBody,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Accept: "application/json",
+          },
+        }
+      )
       .then((response) => response.text())
       .then((data) => {
         setIsSubmitting(false);
@@ -89,9 +111,15 @@ const Projectform = () => {
       })
       .catch((error) => {
         setIsSubmitting(false);
-        console.error("Error:", error);
-        alert("An error occurred. Please try again.");
+        console.error("Error submitting to Google Sheets:", error);
+        alert("An error occurred with the form submission. Please try again.");
       });
+    })
+    .catch((error) => {
+      setIsSubmitting(false);
+      console.error("Error sending email:", error.text);
+      alert("Failed to send email. Please try again.");
+    });
   };
 
   const isFormFilled = () => {

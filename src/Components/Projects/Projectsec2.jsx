@@ -66,7 +66,7 @@ const Projectsec2 = () => {
         <Text mt="10px" fontWeight={"500"}  fontSize={{base:'0.7rem',md:'1rem',lg:'1.2rem'}}>
           We provide a diverse range of academic projects at various levels{" "}
         </Text>
-        <Box as='a' href='https://forms.gle/NsndE1CaQei7wRtH8' fontSize={{base:'0.9rem',md:'1rem',lg:'1.2rem'}} p="10px 20px" bg={theme.colors.ten} color='white' mt='1rem' cursor={'pointer'} >Register for Projects</Box>
+        <Box as='a' href='https://docs.google.com/forms/d/e/1FAIpQLSdel8FG7H-0w4WixC8z5-KAPb6Hcv1t2cQtXvrehjtXlGfZEA/viewform?usp=dialog' fontSize={{base:'0.9rem',md:'1rem',lg:'1.2rem'}} p="10px 20px" bg={theme.colors.ten} color='white' mt='1rem' cursor={'pointer'} >Register for Projects</Box>
         <SimpleGrid columns={[1, 2, 2, 3]} mt={"2rem"} spacing={5}>
           {projects.map((project, index) => (
             <>
