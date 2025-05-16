@@ -2,7 +2,7 @@ import { Box, Simplegrid, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import theme from "../../theme";
 import { HiOutlineAcademicCap } from "react-icons/hi";
-import { IoNewspaperSharp } from "react-icons/io5";
+import { FaLaptopCode } from 'react-icons/fa';
 import { FaTools } from "react-icons/fa";
 import { MdQuestionAnswer } from "react-icons/md";
 import { FaHandsHelping } from "react-icons/fa";
@@ -34,10 +34,33 @@ const Homesec2 = () => {
       <SimpleGrid columns={[1, 2, 3, 3]} mt={"2rem"} spacing={5}>
 
         {/* service1 */}
-        <Box
+      <Box
           bg={theme.colors.ten}
           p="30px 30px"
           color='white'
+          height="auto"
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          gap='10px'
+          textAlign={"center"}
+          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
+        >
+          <Box fontSize={'2rem'}><FaLaptopCode /></Box>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Software Development</Text>
+          <Text  fontSize={"0.8rem"} >
+          We offer custom software development solutions tailored to your business needs — from web and mobile apps to enterprise-grade systems, ensuring innovation and scalability.
+          </Text>
+
+        </Box>
+
+
+        {/* service2 */}
+       <Box
+          bg={theme.colors.thirty}
+          p="30px 30px"
+          color='black'
           height="auto"
           display={"flex"}
           flexDirection={"column"}
@@ -55,32 +78,8 @@ const Homesec2 = () => {
 
         </Box>
 
-        {/* service2 */}
-        <Box
-          bg={theme.colors.thirty}
-          p="30px 30px"
-          height="auto"
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          color='black'
-          textAlign={'center'}
-          gap='10px'
-          _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
-
-        >
-          
-          <Box fontSize={'3rem'}><HiOutlineAcademicCap /></Box>
-          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Academic Projects</Text>
-         
-          <Text  fontSize={"0.8rem"} >
-          We provide end-to-end assistance with academic projects, offering both guided and done-for-you solutions tailored to the needs of students and educators.
-          </Text>
-        </Box>
-
         {/* service3 */}
-        <Box
+          <Box
           bg={theme.colors.ten}
           p="30px 30px"
           height="auto"
@@ -92,11 +91,14 @@ const Homesec2 = () => {
           textAlign={'center'}
           gap='10px'
           _hover={{transform:'scale(1.05)',transition:'all 0.3s ease-out '}}
+
         >
-          <Box fontSize={'2rem'}><IoNewspaperSharp /></Box>
-          <Text fontSize='1.3rem' lineHeight='1' fontWeight={'400'}>Research Paper Support</Text>
+          
+          <Box fontSize={'3rem'}><HiOutlineAcademicCap /></Box>
+          <Text fontSize='1.5rem' lineHeight='1' fontWeight={'400'}>Academic Projects</Text>
+         
           <Text  fontSize={"0.8rem"} >
-          From topic selection to technical guidance, we support students and professionals in preparing research papers, ensuring high-quality outputs that align with academic standards.
+          We provide end-to-end assistance with academic projects, offering both guided and done-for-you solutions tailored to the needs of students and educators.
           </Text>
         </Box>
 
