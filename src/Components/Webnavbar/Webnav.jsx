@@ -6,9 +6,13 @@ import {
   VStack,
   HStack,
   Text,
- // Import useDisclosure
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-import { IoMdMenu, } from "react-icons/io";
+import { IoMdMenu } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import theme from "../../theme";
@@ -17,61 +21,39 @@ import { ImCross } from "react-icons/im";
 
 const Webnav = () => {
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const isDesktop = useBreakpointValue({ base: false, lg: true });
 
   const toggleNav = () => {
     setOpen((prev) => !prev);
-    if (open === true) {
-      document.body.style.overflowY = "scroll";
-    } else {
-      document.body.style.overflowY = "hidden";
-    }
+    document.body.style.overflowY = open ? "scroll" : "hidden";
   };
 
-  // Common styles for navigation links
   const navLinkStyle = ({ isActive }) => ({
     color: isActive ? theme.colors.ten : "black",
     borderBottom: isActive ? `2px solid ${theme.colors.ten}` : "none",
     paddingBottom: "3px",
   });
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        // If scrolled more than 50px, set the navbar to fixed
-        setIsScrolled(true);
-      } else {
-        // If not scrolled, set the navbar to static
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
-
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      {/* Navbar Container */}
       <Box
         boxShadow="md"
         bg="white"
-        position={isScrolled?'fixed':'static'} // Position fixed when scrolled
+        position={isScrolled ? "fixed" : "static"}
         w="100%"
         top="0"
-       
-        zIndex="10"
-        transition="position 0.3s ease-in-out"
-        display={open ? "none" : "block"} // Hide navbar when drawer is open
-        
-        
+        zIndex="100"
+        display={open ? "none" : "block"}
       >
-        {/* Mobile & Desktop Flex Container */}
         <HStack
           fontFamily={theme.fonts.body}
           w="95%"
@@ -79,58 +61,46 @@ const Webnav = () => {
           mx="auto"
           h="70px"
           p={1}
-          display="flex"
-          justifyContent={{ base: "space-between", lg: "space-between" }}
+          justifyContent="space-between"
           alignItems="center"
-          flexDirection={{ base: "row", lg: "row" }} // Keep items in a row layout
+          position="relative"
+          zIndex="100"
         >
-          {/* Mobile View: Menu Toggle, Logo, Chat Button */}
-          <HStack
-            display={{ base: "flex", lg: "none" }}
-            w="full"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+          {/* Mobile Header */}
+          <HStack display={{ base: "flex", lg: "none" }} w="full" justifyContent="space-between">
             <HStack>
-              {/* Hamburger Icon for Small Screens */}
               <IconButton
                 icon={<IoMdMenu />}
                 aria-label="Toggle navigation"
                 fontSize="2rem"
                 onClick={toggleNav}
-                display={{ base: "block", lg: "none" }}
-                mr="0px"
                 borderColor="#000"
                 borderWidth="1px"
                 borderRadius="6px"
                 _hover={{
-                  backgroundColor: "gray.100", // Light background color on hover
-                  transform: "scale(1.05)", // Slightly increase the size
-                  transition: "all 0.2s ease", // Smooth transition
+                  backgroundColor: "gray.100",
+                  transform: "scale(1.05)",
+                  transition: "all 0.2s ease",
                 }}
               />
-
-              {/* Logo */}
               <Box w="150px" h="150px" ml="0px" mt="6px" p="0px">
-                {/* Adjust logo size as needed */}
                 <NavLink to="/">
                   <Image w="100%" h="100%" src={logo} alt="Logo" />
                 </NavLink>
               </Box>
             </HStack>
 
-            {/* WhatsApp Button */}
             <Box
               w="max-content"
               borderRadius="30px"
               p="5px 15px"
-              bg={'#25D366'}
-              display={{ base: "flex", lg: "flex" }} // Show in both mobile and desktop
+              bg="#25D366"
+              display="flex"
               alignItems="center"
               justifyContent="center"
               gap="5px"
               color="white"
-              cursor="pointer" // Change cursor to pointer
+              cursor="pointer"
             >
               <a
                 href="https://wa.me/919390555433"
@@ -138,27 +108,21 @@ const Webnav = () => {
                 rel="noopener noreferrer"
               >
                 <HStack spacing={2} alignItems="center">
-                  <FaWhatsapp cursor="pointer" />
+                  <FaWhatsapp />
                   <Text>Chat Now</Text>
                 </HStack>
               </a>
             </Box>
           </HStack>
 
-          {/* Desktop View */}
-          <Box
-            display={{ base: "none", lg: "flex" }}
-            w="full"
-            justifyContent="space-between"
-          >
-            {/* Logo for Desktop */}
+          {/* Desktop Header */}
+          <Box display={{ base: "none", lg: "flex" }} w="full" justifyContent="space-between">
             <Box w="15%" h="100%">
               <NavLink to="/">
                 <Image w="100%" h="100%" src={logo} alt="Logo" />
               </NavLink>
             </Box>
 
-            {/* Desktop Navigation Links */}
             <Box
               w="40%"
               display="flex"
@@ -166,26 +130,55 @@ const Webnav = () => {
               justifyContent="space-between"
               fontWeight="700"
               textTransform="uppercase"
-              fontSize={"0.8rem"}
+              fontSize="0.8rem"
+              position="relative"
+              zIndex="100"
             >
               <NavLink to="/" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Home</Box>
               </NavLink>
+
               <NavLink to="/about" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>About Us</Box>
               </NavLink>
-              <NavLink to="/workshop" style={navLinkStyle}>
-                <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
-              </NavLink>
-              <NavLink to="/projects" style={navLinkStyle}>
-                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
-              </NavLink>
+
+              {/* Desktop Hover Dropdown */}
+              <Box position="relative" zIndex="1000">
+                <Menu isLazy>
+                  <MenuButton
+                    as={Box}
+                    fontWeight="700"
+                    textTransform="uppercase"
+                    fontSize="0.8rem"
+                    _hover={{ color: theme.colors.ten }}
+                    cursor="pointer"
+                  >
+                    Services
+                  </MenuButton>
+                  <MenuList
+                    bg={theme.colors.ten}
+                    color="white"
+                    zIndex="1000"
+                    position="absolute"
+                  >
+                    <MenuItem as={NavLink} to="/workshop" _hover={{ bg: "gray.700" }}>
+                      Workshops
+                    </MenuItem>
+                    <MenuItem as={NavLink} to="/projects" _hover={{ bg: "gray.700" }}>
+                      Projects
+                    </MenuItem>
+                    <MenuItem as={NavLink} to="/software-development" _hover={{ bg: "gray.700" }}>
+                      Software Development
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+              </Box>
+
               <NavLink to="/products" style={navLinkStyle}>
                 <Box _hover={{ cursor: "pointer" }}>Products</Box>
               </NavLink>
             </Box>
 
-            {/* WhatsApp Button for Desktop */}
             <Box
               w="20%"
               display="flex"
@@ -197,7 +190,7 @@ const Webnav = () => {
                 w="max-content"
                 borderRadius="30px"
                 p="5px 15px"
-                bg={'#25D366'}
+                bg="#25D366"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -210,7 +203,7 @@ const Webnav = () => {
                   rel="noopener noreferrer"
                 >
                   <HStack spacing={2} alignItems="center">
-                    <FaWhatsapp cursor="pointer" />
+                    <FaWhatsapp />
                     <Text>Chat Now</Text>
                   </HStack>
                 </a>
@@ -219,64 +212,79 @@ const Webnav = () => {
           </Box>
         </HStack>
       </Box>
+
+      {/* Mobile Drawer */}
       {open && (
-        <>
-          <Box
-            position="fixed"
-            w={"100%"}
-            height={"100%"}
-            top="0"
-            display={"flex"}
-            justifyContent={"flex-start"}
-            flexDirection={"column"}
-            alignItems={"flex-start"}
-            bg="white"
-            zIndex={99999}
-          >
-           <Box w="150px" h="150px">
-              <NavLink to="/">
-                <Image w="100%" h="100%" src={logo} alt="Logo" objectFit={'contain'}/>
-              </NavLink>
-            </Box>
-            <Box
-              color="black"
-              fontSize={"1.2rem"}
-              onClick={toggleNav}
-              position="absolute"
-              right="5%"
-              top="9%"
-            >
-              <ImCross />
-            </Box>
-            <VStack
-              w="100%"
-              align="center"
-              mt={8}
-              fontSize={"1.2rem"}
-              fontWeight={500}
-              spacing={2}
-            >
-             
-              <NavLink to="/" style={navLinkStyle} onClick={toggleNav}>
-                <Box _hover={{ cursor: "pointer" }}>Home</Box>
-              </NavLink>
-
-              <NavLink to="/about" style={navLinkStyle} onClick={toggleNav}>
-                <Box _hover={{ cursor: "pointer" }}>About Us</Box>
-              </NavLink>
-
-              <NavLink to="/workshop" style={navLinkStyle} onClick={toggleNav}>
-                <Box _hover={{ cursor: "pointer" }}>Workshops</Box>
-              </NavLink>
-              <NavLink to="/projects" style={navLinkStyle} onClick={toggleNav}>
-                <Box _hover={{ cursor: "pointer" }}>Projects</Box>
-              </NavLink>
-              <NavLink to="/products" style={navLinkStyle} onClick={toggleNav}>
-                <Box _hover={{ cursor: "pointer" }}>Products</Box>
-              </NavLink>
-            </VStack>
+        <Box
+          position="fixed"
+          w="100%"
+          height="100%"
+          top="0"
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          bg="white"
+          zIndex={99999}
+        >
+          <Box w="150px" h="150px">
+            <NavLink to="/">
+              <Image w="100%" h="100%" src={logo} alt="Logo" objectFit="contain" />
+            </NavLink>
           </Box>
-        </>
+          <Box
+            color="black"
+            fontSize="1.2rem"
+            onClick={toggleNav}
+            position="absolute"
+            right="5%"
+            top="9%"
+          >
+            <ImCross />
+          </Box>
+          <VStack
+            w="100%"
+            align="center"
+            mt={8}
+            fontSize="1.2rem"
+            fontWeight={500}
+            spacing={2}
+          >
+            <NavLink to="/" style={navLinkStyle} onClick={toggleNav}>
+              <Box _hover={{ cursor: "pointer" }}>Home</Box>
+            </NavLink>
+            <NavLink to="/about" style={navLinkStyle} onClick={toggleNav}>
+              <Box _hover={{ cursor: "pointer" }}>About Us</Box>
+            </NavLink>
+
+            {/* Mobile Dropdown: Click-based */}
+            <Menu isLazy>
+              <MenuButton
+                fontWeight="500"
+                fontSize="1.2rem"
+                w="100%"
+                textAlign="center"
+                _hover={{ color: theme.colors.ten }}
+              >
+                Services
+              </MenuButton>
+              <MenuList bg={theme.colors.ten} color="white">
+                <MenuItem as={NavLink} to="/workshop" onClick={toggleNav} _hover={{ bg: "gray.700" }}>
+                  Workshops
+                </MenuItem>
+                <MenuItem as={NavLink} to="/projects" onClick={toggleNav} _hover={{ bg: "gray.700" }}>
+                  Projects
+                </MenuItem>
+                <MenuItem as={NavLink} to="/software-development" onClick={toggleNav} _hover={{ bg: "gray.700" }}>
+                  Software Development
+                </MenuItem>
+              </MenuList>
+            </Menu>
+
+            <NavLink to="/products" style={navLinkStyle} onClick={toggleNav}>
+              <Box _hover={{ cursor: "pointer" }}>Products</Box>
+            </NavLink>
+          </VStack>
+        </Box>
       )}
     </>
   );
