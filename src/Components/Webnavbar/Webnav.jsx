@@ -74,7 +74,7 @@ const Webnav = () => {
   },
   {
     label: "Software Development",
-    path: "/software-development",
+    path: "/softwaredevelopment",
     icon: FaLaptop,
   },
 ];
@@ -471,8 +471,5 @@ const Webnav = () => {
     </>
   );
 };
-
-
-
 
 export default Webnav;          
