@@ -1,0 +1,36 @@
+.arrow {
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.6s ease-in-out;
+  cursor: default;
+}
+
+.arrow.flip {
+  transform: scaleY(-1);
+  animation-name: float-flip;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes float-flip {
+  0%, 100% {
+    transform: translateY(0) scaleY(-1);
+  }
+  50% {
+    transform: translateY(6px) scaleY(-1);
+  }
+}
+
+/* Removed .draw animation, handled via JS */
+
+/* Hover effect to slightly darken the stroke color */
+.arrow:hover path {
+  stroke-opacity: 0.8;
+  transition: stroke-opacity 0.3s ease-in-out;
+}
